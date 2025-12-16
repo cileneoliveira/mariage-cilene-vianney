@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucie & Marcos - Mariage</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & BASE --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Empêche le scroll */
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* --- CONTENEUR PRINCIPAL --- */
+        .container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* --- LES DEUX MOITIÉS (SPLIT) --- */
+        .split {
+            height: 100%;
+            width: 50%; /* Départ à 50/50 */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animation fluide */
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        /* --- COULEURS & AMBIANCE --- */
+
+        /* Côté FRANCE (Vert profond + Sable) */
+        .left {
+            background-color: #1e3a34;
+            color: #e8dcb5;
+        }
+
+        /* Côté BRÉSIL (Terracotta + Crème) */
+        .right {
+            background-color: #cc7a6f;
+            color: #fffbf0;
+        }
+
+        /* --- LOGIQUE D'ANIMATION (HOVER) --- */
+
+        /* Quand on survole la gauche */
+        .container:has(.left:hover) .left { width: 65%; }
+        .container:has(.left:hover) .right { width: 35%; opacity: 0.8; }
+
+        /* Quand on survole la droite */
+        .container:has(.right:hover) .right { width: 65%; }
+        .container:has(.right:hover) .left { width: 35%; opacity: 0.8; }
+
+        /* Pour les vieux navigateurs qui ne supportent pas :has (fallback simple) */
+        .left:hover { width: 65%; }
+        .right:hover { width: 65%; }
+
+        /* --- CONTENU TEXTE --- */
+        .content {
+            text-align: center;
+            white-space: nowrap; /* Empêche le texte de sauter à la ligne */
+            transition: transform 0.5s ease;
+            z-index: 10;
+        }
+
+        .split:hover .content {
+            transform: scale(1.05); /* Léger zoom du texte au survol */
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1rem;
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .date {
+            font-size: 1.2rem;
+            font-weight: 400;
+            border-top: 1px solid currentColor;
+            border-bottom: 1px solid currentColor;
+            padding: 10px 30px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 30px;
+            border: 1px solid currentColor;
+            text-decoration: none;
+            color: currentColor;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* --- BADGE CENTRAL --- */
+        .center-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            background: white;
+            padding: 25px 50px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            pointer-events: none; /* Laisse cliquer à travers si besoin */
+        }
+
+        .names {
+            color: #1e3a34;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .ampersand {
+            color: #d4af37; /* Or */
+            font-family: serif;
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        /* --- MOBILE (Responsive) --- */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .split { width: 100% !important; height: 50%; }
+
+            /* Sur mobile, on change l'animation pour la hauteur */
+            .container:has(.left:hover) .left { height: 60%; }
+            .container:has(.right:hover) .right { height: 60%; }
+
+            h1 { font-size: 2rem; }
+            .center-badge { padding: 15px 30px; }
+            .names { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="split left" onclick="alert('Ici, on ira vers la page France !')">
+            <div class="content">
+                <h2>Célébration Civile</h2>
+                <h1>France</h1>
+                <div class="date">17 JUILLET 2027</div>
+                <br>
+                <a href="#" class="btn">Voir les détails</a>
+            </div>
+        </div>
+
+        <div class="split right" onclick="alert('Ici, on ira vers la page Brésil !')">
+            <div class="content">
+                <h2>Célébration Religieuse</h2>
+                <h1>Brasil</h1>
+                <div class="date">JUILLET 2028</div>
+                <br>
+                <a href="#" class="btn">Ver detalhes</a>
+            </div>
+        </div>
+
+        <div class="center-badge">
+            <div class="names">
+                Lucie <span class="ampersand">&</span> Marcos
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
