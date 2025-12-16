@@ -4,36 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cilene & Vianney</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        /* --- PALETTE DE COULEURS --- */
+        /* --- SI VOUS AVEZ LE VRAI FICHIER FONT WINTERTHUR --- */
+        /* Décommentez ceci et mettez le fichier dans le dossier :
+        @font-face {
+            font-family: 'Winterthur';
+            src: url('WinterthurCondensed.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+        */
+
         :root {
-            --bg-color: #fdfbf7;      /* Fond Blanc Cassé / Papier */
-            --brush-yellow: #E6AF2E;  /* JAUNE MOUTARDE/SOLAIRE (Couleur principale) */
-            
-            /* Couleurs France */
-            --fr-blue: #006994;       /* Bleu Méditerranée */
-            
-            /* Couleurs Brésil */
-            --br-green: #2E5E4E;      /* Vert Forêt */
-            --br-sand: #EADDCD;       /* Sable */
-            --br-blue: #008DA8;       /* Bleu Tropical */
-            
-            --text-main: #444;
+            /* PALETTE FAIRE-PART */
+            --bg-ivory: #FCFBF4;      /* Blanc Ivoire */
+            --text-brown: #3a3a36;    /* Brun Sépia (Votre référence) */
+            --brush-yellow: #E6AF2E;  /* Jaune Solaire */
         }
 
-        body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; height: 100%; overflow: hidden; background-color: var(--bg-color); color: var(--text-main); }
+        body, html { 
+            margin: 0; padding: 0; 
+            font-family: 'Montserrat', sans-serif; /* Police par défaut */
+            height: 100%; overflow: hidden; 
+            background-color: var(--bg-ivory); 
+            color: var(--text-brown); 
+        }
 
         /* --- SÉLECTEUR LANGUE --- */
         .lang-switch {
             position: fixed; top: 20px; right: 20px; z-index: 200;
-            font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; cursor: pointer;
+            font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; 
+            color: var(--text-brown);
         }
         .lang-switch span { opacity: 0.5; transition: 0.3s; }
         .lang-switch span.active { opacity: 1; text-decoration: underline; color: var(--brush-yellow); }
 
-        /* --- ACCUEIL (SPLIT SCREEN) --- */
+        /* --- ACCUEIL (SPLIT) --- */
         .landing {
             display: flex; width: 100vw; height: 100vh;
             position: fixed; top: 0; left: 0; z-index: 10;
@@ -44,174 +55,109 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             cursor: pointer; position: relative;
-            border-right: 1px solid rgba(0,0,0,0.05);
-            overflow: hidden; /* Important pour couper les vagues */
+            background-color: var(--bg-ivory); 
+            border-right: 1px solid rgba(58, 58, 54, 0.1); /* Ligne de séparation très fine */
         }
         
         /* Interaction Hover */
         .landing:has(.left:hover) .left { width: 60%; }
-        .landing:has(.left:hover) .right { width: 40%; opacity: 0.7; }
+        .landing:has(.left:hover) .right { width: 40%; opacity: 0.6; }
         .landing:has(.right:hover) .right { width: 60%; }
-        .landing:has(.right:hover) .left { width: 40%; opacity: 0.7; }
+        .landing:has(.right:hover) .left { width: 40%; opacity: 0.6; }
 
-        /* TYPOGRAPHIE ACCUEIL */
+        /* --- TITRES PAYS (Jaune) --- */
         .country-title {
-            font-size: 3.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 6px; 
-            margin: 0; line-height: 1.1; transition: transform 0.4s;
-            color: var(--brush-yellow); /* JAUNE POUR LES 2 PAYS */
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.05); /* Légère ombre pour lisibilité sur fond clair */
+            font-family: 'Montserrat', sans-serif; /* On garde Montserrat pour les titres pays ou Winterthur ? */
+            font-size: 4rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; 
+            margin: 0; line-height: 1; transition: transform 0.4s;
+            color: var(--brush-yellow); 
             z-index: 10;
         }
 
+        /* --- DATES (Brun + Traits) --- */
         .country-date {
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; 
-            margin-top: 20px; border-top: 2px solid var(--brush-yellow); padding-top: 10px;
-            color: #555; z-index: 10;
+            margin-top: 25px; 
+            color: var(--text-brown); 
+            z-index: 10;
+            
+            border-top: 1px solid var(--text-brown);
+            border-bottom: 1px solid var(--text-brown);
+            padding: 10px 0; 
+            width: 220px; 
+            text-align: center;
         }
         
         .split:hover .country-title { transform: scale(1.05); }
 
-        /* --- VAGUES DÉCORATIVES (ACCUEIL) --- */
-        .decor-waves {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 150px;
-            pointer-events: none; z-index: 1;
-        }
-
-        /* Vagues France : Juste du Bleu */
-        .waves-fr .wave-shape { fill: var(--fr-blue); opacity: 0.8; }
-        
-        /* Vagues Brésil : Mix Vert/Sable/Bleu */
-        .waves-br .wave-green { fill: var(--br-green); opacity: 0.9; }
-        .waves-br .wave-sand { fill: var(--br-sand); opacity: 1; }
-        .waves-br .wave-blue { fill: var(--br-blue); opacity: 0.8; }
-
-        /* Animation Vagues */
-        @keyframes swell {
-            0%, 100% { transform: translateY(0) scaleY(1); }
-            50% { transform: translateY(-10px) scaleY(1.1); }
-        }
-        .wave-anim { animation: swell 6s ease-in-out infinite; transform-origin: bottom; }
-        .wave-anim-2 { animation: swell 8s ease-in-out infinite reverse; transform-origin: bottom; }
-        .wave-anim-3 { animation: swell 10s ease-in-out infinite; transform-origin: bottom; }
-
-        /* Badge central (Modifié : Texte seul, sans rond) */
+        /* --- PRÉNOMS FLOTTANTS (STYLE WINTERTHUR) --- */
         .center-badge {
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             z-index: 20; 
             
-            /* Plus de fond blanc ni de rond */
-            background: transparent; 
-            box-shadow: none;
-            padding: 0;
-            border-radius: 0;
-
-            /* Style du texte */
-            font-size: 2.5rem; /* Grand et élégant */
-            color: #fff;       /* Blanc pur pour le contraste */
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2); /* Ombre douce pour la lisibilité */
-            font-weight: 500;
-            letter-spacing: 2px;
-            white-space: nowrap; /* Empêche de couper les prénoms */
-            pointer-events: none; /* Permet de cliquer "à travers" le texte */
+            /* TYPO WINTERTHUR (Simulée par Barlow Condensed ici) */
+            font-family: 'Winterthur', 'Barlow Condensed', sans-serif;
+            font-size: 5rem; /* Très grand */
+            font-weight: 500; /* Pas trop gras, élégant */
+            text-transform: uppercase; /* Souvent en majuscules pour ce style */
+            letter-spacing: 2px; /* Un peu d'air */
+            line-height: 0.9;
+            
+            color: var(--text-brown); 
+            white-space: nowrap; 
+            pointer-events: none;
+            
+            /* Légère ombre ivoire pour détacher du texte derrière si superposition */
+            text-shadow: 0 0 30px var(--bg-ivory), 0 0 10px var(--bg-ivory);
         }
 
-        /* Ajustement Mobile pour que ça rentre */
-        @media (max-width: 768px) {
-            .center-badge { font-size: 1.5rem; }
+        /* --- VAGUES (IMAGES) --- */
+        .waves-container {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 250px;
+            pointer-events: none; z-index: 5; overflow: hidden;
         }
 
-        /* --- SITE (MODALE) --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100;
-            background: rgba(253, 251, 247, 0.95); backdrop-filter: blur(5px);
-            opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
-            display: flex; justify-content: center; align-items: center;
+        .wave-img {
+            position: absolute; bottom: 0; left: 0; width: 200%; height: 100%;
+            background-repeat: repeat-x; background-position: bottom left; background-size: 50% auto;
         }
+
+        @keyframes wave-slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* IMAGE FRANCE (Bleue) */
+        .waves-fr .wave-img {
+            /* Mettre ton image vagues_france.png ici */
+            background-image: url('vagues_france.png'); 
+            animation: wave-slide 20s linear infinite;
+            opacity: 1;
+        }
+
+        /* IMAGE BRÉSIL (Sable/Vert) */
+        .waves-br .wave-img {
+            /* Mettre ton image vagues_bresil.png ici */
+            background-image: url('vagues_bresil.png'); 
+            animation: wave-slide 18s linear infinite reverse;
+            opacity: 1;
+        }
+
+        /* --- MODALE --- */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background: rgba(252, 251, 244, 0.98); opacity: 0; pointer-events: none; transition: 0.5s; display: flex; justify-content: center; align-items: center; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-card { width: 90%; max-width: 1000px; height: 95%; background: #fff; display: flex; flex-direction: column; position: relative; box-shadow: 0 20px 60px rgba(58, 58, 54, 0.15); }
+        .brush-header { height: 70px; background-color: var(--brush-yellow); mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 60' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 H1200 V30 Q1150,55 1100,40 T1000,50 T900,35 T800,55 T700,40 T600,50 T500,35 T400,55 T300,40 T200,50 T100,35 T0,55 Z' fill='black'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 60' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 H1200 V30 Q1150,55 1100,40 T1000,50 T900,35 T800,55 T700,40 T600,50 T500,35 T400,55 T300,40 T200,50 T100,35 T0,55 Z' fill='black'/%3E%3C/svg%3E"); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; z-index:5;}
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--text-brown); z-index:50;}
+        .modal-scroll-area { flex: 1; overflow-y: auto; padding: 40px; text-align: center; }
 
-        .modal-card {
-            width: 90%; max-width: 1100px; height: 95%;
-            background: #fff; box-shadow: 0 30px 60px rgba(0,0,0,0.08);
-            position: relative; overflow: hidden; display: flex; flex-direction: column;
-            transform: translateY(30px); transition: transform 0.5s;
-        }
-        .modal-overlay.active .modal-card { transform: translateY(0); }
-
-        /* HEADER BANDEAU JAUNE (Commun) */
-        .brush-header {
-            width: 100%; height: 70px; flex-shrink: 0;
-            background-color: var(--brush-yellow);
-            mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 60' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 H1200 V30 Q1150,55 1100,40 T1000,50 T900,35 T800,55 T700,40 T600,50 T500,35 T400,55 T300,40 T200,50 T100,35 T0,55 Z' fill='black'/%3E%3C/svg%3E");
-            -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 60' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 H1200 V30 Q1150,55 1100,40 T1000,50 T900,35 T800,55 T700,40 T600,50 T500,35 T400,55 T300,40 T200,50 T100,35 T0,55 Z' fill='black'/%3E%3C/svg%3E");
-            -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
-            z-index: 5;
-        }
-
-        .close-btn {
-            position: absolute; top: 15px; right: 20px; z-index: 50;
-            font-size: 2rem; cursor: pointer; color: #222; transition:0.3s;
-        }
-        .close-btn:hover { transform: rotate(90deg); color: var(--brush-yellow); }
-
-        /* NAVIGATION TABS */
-        .nav-tabs {
-            display: flex; justify-content: center; gap: 40px;
-            margin-top: 20px; margin-bottom: 20px;
-            border-bottom: 1px solid #eee; padding-bottom: 10px;
-        }
-        .tab-btn {
-            background: none; border: none; font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px;
-            cursor: pointer; color: #999; padding-bottom: 5px; position: relative;
-        }
-        .tab-btn.active { color: var(--text-main); font-weight: 600; }
-        .tab-btn.active::after {
-            content:''; position: absolute; bottom: -11px; left:0; width:100%; height:3px; background: var(--brush-yellow);
-        }
-
-        /* CONTENU */
-        .modal-scroll-area {
-            flex-grow: 1; overflow-y: auto; padding: 20px 40px 140px 40px; text-align: center;
-        }
-        .tab-content { display: none; max-width: 600px; margin: 0 auto; animation: fadeIn 0.5s; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
-
-        h3 { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--brush-yellow); margin-bottom: 10px; }
-        
-        /* FORMULAIRE */
-        .input-group { margin-bottom: 20px; text-align: left; }
-        label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; color: #888; font-weight: 600; }
-        input, select, textarea {
-            width: 100%; padding: 12px 0; border: none; border-bottom: 1px solid #ddd;
-            font-family: 'Montserrat', sans-serif; font-size: 1rem; background: transparent;
-        }
-        input:focus, select:focus { outline: none; border-bottom: 2px solid var(--brush-yellow); }
-        .hidden-field { display: none; }
-
-        .submit-btn {
-            width: 100%; padding: 18px; background-color: var(--brush-yellow); color: #fff;
-            border: none; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 20px;
-        }
-        .submit-btn:hover { background-color: #d49e25; }
-
-        /* --- FOOTER MODALE (DYNAMIQUE) --- */
-        .modal-footer-waves {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 120px;
-            z-index: 10; pointer-events: none;
-        }
-        /* Par défaut caché, on affiche le bon via JS */
-        .footer-fr, .footer-br { display: none; width: 100%; height: 100%; position: absolute; bottom:0; left:0; }
-        .footer-fr.active, .footer-br.active { display: block; }
-
+        /* RESPONSIVE */
         @media (max-width: 768px) {
             .landing { flex-direction: column; }
-            .split { width: 100% !important; height: 50%; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.05); }
-            .country-title { font-size: 2.5rem; }
-            .decor-waves { height: 100px; }
+            .split { width: 100% !important; height: 50%; border-right: none; border-bottom: 1px solid rgba(58, 58, 54, 0.1); }
+            .center-badge { font-size: 3rem; }
+            .country-title { font-size: 2.8rem; }
         }
     </style>
 </head>
@@ -227,198 +173,39 @@
         <div class="split left" onclick="openSite('fr')">
             <h1 class="country-title" data-key="country_fr">FRANCE</h1>
             <div class="country-date" data-key="date_fr">17 JUILLET 2027</div>
-            
-            <div class="decor-waves waves-fr">
-                <svg viewBox="0 0 1440 320" preserveAspectRatio="none" style="width:100%; height:100%;">
-                    <path class="wave-shape wave-anim" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,224C672,245,768,267,864,261.3C960,256,1056,224,1152,208L1248,192L1344,208L1440,224L1440,320L1344,320L1248,320L1152,320L1056,320L960,320L864,320L768,320L672,320L576,320L480,320L384,320L288,320L192,320L96,320L48,320L0,320Z"></path>
-                </svg>
+            <div class="waves-container waves-fr">
+                <div class="wave-img"></div>
             </div>
         </div>
 
         <div class="split right" onclick="openSite('pt')">
             <h1 class="country-title" data-key="country_br">BRASIL</h1>
             <div class="country-date" data-key="date_br">JUILLET 2028</div>
-            
-            <div class="decor-waves waves-br">
-                <svg viewBox="0 0 1440 320" preserveAspectRatio="none" style="position:absolute; bottom:0; width:100%; height:110%; opacity:0.6;">
-                    <path class="wave-green wave-anim-3" d="M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,149.3C672,139,768,149,864,170.7C960,192,1056,224,1152,229.3C1248,235,1344,213,1392,202.7L1440,192L1440,320L1392,320L1248,320L1152,320L1056,320L960,320L864,320L768,320L672,320L576,320L480,320L384,320L288,320L192,320L96,320L48,320L0,320Z"></path>
-                </svg>
-                <svg viewBox="0 0 1440 320" preserveAspectRatio="none" style="position:absolute; bottom:0; width:100%; height:90%; opacity:0.8;">
-                    <path class="wave-sand wave-anim-2" d="M0,256L48,245.3C96,235,192,213,288,192C384,171,480,149,576,160C672,171,768,213,864,229.3C960,245,1056,235,1152,213.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320L1248,320L1152,320L1056,320L960,320L864,320L768,320L672,320L576,320L480,320L384,320L288,320L192,320L96,320L48,320L0,320Z"></path>
-                </svg>
-                <svg viewBox="0 0 1440 320" preserveAspectRatio="none" style="position:absolute; bottom:0; width:100%; height:60%;">
-                    <path class="wave-blue wave-anim" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,224C840,245,960,267,1080,261.3C1200,256,1320,224,1380,208L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-                </svg>
+            <div class="waves-container waves-br">
+                <div class="wave-img"></div>
             </div>
         </div>
 
-        <div class="center-badge">Cilene & Vianney</div>
+        <div class="center-badge">
+            CILENE & VIANNEY
+        </div>
     </div>
 
     <div class="modal-overlay" id="siteModal">
         <div class="modal-card">
-            
             <div class="close-btn" onclick="closeSite()">✕</div>
-            
             <div class="brush-header"></div>
-
-            <div class="nav-tabs">
-                <button class="tab-btn active" onclick="switchTab('home')" data-key="tab_home">L'Événement</button>
-                <button class="tab-btn" onclick="switchTab('infos')" data-key="tab_infos">Infos & Voyage</button>
-                <button class="tab-btn" onclick="switchTab('rsvp')" data-key="tab_rsvp">RSVP</button>
-            </div>
-
             <div class="modal-scroll-area">
-                
-                <div id="tab-home" class="tab-content active">
-                    <h3 data-key="welcome_title">Bienvenue</h3>
-                    <p data-key="welcome_text">...</p>
-                </div>
-
-                <div id="tab-infos" class="tab-content">
-                    <h3 data-key="infos_title">Infos Pratiques</h3>
-                    <p data-key="infos_text">...</p>
-                </div>
-
-                <div id="tab-rsvp" class="tab-content">
-                    <h3 data-key="rsvp_title">Réponse</h3>
-                    
-                    <form onsubmit="event.preventDefault(); alert('Merci !');">
-                        <div class="input-group">
-                            <label data-key="form_name">Prénom & Nom</label>
-                            <input type="text" required>
-                        </div>
-                        
-                        <div style="display: flex; gap: 20px;">
-                            <div class="input-group" style="flex:1">
-                                <label>Email</label>
-                                <input type="email" required>
-                            </div>
-                            <div class="input-group" style="flex:1">
-                                <label data-key="form_phone">Téléphone</label>
-                                <input type="tel" required>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label data-key="form_attendance">Votre présence</label>
-                            <select>
-                                <option data-key="opt_fr">Je serai en France</option>
-                                <option data-key="opt_br">Je serai au Brésil</option>
-                                <option data-key="opt_both">Je viens aux deux !</option>
-                                <option data-key="opt_none">Je ne pourrai pas venir</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group">
-                            <label data-key="form_children">Enfants ?</label>
-                            <select id="childSelect" onchange="toggleChildField()">
-                                <option value="0" data-key="child_no">Non</option>
-                                <option value="1" data-key="child_yes">Oui</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group hidden-field" id="childAgeField">
-                            <label data-key="form_child_ages">Détails (Âge/Nombre)</label>
-                            <input type="text">
-                        </div>
-
-                        <div class="input-group">
-                            <label data-key="form_diet">Régime / Allergies</label>
-                            <input type="text">
-                        </div>
-
-                        <button type="submit" class="submit-btn" data-key="btn_send">Envoyer</button>
-                    </form>
-                </div>
-
+                <h2 style="color:var(--brush-yellow); margin-top:50px; text-transform:uppercase;">Bienvenue</h2>
+                <p>Le contenu du site s'affichera ici.</p>
             </div>
-
-            <div class="modal-footer-waves">
-                <div class="footer-fr active">
-                   <svg viewBox="0 0 1440 320" preserveAspectRatio="none" style="width:100%; height:100%;">
-                        <path fill="#006994" fill-opacity="0.8" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,224C840,245,960,267,1080,261.3C1200,256,1320,224,1380,208L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-                    </svg>
-                </div>
-                <div class="footer-br">
-                    <svg viewBox="0 0 1440 320" style="position:absolute; bottom:0; width:100%; height:100%;"><path fill="#2E5E4E" fill-opacity="0.6" d="M0,192L48,197.3C96,203,192,213,288,218.7C384,224,480,224,576,213.3C672,203,768,181,864,181.3C960,181,1056,203,1152,213.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320L1248,320L1152,320L1056,320L960,320L864,320L768,320L672,320L576,320L480,320L384,320L288,320L192,320L96,320L48,320L0,320Z"></path></svg>
-                    <svg viewBox="0 0 1440 320" style="position:absolute; bottom:0; width:100%; height:80%;"><path fill="#EADDCD" fill-opacity="0.9" d="M0,256L48,245.3C96,235,192,213,288,192C384,171,480,149,576,160C672,171,768,213,864,229.3C960,245,1056,235,1152,213.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320L1248,320L1152,320L1056,320L960,320L864,320L768,320L672,320L576,320L480,320L384,320L288,320L192,320L96,320L48,320L0,320Z"></path></svg>
-                    <svg viewBox="0 0 1440 320" style="position:absolute; bottom:0; width:100%; height:60%;"><path fill="#008DA8" fill-opacity="0.8" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,224C840,245,960,267,1080,261.3C1200,256,1320,224,1380,208L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
-                </div>
-            </div>
-
         </div>
     </div>
 
     <script>
-        // DICTIONNAIRE
-        const translations = {
-            fr: {
-                country_fr: "FRANCE", country_br: "BRESIL", date_fr: "17 JUILLET 2027", date_br: "JUILLET 2028",
-                tab_home: "L'Événement", tab_infos: "Infos & Voyage", tab_rsvp: "RSVP",
-                welcome_title: "Bienvenue", welcome_text: "Heureux de vous inviter à célébrer notre amour.",
-                infos_title: "Infos Pratiques", infos_text: "Détails à venir.",
-                rsvp_title: "Confirmer votre présence",
-                form_name: "Prénom & Nom", form_phone: "Téléphone", form_attendance: "Votre présence",
-                opt_fr: "Je serai en France", opt_br: "Je serai au Brésil", opt_both: "Je viens aux deux !", opt_none: "Absent",
-                form_children: "Enfants ?", child_no: "Non", child_yes: "Oui", form_child_ages: "Âge / Nombre",
-                form_diet: "Régime / Allergies", btn_send: "ENVOYER"
-            },
-            pt: {
-                country_fr: "FRANÇA", country_br: "BRASIL", date_fr: "17 DE JULHO 2027", date_br: "JULHO DE 2028",
-                tab_home: "O Casamento", tab_infos: "Informações", tab_rsvp: "Confirmar",
-                welcome_title: "Bem-vindos", welcome_text: "Felizes em convidar vocês.",
-                infos_title: "Informações", infos_text: "Detalhes em breve.",
-                rsvp_title: "Confirme sua presença",
-                form_name: "Nome Completo", form_phone: "Telefone / WhatsApp", form_attendance: "Sua presença",
-                opt_fr: "Estarei na França", opt_br: "Estarei no Brasil", opt_both: "Vou aos dois!", opt_none: "Não poderei ir",
-                form_children: "Crianças?", child_no: "Não", child_yes: "Sim", form_child_ages: "Idades / Quantidade",
-                form_diet: "Restrições Alimentares", btn_send: "ENVIAR"
-            }
-        };
-
-        let currentLang = 'fr';
-
-        function detectUserLang() {
-            const userLang = navigator.language || navigator.userLanguage;
-            changeLang(userLang.includes('pt') ? 'pt' : 'fr');
-        }
-
-        function changeLang(lang) {
-            currentLang = lang;
-            document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
-            document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
-
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if(translations[lang][key]) el.innerText = translations[lang][key];
-            });
-        }
-
-        function openSite(lang) {
-            changeLang(lang);
-            document.getElementById('siteModal').classList.add('active');
-            
-            // Affiche les bonnes vagues dans le footer de la modale
-            document.querySelector('.footer-fr').classList.toggle('active', lang === 'fr');
-            document.querySelector('.footer-br').classList.toggle('active', lang === 'pt');
-        }
-
+        function openSite(lang) { document.getElementById('siteModal').classList.add('active'); }
         function closeSite() { document.getElementById('siteModal').classList.remove('active'); }
-
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.getElementById('tab-' + tabName).classList.add('active');
-        }
-
-        function toggleChildField() {
-            document.getElementById('childAgeField').style.display = 
-                document.getElementById('childSelect').value == "1" ? 'block' : 'none';
-        }
-
-        detectUserLang();
+        function changeLang(l) { console.log(l); }
     </script>
 </body>
 </html>
