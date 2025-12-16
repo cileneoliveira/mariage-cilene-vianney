@@ -12,7 +12,7 @@
         :root {
             --bg-color: #FFFEF8;
             --mustard: #E8B936;
-            --blue-ocean: #2A6E8C;
+            --blue-ocean: #2A6E8C; /* Légèrement ajusté pour correspondre aux vagues */
             --green-palm: #8DB658;
             --text-dark: #2C2C2C;
             --text-accent: #B68D64;
@@ -25,26 +25,27 @@
             color: var(--text-dark);
             font-family: 'Playfair Display', serif;
             overflow-x: hidden;
+            display: flex; /* Utilisation de flexbox pour le footer collé en bas */
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Bande jaune effet aquarelle en haut */
         .top-border {
             background-color: var(--mustard);
             height: 40px;
             width: 100%;
-            /* Simulation effet papier déchiré/peinture en CSS simple */
             mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
             -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
         }
 
-        .container {
+        .content-wrap { /* Nouveau wrapper pour que le footer reste en bas */
+            flex: 1; 
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 20px;
             text-align: center;
         }
 
-        /* Les Noms - Style Vertical comme sur l'invitation */
         .main-title-block {
             display: flex;
             justify-content: center;
@@ -78,7 +79,6 @@
             font-style: italic;
         }
 
-        /* Grille pour les deux destinations */
         .destinations {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -86,7 +86,6 @@
             position: relative;
         }
         
-        /* Ligne de séparation verticale */
         .destinations::after {
             content: "";
             position: absolute;
@@ -130,7 +129,6 @@
             font-size: 1.1rem;
         }
 
-        /* Boutons */
         .btn {
             display: inline-block;
             padding: 12px 30px;
@@ -149,18 +147,39 @@
             color: #fff;
         }
 
-        /* Éléments décoratifs (CSS Art simple pour simuler les vagues) */
-        .wave {
-            width: 100px;
-            height: 10px;
-            margin-top: 30px;
-            border-radius: 50%;
-            box-shadow: 0 5px 0 0; 
+        /* --- FOOTER AVEC VAGUES ANIMÉES --- */
+        .animated-footer {
+            width: 100%;
+            height: 120px; /* Hauteur de l'image de vague */
+            background-image: url('waves-footer.png'); /* Assurez-vous que le chemin est correct */
+            background-repeat: repeat-x; /* Répète l'image horizontalement */
+            background-position: left bottom; /* Positionne l'image en bas */
+            animation: wave-movement 30s linear infinite; /* Animation */
+            margin-top: 50px; /* Espace entre le contenu et le footer */
+            position: relative;
+            z-index: -1; /* Pour que le texte du footer passe au-dessus */
         }
-        
-        .france-theme .wave { color: var(--blue-ocean); }
-        .brazil-theme .wave { color: var(--blue-ocean); } /* On pourrait ajouter du vert ici */
-        
+
+        .footer-text {
+            text-align: center;
+            padding-bottom: 20px; /* Espace sous le texte */
+            font-size: 0.8rem;
+            color: #999;
+            background-color: var(--bg-color); /* Pour cacher le haut des vagues si le texte est court */
+            position: relative;
+            z-index: 1; /* Assure que le texte est au-dessus des vagues si elles débordent un peu */
+        }
+
+        /* Définition de l'animation */
+        @keyframes wave-movement {
+            from {
+                background-position: 0 bottom;
+            }
+            to {
+                background-position: -1920px bottom; /* Déplace l'image de sa largeur négativement (à ajuster selon la largeur réelle de votre image) */
+            }
+        }
+
         /* Responsive Mobile */
         @media (max-width: 768px) {
             .destinations {
@@ -180,7 +199,7 @@
 
     <div class="top-border"></div>
 
-    <div class="container">
+    <div class="content-wrap">
         
         <div class="main-title-block">
             <h1>Cilene</h1>
@@ -202,10 +221,7 @@
                 <div class="location">Château de Vaucouleurs<br>Puget-sur-Argens</div>
                 
                 <a href="/france" class="btn">Détails & RSVP</a>
-                
-                <div class="wave" style="box-shadow: 0 8px 0 var(--blue-ocean);"></div>
-                <div class="wave" style="box-shadow: 0 8px 0 var(--blue-ocean); margin-top:-5px; opacity:0.7;"></div>
-            </div>
+                </div>
 
             <div class="card brazil-theme">
                 <div style="color: var(--green-palm); font-style:italic; margin-bottom:5px;">Sur la luxuriante Costa Verde</div>
@@ -214,17 +230,15 @@
                 <div class="location">Paraty<br>Rio de Janeiro</div>
                 
                 <a href="/brasil" class="btn">Détails & RSVP</a>
-
-                <div class="wave" style="box-shadow: 0 8px 0 var(--green-palm);"></div>
-                <div class="wave" style="box-shadow: 0 8px 0 var(--blue-ocean); margin-top:-5px;"></div>
-            </div>
+                </div>
 
         </div>
     </div>
     
-    <footer style="text-align:center; margin-top:50px; margin-bottom:20px; font-size:0.8rem; color:#999;">
+    <div class="animated-footer"></div>
+    <div class="footer-text">
         cilenevianney.com
-    </footer>
+    </div>
 
 </body>
 </html>
