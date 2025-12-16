@@ -3,209 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cilene & Vianney</title>
-    
+    <title>Mariage Cilene & Vianney</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- SI VOUS AVEZ LE VRAI FICHIER FONT WINTERTHUR --- */
-        /* Décommentez ceci et mettez le fichier dans le dossier :
-        @font-face {
-            font-family: 'Winterthur';
-            src: url('WinterthurCondensed.woff2') format('woff2');
-            font-weight: normal;
-            font-style: normal;
-        }
-        */
-
         :root {
-            /* PALETTE FAIRE-PART */
-            --bg-ivory: #FCFBF4;      /* Blanc Ivoire */
-            --text-brown: #3a3a36;    /* Brun Sépia (Votre référence) */
-            --brush-yellow: #E6AF2E;  /* Jaune Solaire */
+            --bg-color: #FFFEF8;
+            --mustard: #E8B936;
+            --blue-ocean: #2A6E8C;
+            --green-palm: #8DB658;
+            --text-dark: #2C2C2C;
+            --text-accent: #B68D64;
         }
 
-        body, html { 
-            margin: 0; padding: 0; 
-            font-family: 'Montserrat', sans-serif; /* Police par défaut */
-            height: 100%; overflow: hidden; 
-            background-color: var(--bg-ivory); 
-            color: var(--text-brown); 
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            font-family: 'Playfair Display', serif;
+            overflow-x: hidden;
         }
 
-        /* --- SÉLECTEUR LANGUE --- */
-        .lang-switch {
-            position: fixed; top: 20px; right: 20px; z-index: 200;
-            font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; 
-            color: var(--text-brown);
-        }
-        .lang-switch span { opacity: 0.5; transition: 0.3s; }
-        .lang-switch span.active { opacity: 1; text-decoration: underline; color: var(--brush-yellow); }
-
-        /* --- ACCUEIL (SPLIT) --- */
-        .landing {
-            display: flex; width: 100vw; height: 100vh;
-            position: fixed; top: 0; left: 0; z-index: 10;
+        /* Bande jaune effet aquarelle en haut */
+        .top-border {
+            background-color: var(--mustard);
+            height: 40px;
+            width: 100%;
+            /* Simulation effet papier déchiré/peinture en CSS simple */
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
         }
 
-        .split {
-            height: 100%; width: 50%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-            cursor: pointer; position: relative;
-            background-color: var(--bg-ivory); 
-            border-right: 1px solid rgba(58, 58, 54, 0.1); /* Ligne de séparation très fine */
-        }
-        
-        /* Interaction Hover */
-        .landing:has(.left:hover) .left { width: 60%; }
-        .landing:has(.left:hover) .right { width: 40%; opacity: 0.6; }
-        .landing:has(.right:hover) .right { width: 60%; }
-        .landing:has(.right:hover) .left { width: 40%; opacity: 0.6; }
-
-        /* --- TITRES PAYS (Jaune) --- */
-        .country-title {
-            font-family: 'Montserrat', sans-serif; /* On garde Montserrat pour les titres pays ou Winterthur ? */
-            font-size: 4rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; 
-            margin: 0; line-height: 1; transition: transform 0.4s;
-            color: var(--brush-yellow); 
-            z-index: 10;
-        }
-
-        /* --- DATES (Brun + Traits) --- */
-        .country-date {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; 
-            margin-top: 25px; 
-            color: var(--text-brown); 
-            z-index: 10;
-            
-            border-top: 1px solid var(--text-brown);
-            border-bottom: 1px solid var(--text-brown);
-            padding: 10px 0; 
-            width: 220px; 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
             text-align: center;
         }
-        
-        .split:hover .country-title { transform: scale(1.05); }
 
-        /* --- PRÉNOMS FLOTTANTS (STYLE WINTERTHUR) --- */
-        .center-badge {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            z-index: 20; 
-            
-            /* TYPO WINTERTHUR (Simulée par Barlow Condensed ici) */
-            font-family: 'Winterthur', 'Barlow Condensed', sans-serif;
-            font-size: 5rem; /* Très grand */
-            font-weight: 500; /* Pas trop gras, élégant */
-            text-transform: uppercase; /* Souvent en majuscules pour ce style */
-            letter-spacing: 2px; /* Un peu d'air */
+        /* Les Noms - Style Vertical comme sur l'invitation */
+        .main-title-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Antonio', sans-serif;
+            text-transform: uppercase;
+            font-size: 4rem;
+            letter-spacing: 5px;
             line-height: 0.9;
-            
-            color: var(--text-brown); 
-            white-space: nowrap; 
-            pointer-events: none;
-            
-            /* Légère ombre ivoire pour détacher du texte derrière si superposition */
-            text-shadow: 0 0 30px var(--bg-ivory), 0 0 10px var(--bg-ivory);
+            color: var(--text-dark);
+            margin: 0;
+        }
+        
+        .ampersand {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--text-accent);
+            font-size: 2rem;
+            margin: 0 20px;
         }
 
-        /* --- VAGUES (IMAGES) --- */
-        .waves-container {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 250px;
-            pointer-events: none; z-index: 5; overflow: hidden;
+        .intro-text {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 50px;
+            font-style: italic;
         }
 
-        .wave-img {
-            position: absolute; bottom: 0; left: 0; width: 200%; height: 100%;
-            background-repeat: repeat-x; background-position: bottom left; background-size: 50% auto;
+        /* Grille pour les deux destinations */
+        .destinations {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            position: relative;
+        }
+        
+        /* Ligne de séparation verticale */
+        .destinations::after {
+            content: "";
+            position: absolute;
+            top: 10%;
+            bottom: 10%;
+            left: 50%;
+            width: 1px;
+            background-color: #ddd;
+            transform: translateX(-50%);
         }
 
-        @keyframes wave-slide {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        .card {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
         }
 
-        /* IMAGE FRANCE (Bleue) */
-        .waves-fr .wave-img {
-            /* Mettre ton image vagues_france.png ici */
-            background-image: url('vagues.png'); 
-            animation: wave-slide 20s linear infinite;
-            opacity: 1;
+        .card:hover {
+            transform: translateY(-5px);
         }
 
-        /* IMAGE BRÉSIL (Sable/Vert) */
-        .waves-br .wave-img {
-            /* Mettre ton image vagues_bresil.png ici */
-            background-image: url('vagues.png'); 
-            animation: wave-slide 18s linear infinite reverse;
-            opacity: 1;
+        .card h2 {
+            font-family: 'Antonio', sans-serif;
+            font-size: 3rem;
+            margin: 10px 0;
+            text-transform: uppercase;
         }
 
-        /* --- MODALE --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; background: rgba(252, 251, 244, 0.98); opacity: 0; pointer-events: none; transition: 0.5s; display: flex; justify-content: center; align-items: center; }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-card { width: 90%; max-width: 1000px; height: 95%; background: #fff; display: flex; flex-direction: column; position: relative; box-shadow: 0 20px 60px rgba(58, 58, 54, 0.15); }
-        .brush-header { height: 70px; background-color: var(--brush-yellow); mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 60' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 H1200 V30 Q1150,55 1100,40 T1000,50 T900,35 T800,55 T700,40 T600,50 T500,35 T400,55 T300,40 T200,50 T100,35 T0,55 Z' fill='black'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 60' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,0 H1200 V30 Q1150,55 1100,40 T1000,50 T900,35 T800,55 T700,40 T600,50 T500,35 T400,55 T300,40 T200,50 T100,35 T0,55 Z' fill='black'/%3E%3C/svg%3E"); -webkit-mask-size: 100% 100%; mask-size: 100% 100%; z-index:5;}
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: var(--text-brown); z-index:50;}
-        .modal-scroll-area { flex: 1; overflow-y: auto; padding: 40px; text-align: center; }
+        .card .date {
+            color: var(--text-accent);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-        /* RESPONSIVE */
+        .card .location {
+            font-style: italic;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Boutons */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            border: 1px solid var(--text-dark);
+            color: var(--text-dark);
+            font-family: 'Antonio', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .btn:hover {
+            background-color: var(--text-dark);
+            color: #fff;
+        }
+
+        /* Éléments décoratifs (CSS Art simple pour simuler les vagues) */
+        .wave {
+            width: 100px;
+            height: 10px;
+            margin-top: 30px;
+            border-radius: 50%;
+            box-shadow: 0 5px 0 0; 
+        }
+        
+        .france-theme .wave { color: var(--blue-ocean); }
+        .brazil-theme .wave { color: var(--blue-ocean); } /* On pourrait ajouter du vert ici */
+        
+        /* Responsive Mobile */
         @media (max-width: 768px) {
-            .landing { flex-direction: column; }
-            .split { width: 100% !important; height: 50%; border-right: none; border-bottom: 1px solid rgba(58, 58, 54, 0.1); }
-            .center-badge { font-size: 3rem; }
-            .country-title { font-size: 2.8rem; }
+            .destinations {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .destinations::after {
+                display: none;
+            }
+            h1 { font-size: 3rem; }
+            .main-title-block { flex-direction: column; }
+            .ampersand { margin: 10px 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="lang-switch">
-        <span id="btn-fr" onclick="changeLang('fr')" class="active">FR</span> | 
-        <span id="btn-pt" onclick="changeLang('pt')">PT</span>
-    </div>
+    <div class="top-border"></div>
 
-    <div class="landing">
+    <div class="container">
         
-        <div class="split left" onclick="openSite('fr')">
-            <h1 class="country-title" data-key="country_fr">FRANCE</h1>
-            <div class="country-date" data-key="date_fr">17 JUILLET 2027</div>
-            <div class="waves-container waves-fr">
-                <div class="wave-img"></div>
-            </div>
+        <div class="main-title-block">
+            <h1>Cilene</h1>
+            <span class="ampersand">&</span>
+            <h1>Vianney</h1>
         </div>
 
-        <div class="split right" onclick="openSite('pt')">
-            <h1 class="country-title" data-key="country_br">BRASIL</h1>
-            <div class="country-date" data-key="date_br">JUILLET 2028</div>
-            <div class="waves-container waves-br">
-                <div class="wave-img"></div>
-            </div>
-        </div>
+        <p class="intro-text">
+            Entourés de nos parents, nous avons la joie de vous inviter<br>
+            à célébrer notre amour autour du monde.
+        </p>
 
-        <div class="center-badge">
-            CILENE & VIANNEY
+        <div class="destinations">
+            
+            <div class="card france-theme">
+                <div style="color: var(--blue-ocean); font-style:italic; margin-bottom:5px;">Sous le soleil de Provence</div>
+                <h2>France</h2>
+                <div class="date">Juillet 2027</div>
+                <div class="location">Château de Vaucouleurs<br>Puget-sur-Argens</div>
+                
+                <a href="/france" class="btn">Détails & RSVP</a>
+                
+                <div class="wave" style="box-shadow: 0 8px 0 var(--blue-ocean);"></div>
+                <div class="wave" style="box-shadow: 0 8px 0 var(--blue-ocean); margin-top:-5px; opacity:0.7;"></div>
+            </div>
+
+            <div class="card brazil-theme">
+                <div style="color: var(--green-palm); font-style:italic; margin-bottom:5px;">Sur la luxuriante Costa Verde</div>
+                <h2>Brasil</h2>
+                <div class="date">Juillet 2028</div>
+                <div class="location">Paraty<br>Rio de Janeiro</div>
+                
+                <a href="/brasil" class="btn">Détails & RSVP</a>
+
+                <div class="wave" style="box-shadow: 0 8px 0 var(--green-palm);"></div>
+                <div class="wave" style="box-shadow: 0 8px 0 var(--blue-ocean); margin-top:-5px;"></div>
+            </div>
+
         </div>
     </div>
+    
+    <footer style="text-align:center; margin-top:50px; margin-bottom:20px; font-size:0.8rem; color:#999;">
+        cilenevianney.com
+    </footer>
 
-    <div class="modal-overlay" id="siteModal">
-        <div class="modal-card">
-            <div class="close-btn" onclick="closeSite()">✕</div>
-            <div class="brush-header"></div>
-            <div class="modal-scroll-area">
-                <h2 style="color:var(--brush-yellow); margin-top:50px; text-transform:uppercase;">Bienvenue</h2>
-                <p>Le contenu du site s'affichera ici.</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openSite(lang) { document.getElementById('siteModal').classList.add('active'); }
-        function closeSite() { document.getElementById('siteModal').classList.remove('active'); }
-        function changeLang(l) { console.log(l); }
-    </script>
 </body>
 </html>
