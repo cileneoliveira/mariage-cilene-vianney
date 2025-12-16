@@ -4,200 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucie & Marcos - Mariage</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        /* --- RESET & BASE --- */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden; /* Empêche le scroll */
-            font-family: 'Montserrat', sans-serif;
+        /* --- VARIABLES --- */
+        :root {
+            --fr-bg: #213A33;       
+            --fr-text: #EADDCD;     
+            --br-bg: #C57B67;       
+            --br-text: #FEF9F0;     
+            --dark: #222;
+            --light: #fff;
         }
 
-        /* --- CONTENEUR PRINCIPAL --- */
-        .container {
+        body, html { margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; height: 100%; overflow-x: hidden; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            pointer-events: none; /* Pour laisser cliquer à travers sur le split */
+        }
+        .nav-logo { font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: white; mix-blend-mode: difference; pointer-events: auto; cursor: pointer;}
+        .close-btn { cursor: pointer; pointer-events: auto; display: none; font-size: 2rem; color: #333;}
+
+        /* --- ACCUEIL (SPLIT SCREEN) --- */
+        .landing {
             display: flex;
             width: 100vw;
             height: 100vh;
-            position: relative;
+            position: absolute;
+            top: 0; left: 0;
+            transition: transform 0.8s ease-in-out;
+            z-index: 50;
+        }
+        
+        .landing.hidden {
+            transform: translateY(-100%); /* L'accueil glisse vers le haut */
         }
 
-        /* --- LES DEUX MOITIÉS (SPLIT) --- */
         .split {
-            height: 100%;
-            width: 50%; /* Départ à 50/50 */
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1); /* Animation fluide */
-            cursor: pointer;
-            overflow: hidden;
+            height: 100%; width: 50%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: all 0.6s ease;
+            cursor: pointer; position: relative;
+        }
+        
+        .left { background-color: var(--fr-bg); color: var(--fr-text); }
+        .right { background-color: var(--br-bg); color: var(--br-text); }
+
+        /* Effet Hover */
+        .landing:has(.left:hover) .left { width: 60%; }
+        .landing:has(.left:hover) .right { width: 40%; filter: brightness(0.9); }
+        .landing:has(.right:hover) .right { width: 60%; }
+        .landing:has(.right:hover) .left { width: 40%; filter: brightness(0.9); }
+        .left:hover, .right:hover { width: 60%; } /* Fallback */
+
+        .content { text-align: center; z-index: 10; padding: 2rem; }
+        h1 { font-size: 3rem; font-weight: 600; text-transform: uppercase; letter-spacing: 5px; margin: 0; }
+        h2 { font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 2rem; opacity: 0.8; }
+        
+        .btn {
+            margin-top: 30px; padding: 12px 30px;
+            background: transparent; border: 1px solid currentColor; color: currentColor;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
+            cursor: pointer; transition: 0.3s; display: inline-block;
+        }
+        .btn:hover { background: rgba(255,255,255,0.2); }
+
+        /* Badge central */
+        .center-badge {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 60; background: white; width: 100px; height: 100px;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            font-size: 1.5rem; color: #222;
         }
 
-        /* --- COULEURS & AMBIANCE --- */
-
-        /* Côté FRANCE (Vert profond + Sable) */
-        .left {
-            background-color: #1e3a34;
-            color: #e8dcb5;
-        }
-
-        /* Côté BRÉSIL (Terracotta + Crème) */
-        .right {
-            background-color: #cc7a6f;
-            color: #fffbf0;
-        }
-
-        /* --- LOGIQUE D'ANIMATION (HOVER) --- */
-
-        /* Quand on survole la gauche */
-        .container:has(.left:hover) .left { width: 65%; }
-        .container:has(.left:hover) .right { width: 35%; opacity: 0.8; }
-
-        /* Quand on survole la droite */
-        .container:has(.right:hover) .right { width: 65%; }
-        .container:has(.right:hover) .left { width: 35%; opacity: 0.8; }
-
-        /* Pour les vieux navigateurs qui ne supportent pas :has (fallback simple) */
-        .left:hover { width: 65%; }
-        .right:hover { width: 65%; }
-
-        /* --- CONTENU TEXTE --- */
-        .content {
-            text-align: center;
-            white-space: nowrap; /* Empêche le texte de sauter à la ligne */
-            transition: transform 0.5s ease;
+        /* --- PAGE RSVP (FORMULAIRE) --- */
+        .rsvp-page {
+            position: absolute; top: 0; left: 0; width: 100%; min-height: 100vh;
+            background: #F9F9F9; /* Fond très clair et propre */
+            padding-top: 100px; padding-bottom: 50px;
+            display: flex; justify-content: center;
             z-index: 10;
         }
 
-        .split:hover .content {
-            transform: scale(1.05); /* Léger zoom du texte au survol */
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 1rem;
-            font-weight: 300;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
-            opacity: 0.8;
-        }
-
-        .date {
-            font-size: 1.2rem;
-            font-weight: 400;
-            border-top: 1px solid currentColor;
-            border-bottom: 1px solid currentColor;
-            padding: 10px 30px;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 12px 30px;
-            border: 1px solid currentColor;
-            text-decoration: none;
-            color: currentColor;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        /* --- BADGE CENTRAL --- */
-        .center-badge {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 20;
+        .form-container {
+            width: 100%; max-width: 600px;
+            padding: 40px;
             background: white;
-            padding: 25px 50px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            pointer-events: none; /* Laisse cliquer à travers si besoin */
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05); /* Ombre douce élégante */
         }
 
-        .names {
-            color: #1e3a34;
-            font-size: 1.4rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
+        .form-title { text-align: center; margin-bottom: 40px; color: var(--fr-bg); }
+        .form-title h3 { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin: 0; }
+        .form-title p { font-style: italic; color: #888; margin-top: 10px; font-family: serif; }
 
-        .ampersand {
-            color: #d4af37; /* Or */
-            font-family: serif;
-            font-style: italic;
-            font-weight: normal;
+        /* Style des inputs chic */
+        .input-group { margin-bottom: 30px; }
+        label { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; color: #555; font-weight: 600; }
+        
+        input[type="text"], input[type="email"], select, textarea {
+            width: 100%; padding: 15px 0;
+            border: none; border-bottom: 1px solid #ddd;
+            font-family: 'Montserrat', sans-serif; font-size: 1rem;
+            background: transparent; transition: 0.3s;
         }
+        input:focus, select:focus, textarea:focus { outline: none; border-bottom: 1px solid var(--fr-bg); }
 
-        /* --- MOBILE (Responsive) --- */
+        /* Checkboxes stylisées */
+        .checkbox-group { display: flex; gap: 20px; margin-top: 10px; }
+        .checkbox-item { display: flex; align-items: center; cursor: pointer; }
+        .checkbox-item input { margin-right: 10px; accent-color: var(--fr-bg); transform: scale(1.2); }
+
+        .submit-btn {
+            width: 100%; padding: 18px;
+            background-color: var(--fr-bg); color: white;
+            border: none; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 600; cursor: pointer; transition: 0.3s; margin-top: 20px;
+        }
+        .submit-btn:hover { background-color: #1a2e29; }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            .container { flex-direction: column; }
+            .landing { flex-direction: column; }
             .split { width: 100% !important; height: 50%; }
-
-            /* Sur mobile, on change l'animation pour la hauteur */
-            .container:has(.left:hover) .left { height: 60%; }
-            .container:has(.right:hover) .right { height: 60%; }
-
+            .landing:has(.left:hover) .left { height: 60%; }
+            .landing:has(.right:hover) .right { height: 60%; }
             h1 { font-size: 2rem; }
-            .center-badge { padding: 15px 30px; }
-            .names { font-size: 1rem; }
+            .form-container { padding: 20px; box-shadow: none; background: transparent; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
+    <nav>
+        <div class="nav-logo" onclick="goHome()">L & M</div>
+        <div class="close-btn" id="closeBtn" onclick="goHome()">✕</div>
+    </nav>
 
-        <div class="split left" onclick="alert('Ici, on ira vers la page France !')">
+    <div class="landing" id="landingPage">
+        
+        <div class="split left">
             <div class="content">
-                <h2>Célébration Civile</h2>
+                <h2>Cérémonie Civile</h2>
                 <h1>France</h1>
-                <div class="date">17 JUILLET 2027</div>
+                <div style="margin: 20px 0; border-top:1px solid currentColor; width: 50px; display:inline-block"></div>
                 <br>
-                <a href="#" class="btn">Voir les détails</a>
+                <button class="btn" onclick="openRSVP('france')">RSVP France</button>
             </div>
         </div>
 
-        <div class="split right" onclick="alert('Ici, on ira vers la page Brésil !')">
+        <div class="split right">
             <div class="content">
-                <h2>Célébration Religieuse</h2>
+                <h2>Cérémonie Religieuse</h2>
                 <h1>Brasil</h1>
-                <div class="date">JUILLET 2028</div>
+                <div style="margin: 20px 0; border-top:1px solid currentColor; width: 50px; display:inline-block"></div>
                 <br>
-                <a href="#" class="btn">Ver detalhes</a>
+                <button class="btn" onclick="openRSVP('bresil')">RSVP Brasil</button>
             </div>
         </div>
 
-        <div class="center-badge">
-            <div class="names">
-                Lucie <span class="ampersand">&</span> Marcos
-            </div>
-        </div>
-
+        <div class="center-badge">L&M</div>
     </div>
+
+    <div class="rsvp-page">
+        <div class="form-container">
+            <div class="form-title">
+                <h3 id="formTitle">Réponse</h3>
+                <p>Merci de nous confirmer votre présence</p>
+            </div>
+
+            <form onsubmit="event.preventDefault(); alert('Ceci est une maquette visuelle !');">
+                
+                <div class="input-group">
+                    <label>Prénom & Nom</label>
+                    <input type="text" placeholder="Ex: Jean Dupont" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Pour vous envoyer les infos" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Je serai présent :</label>
+                    <div class="checkbox-group" style="flex-direction: column; gap: 10px;">
+                        <label class="checkbox-item">
+                            <input type="radio" name="attendance" value="france"> Au mariage en France (2027)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="radio" name="attendance" value="bresil"> Au mariage au Brésil (2028)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="radio" name="attendance" value="both"> Aux deux ! (Quel courage)
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="radio" name="attendance" value="none"> Je ne pourrai pas venir
+                        </label>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Venez-vous avec des enfants ?</label>
+                    <select id="childrenSelect" onchange="toggleChildrenInput()">
+                        <option value="0">Non, sans enfants</option>
+                        <option value="1">Oui, 1 enfant</option>
+                        <option value="2">Oui, 2 enfants</option>
+                        <option value="3">Oui, + de 3 enfants</option>
+                    </select>
+                </div>
+                
+                <div class="input-group" id="childrenAge" style="display:none;">
+                    <label>Âge des enfants (pour les menus/nounous)</label>
+                    <input type="text" placeholder="Ex: 3 ans, 7 ans...">
+                </div>
+
+                <div class="input-group">
+                    <label>Régime Alimentaire</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox"> Végétarien</label>
+                        <label class="checkbox-item"><input type="checkbox"> Vegan</label>
+                        <label class="checkbox-item"><input type="checkbox"> Gluten Free</label>
+                    </div>
+                    <input type="text" placeholder="Allergies spécifiques ?" style="margin-top:15px; font-size: 0.9rem;">
+                </div>
+
+                <button type="submit" class="submit-btn">Envoyer ma réponse</button>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openRSVP(location) {
+            // 1. On fait glisser la page d'accueil vers le haut
+            document.getElementById('landingPage').classList.add('hidden');
+            
+            // 2. On affiche le bouton fermer
+            document.getElementById('closeBtn').style.display = 'block';
+
+            // 3. (Optionnel) On pourrait pré-cocher la case France ou Brésil ici
+            console.log("Ouverture pour : " + location);
+        }
+
+        function goHome() {
+            // On fait redescendre l'accueil
+            document.getElementById('landingPage').classList.remove('hidden');
+            document.getElementById('closeBtn').style.display = 'none';
+        }
+
+        function toggleChildrenInput() {
+            var val = document.getElementById('childrenSelect').value;
+            var input = document.getElementById('childrenAge');
+            if(val > 0) {
+                input.style.display = 'block';
+            } else {
+                input.style.display = 'none';
+            }
+        }
+    </script>
 
 </body>
 </html>
