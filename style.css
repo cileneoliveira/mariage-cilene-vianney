@@ -1,0 +1,184 @@
+/* --- RESET & BASES --- */
+:root {
+    --color-text: #3a3a36; /* Ton gris anthracite */
+    --color-france: #eec045; /* Jaune moutarde (approximatif invitation) */
+    --color-brasil: #88a883; /* Vert palmier (approximatif invitation) */
+    --bg-light: #f9f9f9;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Helvetica', sans-serif; /* Fallback si pas de police chargée */
+    overflow: hidden; /* Empêche le scroll sur la page d'accueil desktop */
+    height: 100vh;
+}
+
+/* --- CHARGEMENT DE TA POLICE (Si tu as le fichier) --- */
+@font-face {
+    font-family: 'Winterthur';
+    src: url('assets/WinterthurCondensed-Regular.woff2') format('woff2');
+    /* Si tu n'as pas le fichier, ça prendra Helvetica par défaut */
+}
+
+/* --- LE CONTENEUR PRINCIPAL --- */
+.split-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+/* --- LES DEUX BLOCS (FRANCE & BRESIL) --- */
+.split {
+    flex: 1; /* Chacun prend 50% */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Texte en bas */
+    text-decoration: none;
+    transition: all 0.5s ease;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    padding-bottom: 80px; /* Espace pour le texte du bas */
+}
+
+/* Images de fond */
+.split.left {
+    background-image: url('assets/france-bg.jpg');
+}
+
+.split.right {
+    background-image: url('assets/bresil-bg.jpg');
+}
+
+/* --- EFFET "GALERIE" AU SURVOL --- */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2; /* Légèrement visible par défaut */
+    transition: opacity 0.4s ease;
+}
+
+/* France : Filtre Jaune */
+.split.left .overlay { background-color: var(--color-france); opacity: 0; }
+.split.left:hover .overlay { opacity: 0.85; }
+
+/* Brésil : Filtre Vert */
+.split.right .overlay { background-color: var(--color-brasil); opacity: 0; }
+.split.right:hover .overlay { opacity: 0.85; }
+
+/* --- TEXTES INTÉRIEURS (Date, Bouton) --- */
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: var(--color-text);
+    opacity: 0; /* Caché par défaut */
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+}
+
+/* Apparition au survol */
+.split:hover .content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content h2 {
+    font-family: 'Times New Roman', serif; /* Contraste élégant */
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.content p {
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.btn {
+    border: 1px solid var(--color-text);
+    padding: 10px 30px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    background: transparent;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: var(--color-text);
+    color: #fff;
+}
+
+/* --- LE TITRE CENTRAL GÉANT --- */
+.center-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    pointer-events: none; /* Permet de cliquer à travers */
+    mix-blend-mode: multiply; /* Effet de fusion avec le fond */
+}
+
+.center-title h1 {
+    font-family: 'Winterthur', sans-serif; /* TA POLICE */
+    font-size: 15vh; /* Taille relative à la hauteur de l'écran */
+    line-height: 0.8;
+    color: var(--color-text);
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Vertical */
+    align-items: center;
+}
+
+.amp {
+    font-family: 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 5vh;
+    margin: 10px 0;
+    font-weight: lighter;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    body { overflow: auto; } /* On autorise le scroll */
+
+    .split-container {
+        flex-direction: column; /* Empilement vertical */
+    }
+
+    .center-title h1 {
+        font-size: 10vh; /* Un peu plus petit sur mobile */
+        flex-direction: column;
+    }
+
+    .split {
+        width: 100%;
+        height: 50vh; /* Chaque bloc prend la moitié de l'écran */
+    }
+
+    /* Sur mobile, on affiche le contenu tout le temps, pas besoin de survol */
+    .content {
+        opacity: 1;
+        transform: translateY(0);
+        background: rgba(255,255,255,0.6); /* Petit fond blanc pour lisibilité */
+        padding: 20px;
+        width: 100%;
+    }
+
+    .split.left:hover .overlay, .split.right:hover .overlay {
+        opacity: 0; /* Pas d'effet hover coloré sur mobile */
+    }
+}
