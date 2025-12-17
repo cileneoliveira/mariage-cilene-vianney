@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mariage Cilene & Vianney</title>
+    <title>Cilene & Vianney - Mariages</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     
     <style>
+        /* --- DÉFINITION DE LA PALETTE & TYPO --- */
         :root {
+            --color-ocre: #D69C45; /* La couleur dominante de votre bandeau jaune/ocre */
+            --color-marine: #17294A; /* Le bleu marine des vagues */
+            --color-background: #FAF5E8; /* Blanc cassé Rives */
             --font-title: 'Antonio', sans-serif;
             --font-body: 'Playfair Display', serif;
-            --overlay-color: rgba(0, 0, 0, 0.3); /* Assombrit l'image pour lire le texte */
-            --hover-overlay: rgba(0, 0, 0, 0.1); /* Eclaircit au survol */
         }
 
         body, html {
@@ -21,22 +23,59 @@
             padding: 0;
             height: 100%;
             width: 100%;
-            overflow: hidden; /* Empêche le scroll global pour un effet "app" */
-            background-color: #1a1a1a;
+            overflow: hidden; 
+            background-color: var(--color-background);
             font-family: var(--font-body);
             color: white;
         }
 
-        /* --- LAYOUT GLOBAL --- */
+        /* --- BARRE DE NAVIGATION (BANDEAU JAUNE STYLISÉ) --- */
+        .header-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px; /* Hauteur de la barre */
+            background-color: var(--color-ocre);
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-title h1 {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: white;
+            margin: 0;
+        }
+        
+        .languages a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-left: 15px;
+            font-family: var(--font-title);
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        .languages a:hover { opacity: 1; }
+
+        /* --- CONTENEUR PRINCIPAL (SOUS LA BARRE) --- */
         .container {
             display: flex;
             width: 100%;
-            height: 100vh; /* Prend tout l'écran */
+            height: calc(100vh - 60px); /* Prend toute la hauteur moins le bandeau */
+            margin-top: 60px;
         }
 
         /* --- LES DEUX COLONNES (SPLIT SCREEN) --- */
         .split {
-            flex: 1; /* Chaque partie prend 50% */
+            flex: 1;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -47,7 +86,6 @@
             cursor: pointer;
             text-decoration: none;
             overflow: hidden;
-            border-right: 1px solid rgba(255,255,255,0.1);
         }
 
         /* Images de fond */
@@ -63,7 +101,7 @@
             transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* Overlay sombre pour lisibilité */
+        /* Overlay GRAPHique (filtre Bleu Marine pour unifier) */
         .split::before {
             content: "";
             position: absolute;
@@ -71,9 +109,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--overlay-color);
+            /* Utilisation d'un mode de fusion pour mélanger la couleur avec l'image */
+            background-color: var(--color-marine);
+            opacity: 0.25; /* Rendre le filtre semi-transparent */
+            mix-blend-mode: multiply; /* Assombrit et filtre l'image */
             z-index: 1;
-            transition: background-color 0.5s ease;
+            transition: opacity 0.5s ease;
         }
 
         /* --- CONTENU TEXTE --- */
@@ -81,22 +122,20 @@
             position: relative;
             z-index: 2;
             padding: 20px;
-            color: #fff;
-            transform: translateY(0);
-            transition: transform 0.5s ease;
         }
 
         h2 {
             font-family: var(--font-title);
-            font-size: 4rem;
-            letter-spacing: 5px;
+            font-size: 4.5rem;
+            letter-spacing: 7px;
             text-transform: uppercase;
             margin: 0;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            text-shadow: 0 0 10px rgba(0,0,0,0.8); /* Pour lisibilité sur la photo */
         }
 
         p.date {
-            font-size: 1.2rem;
+            font-family: var(--font-body);
+            font-size: 1.3rem;
             font-style: italic;
             margin-top: 10px;
             letter-spacing: 1px;
@@ -106,112 +145,72 @@
         .btn-discover {
             margin-top: 30px;
             padding: 12px 30px;
-            border: 1px solid white;
-            color: white;
+            /* Utilisation de l'ocre pour rappeler le bandeau */
+            border: 2px solid var(--color-ocre); 
+            color: var(--color-ocre);
             text-transform: uppercase;
             font-family: var(--font-title);
             letter-spacing: 2px;
-            background: transparent;
-            opacity: 0; /* Caché par défaut */
+            background: rgba(0, 0, 0, 0.4); 
+            opacity: 0; 
             transform: translateY(20px);
             transition: all 0.5s ease;
         }
-
-        /* --- EFFETS DE SURVOL (HOVER) --- */
         
-        /* Quand on survole une partie, l'image zoome */
+        /* --- EFFETS DE SURVOL (HOVER) --- */
         .split:hover .split-bg {
-            transform: scale(1.1); /* Effet "Live Action" / Caméra */
+            transform: scale(1.05); /* Zoom doux */
         }
 
-        /* L'overlay s'éclaircit */
         .split:hover::before {
-            background-color: var(--hover-overlay);
+             opacity: 0.15; /* Le filtre s'éclaircit */
         }
 
-        /* Le bouton apparaît */
         .split:hover .btn-discover {
             opacity: 1;
             transform: translateY(0);
-        }
-
-        /* --- TITRE CENTRAL FLOTTANT --- */
-        .center-title {
-            position: absolute;
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            text-align: center;
-            pointer-events: none; /* Laisse cliquer à travers */
-            width: 100%;
-        }
-
-        .center-title h1 {
-            font-family: var(--font-title);
-            font-size: 1.5rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            background: var(--color-ocre);
             color: white;
-            margin: 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
         }
-        
-        /* Langues */
-        .languages {
-            position: absolute;
-            top: 50px;
-            right: 40px;
-            z-index: 10;
-            font-family: var(--font-title);
-        }
-        .languages a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-left: 10px;
-            opacity: 0.7;
-        }
-        .languages a:hover { opacity: 1; }
-
 
         /* --- SETUP DES IMAGES DE FOND --- */
         
-        /* Partie GAUCHE : France (Image de vignes/château) */
+        /* PARTIE GAUCHE : FRANCE (Provence - Image générée) */
         .france .split-bg {
-            background-image: url('https://images.unsplash.com/photo-1599661046289-e31897846e41?q=80&w=2727&auto=format&fit=crop'); 
+            /* Remplacez ceci par l'URL de l'image de Provence que vous avez aimée */
+            background-image: url('https://images.unsplash.com/photo-1549488347-1f928e14950e?q=80&w=2940&auto=format&fit=crop'); 
         }
 
-        /* Partie DROITE : Brésil (Image Rio/Plage tropicale) */
+        /* PARTIE DROITE : BRÉSIL (Paraty - Baie & Jungle) */
         .brasil .split-bg {
-            background-image: url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?q=80&w=2670&auto=format&fit=crop');
+            /* Image de Paraty, Baie, style argentique/nature */
+            background-image: url('https://images.unsplash.com/photo-1534436582538-4e89988e0406?q=80&w=2787&auto=format&fit=crop');
         }
 
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column; /* Empile les images verticalement */
-            }
-            .center-title { top: 20px; }
-            .languages { top: 20px; right: 20px; }
-            h2 { font-size: 2.5rem; }
-            .btn-discover { opacity: 1; transform: translateY(0); border: 1px solid rgba(255,255,255,0.5); }
+            .header-bar { padding: 0 20px; }
+            .container { flex-direction: column; margin-top: 60px; height: auto; }
+            .split { min-height: 50vh; }
+            h2 { font-size: 3rem; letter-spacing: 4px; }
+            .btn-discover { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="center-title">
-        <h1>Cilene & Vianney</h1>
-    </div>
-
-    <div class="languages">
-        <a href="?lang=pt">PT</a><a href="?lang=fr">FR</a>
+    <div class="header-bar">
+        <div class="header-title">
+            <h1>CILENE & VIANNEY</h1>
+        </div>
+        <div class="languages">
+            <a href="?lang=pt">PT</a> | <a href="?lang=fr">FR</a>
+        </div>
     </div>
 
     <div class="container">
         
-        <a href="/france" class="split france">
+        <a href="cilenevianney.com/france" class="split france">
             <div class="split-bg"></div> <div class="content">
                 <h2>France</h2>
                 <p class="date">17 Juillet 2027</p>
@@ -219,7 +218,7 @@
             </div>
         </a>
 
-        <a href="/brasil" class="split brasil">
+        <a href="cilenevianney.com/brasil" class="split brasil">
             <div class="split-bg"></div> <div class="content">
                 <h2>Brasil</h2>
                 <p class="date">Juillet 2028</p>
