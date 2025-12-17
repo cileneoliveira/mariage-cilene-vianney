@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casamento no Brasil | Cilene & Vianney</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ... Colle ici le CSS EXACTEMENT comme dans bresil.html ... */
+        /* Assure-toi que l'image pointe vers 'images/bresil-bg.png' */
+
+        :root { --color-gold: #d4af37; --color-white: #ffffff; --color-white-dim: #dddddd; }
+        body { margin: 0; padding: 0; font-family: 'Helvetica', sans-serif; color: var(--color-white); overflow-x: hidden; background-color: #000; }
+        .bg-fixed { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url('bresil-bg_1.png'); background-size: cover; background-position: center; z-index: -2; }
+        .overlay-dark { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.45); z-index: -1; }
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 30px 40px; box-sizing: border-box; z-index: 100; }
+        .nav-logo { font-family: 'Antonio', sans-serif; font-weight: bold; font-size: 1.5rem; text-decoration: none; color: white; letter-spacing: 1px; }
+        .back-link { text-decoration: none; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.8); }
+        .scroll-content { position: relative; z-index: 1; padding-bottom: 100px; }
+        header.hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        h1.names { font-family: 'Antonio', sans-serif; font-size: 10vw; line-height: 0.9; text-transform: uppercase; font-weight: 300; margin: 0; letter-spacing: 2px; }
+        .hero-details { margin-top: 20px; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: var(--color-gold); }
+        section { padding: 80px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
+        .section-title { font-family: 'Antonio', sans-serif; font-size: 3rem; text-transform: uppercase; margin-bottom: 60px; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.3); display: inline-block; padding-bottom: 10px; }
+        p.text-body { font-size: 1.2rem; line-height: 1.8; color: var(--color-white-dim); font-weight: 300; }
+        .event-item { margin-bottom: 60px; }
+        .event-day { font-family: 'Antonio', sans-serif; font-size: 2rem; color: var(--color-gold); margin-bottom: 10px; display: block; }
+        .event-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0 0 10px 0; }
+        .event-desc { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto; }
+        .info-grid { text-align: left; margin-top: 40px; }
+        .info-block { margin-bottom: 50px; }
+        .info-block h3 { font-family: 'Antonio', sans-serif; font-size: 1.5rem; color: var(--color-gold); margin-bottom: 10px; text-transform: uppercase; }
+        .info-block p, .info-block li { font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,0.8); margin: 5px 0; }
+        .rsvp-btn { display: inline-block; margin-top: 50px; border: 1px solid white; color: white; padding: 15px 40px; text-decoration: none; font-family: 'Antonio', sans-serif; font-size: 1.2rem; letter-spacing: 2px; transition: all 0.3s; }
+        .rsvp-btn:hover { background: white; color: black; }
+        @media (max-width: 768px) { h1.names { font-size: 15vw; } .section-title { font-size: 2.2rem; } .event-title { font-size: 2rem; } .rsvp-btn { width: 100%; box-sizing: border-box; text-align: center; } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-fixed"></div>
+    <div class="overlay-dark"></div>
+
+    <nav>
+        <a href="index-pt.html" class="back-link">← Voltar</a>
+        <a href="index-pt.html" class="nav-logo">C & V</a>
+    </nav>
+
+    <div class="scroll-content">
+
+        <header class="hero">
+            <h1 class="names">Paraty<br>Brasil</h1>
+            <div class="hero-details">Inverno Tropical — 2028</div>
+        </header>
+
+        <section>
+            <p class="text-body">
+                Rumo ao hemisfério sul.<br>
+                Encontro marcado nas ruas de pedra do Centro Histórico de Paraty para uma celebração íntima e colorida.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">A Programação</h2>
+
+            <div class="event-item">
+                <span class="event-day">Sexta-feira</span>
+                <h3 class="event-title">Caipirinhas de Boas-vindas</h3>
+                <div class="event-desc">Pôr do sol e primeira noite descontraída ao ritmo do Samba.</div>
+            </div>
+
+            <div class="event-item">
+                <span class="event-day">Sábado</span>
+                <h3 class="event-title">O Casamento</h3>
+                <div class="event-desc">Cerimônia na Capela colonial, seguida de festa tropical em uma Pousada privada.</div>
+            </div>
+
+            <div class="event-item">
+                <span class="event-day">Domingo</span>
+                <h3 class="event-title">Passeio de Escuna</h3>
+                <div class="event-desc">Dia no mar em um barco tradicional (Escuna). Mergulho nas praias e almoço a bordo.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Logística</h2>
+
+            <div class="info-grid">
+
+                <div class="info-block">
+                    <h3>Como Chegar</h3>
+                    <p>Voo para Rio de Janeiro (GIG).</p>
+                    <p>Transfer privado ou Ônibus para Paraty (aprox. 4h de estrada pela Costa Verde).</p>
+                </div>
+
+                <div class="info-block">
+                    <h3>Hospedagem</h3>
+                    <p>O casamento será no Centro Histórico (onde não circulam carros).</p>
+                    <p>Recomendamos reservar uma Pousada dentro do centro para fazer tudo a pé.</p>
+                </div>
+
+                <div class="info-block">
+                    <h3>Clima</h3>
+                    <p>É inverno no Brasil, o que significa... 25°C e muito sol! Tragam um casaco leve para a noite.</p>
+                </div>
+
+            </div>
+
+            <a href="#" class="rsvp-btn" target="_blank">CONFIRMAR PRESENÇA</a>
+        </section>
+
+    </div>
+
+</body>
+</html>
