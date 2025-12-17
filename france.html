@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariage en Provence | Cilene & Vianney</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- BASES --- */
+        :root {
+            --color-gold: #D4AF37; /* Doré Provence */
+            --color-stone: #f4f0e6; /* Fond pierre */
+            --color-blue: #1e5c8a; /* Bleu Azur */
+            --color-text: #2c2c2c;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            font-family: 'Helvetica', sans-serif;
+            background-color: #fff;
+            color: var(--color-text);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95); /* Fond blanc presque opaque */
+        }
+        .nav-logo {
+            font-family: 'Antonio', sans-serif;
+            font-weight: bold; font-size: 1.5rem;
+            text-decoration: none; color: #000;
+            transform: scaleY(1.2);
+        }
+        .back-link {
+            text-decoration: none; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 1px; color: #666;
+        }
+
+        /* --- HERO (HAUT DE PAGE) --- */
+        header.hero-france {
+            height: 90vh; /* Prend presque tout l'écran */
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+            position: relative;
+
+            /* L'IMAGE DE FOND */
+            background-image: url('france-bg.png'); /* VERIFIE CE NOM */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Le filtre blanc par-dessus l'image pour lire le texte */
+        header.hero-france::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.4); /* Transparence blanche légère */
+        }
+
+        /* Le contenu par-dessus l'image */
+        .hero-content {
+            position: relative; z-index: 2;
+        }
+
+        h1.main-title {
+            font-family: 'Antonio', sans-serif;
+            font-size: 15vw; /* Taille énorme responsive */
+            line-height: 0.8;
+            text-transform: uppercase;
+            color: #111;
+            margin: 0;
+            letter-spacing: -2px;
+            transform: scaleY(1.3); /* Effet étiré */
+        }
+
+        .subtitle-loc {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            color: var(--color-blue);
+            margin-top: -10px;
+        }
+
+        .hero-date {
+            margin-top: 50px;
+            display: inline-block;
+            border-top: 2px solid #000;
+            border-bottom: 2px solid #000;
+            padding: 10px 30px;
+            font-family: 'Antonio', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        /* --- INTRO --- */
+        .intro-block {
+            max-width: 700px;
+            margin: 80px auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .intro-block p {
+            font-size: 1.2rem; line-height: 1.6; color: #444;
+        }
+
+        /* --- TIMELINE (PROGRAMME) --- */
+        .schedule-section {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Antonio', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            transform: scaleY(1.2);
+            color: var(--color-gold);
+        }
+
+        .event-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 80px;
+            position: relative;
+        }
+        /* Ligne verticale grise */
+        .event-row::after {
+            content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+            width: 1px; background: #ddd;
+        }
+
+        .event-day {
+            width: 45%; text-align: right; padding-right: 40px;
+        }
+        .event-day h3 {
+            font-family: 'Antonio', sans-serif; font-size: 3rem; margin: 0;
+            color: var(--color-blue); transform: scaleY(1.1);
+        }
+        .event-day span { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: #888; }
+
+        .event-details {
+            width: 45%; text-align: left; padding-left: 40px;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .event-name { font-weight: bold; font-size: 1.3rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
+        .event-time { font-family: 'Antonio', sans-serif; color: var(--color-gold); font-size: 1.2rem; }
+        .event-desc { font-size: 0.95rem; color: #666; margin-top: 10px; line-height: 1.4; }
+
+        /* Inversement pour le Samedi (Design asymétrique) */
+        .event-row.reverse { flex-direction: row-reverse; }
+        .event-row.reverse .event-day { text-align: left; padding-left: 40px; padding-right: 0; }
+        .event-row.reverse .event-details { text-align: right; padding-right: 40px; padding-left: 0; }
+
+        /* --- LA SEMAINE AVANT (ENCART) --- */
+        .week-before {
+            background-color: #fcfbf8; /* Papier d'art */
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 80px 20px;
+            margin: 60px 0;
+            text-align: center;
+        }
+        .week-content { max-width: 700px; margin: 0 auto; }
+        .week-badge {
+            background: var(--color-gold); color: white; padding: 5px 15px;
+            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;
+            display: inline-block; margin-bottom: 20px;
+        }
+        .week-content h3 { font-family: 'Antonio', sans-serif; font-size: 2.5rem; margin: 0 0 20px 0; color: #333; }
+        .week-note { font-size: 0.85rem; color: #999; margin-top: 30px; font-style: italic; }
+
+        /* --- LOGISTIQUE (GRILLE) --- */
+        .logistics-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 60px; max-width: 1000px; margin: 80px auto; padding: 0 30px;
+        }
+        .logistic-card h4 {
+            font-family: 'Antonio', sans-serif; font-size: 2rem; margin: 0 0 20px 0;
+            border-bottom: 2px solid var(--color-stone); display: inline-block; padding-bottom: 5px;
+        }
+        .logistic-card p, .logistic-card li { font-size: 1rem; line-height: 1.6; color: #555; }
+        .logistic-card ul { padding-left: 20px; }
+
+        /* --- BOUTON RSVP --- */
+        .rsvp-float {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--color-blue); color: white;
+            padding: 15px 40px; text-decoration: none;
+            font-family: 'Antonio', sans-serif; font-size: 1.2rem; letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(30, 92, 138, 0.4);
+            z-index: 500; transition: all 0.3s;
+        }
+        .rsvp-float:hover { background: #15456a; transform: translateY(-3px); }
+
+        /* --- RESPONSIVE MOBILE --- */
+        @media (max-width: 768px) {
+            h1.main-title { font-size: 18vw; }
+            .subtitle-loc { font-size: 1.5rem; }
+
+            /* On empile tout sur mobile */
+            .event-row, .event-row.reverse { flex-direction: column; text-align: center; margin-bottom: 60px; }
+            .event-row::after { display: none; } /* On cache la ligne verticale */
+
+            .event-day, .event-details,
+            .event-row.reverse .event-day, .event-row.reverse .event-details {
+                width: 100%; text-align: center; padding: 0;
+            }
+            .event-day { margin-bottom: 15px; }
+
+            .logistics-grid { grid-template-columns: 1fr; gap: 40px; }
+
+            .rsvp-float { width: 100%; bottom: 0; right: 0; border-radius: 0; text-align: center; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="back-link">← Retour Accueil</a>
+        <a href="index.html" class="nav-logo">C & V</a>
+    </nav>
+
+    <header class="hero-france">
+        <div class="hero-content">
+            <h1 class="main-title">MARIAGE</h1>
+            <div class="subtitle-loc">en Provence</div>
+            <div class="hero-date">16 . 17 . 18 Juillet 2027</div>
+        </div>
+    </header>
+
+    <div class="intro-block">
+        <p>
+            Nous sommes heureux de vous inviter à célébrer notre union.<br>
+            Trois jours de fête, de soleil et d'amour au <strong>Château de Vaucouleurs</strong>.
+        </p>
+    </div>
+
+    <section class="schedule-section">
+        <h2 class="section-title">Le Weekend</h2>
+
+        <div class="event-row">
+            <div class="event-day">
+                <h3>VEN 16</h3>
+                <span>Juillet</span>
+            </div>
+            <div class="event-details">
+                <div class="event-name">L'Accueil</div>
+                <div class="event-time">17h00</div>
+                <div class="event-desc">Verre de bienvenue, installation et premières retrouvailles.</div>
+            </div>
+        </div>
+
+        <div class="event-row reverse">
+            <div class="event-day">
+                <h3>SAM 17</h3>
+                <span>Juillet</span>
+            </div>
+            <div class="event-details">
+                <div class="event-name">Cérémonie & Grande Fête</div>
+                <div class="event-time">17h</div>
+                <div class="event-desc">La cérémonie suivie du cocktail, du dîner sous les étoiles et de la danse.</div>
+            </div>
+        </div>
+
+        <div class="event-row">
+            <div class="event-day">
+                <h3>DIM 18</h3>
+                <span>Juillet</span>
+            </div>
+            <div class="event-details">
+                <div class="event-name">Déjeuner Piscine</div>
+                <div class="event-time">12h00</div>
+                <div class="event-desc">Détente, baignade et déjeuner convivial pour se remettre des émotions.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="week-before">
+        <div class="week-content">
+            <span class="week-badge">Prolongations</span>
+            <h3>L'AVANT-PREMIÈRE</h3>
+            <p>Pour ceux qui souhaitent profiter des vacances, nous serons sur place <strong>dès le Mardi 13 Juillet</strong>.</p>
+            <p>Nous organiserons des activités informelles (balades, plages, dîners improvisés) tout au long de la semaine pour ceux qui sont dans la région.</p>
+            <p class="week-note">* Ces activités seront à la carte et à la charge de chacun.</p>
+        </div>
+    </section>
+
+    <section class="logistics-grid">
+
+        <div class="logistic-card">
+            <h4>ARRIVER</h4>
+            <p><strong>Train :</strong> Gare TGV Saint-Raphaël Valescure (20 min).</p>
+            <p><strong>Voiture :</strong> A8, sortie 37 Puget-sur-Argens.</p>
+        </div>
+
+        <div class="logistic-card">
+            <h4>DORMIR</h4>
+            <p>Quelques recommandations à proximité :</p>
+            <ul>
+                <li>Hôtel Le Gabian (5 min)</li>
+                <li>Camping Les Oliviers (10 min)</li>
+                <li>AirBnb : "Puget-sur-Argens"</li>
+            </ul>
+        </div>
+
+        <div class="logistic-card">
+            <h4>NAVETTES</h4>
+            <p>Pour la sécurité de tous, des navettes feront des allers-retours vers les principaux hébergements de 1h à 5h du matin le samedi soir.</p>
+        </div>
+
+        <div class="logistic-card">
+            <h4>ENFANTS</h4>
+            <p>Bienvenus tout au long du weekend !<br>Pour la soirée du samedi, une équipe de baby-sitters s'occupera des petits dans une salle dédiée (jeux & dodo).</p>
+        </div>
+
+    </section>
+
+    <div style="height: 100px;"></div>
+
+    <a href="https://ton-lien-typeform-ici.com" class="rsvp-float" target="_blank">RÉPONDRE</a>
+
+</body>
+</html>
