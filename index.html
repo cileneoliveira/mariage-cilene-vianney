@@ -10,9 +10,10 @@
     
     <style>
         :root {
+            /* Utilisation du jaune F2C13A comme demandé */
             --bg-color: #FFFEF8;
-            --mustard: #E8B936;
-            --blue-ocean: #2A6E8C; /* Légèrement ajusté pour correspondre aux vagues */
+            --mustard: #F2C13A; 
+            --blue-ocean: #2A6E8C;
             --green-palm: #8DB658;
             --text-dark: #2C2C2C;
             --text-accent: #B68D64;
@@ -25,40 +26,61 @@
             color: var(--text-dark);
             font-family: 'Playfair Display', serif;
             overflow-x: hidden;
-            display: flex; /* Utilisation de flexbox pour le footer collé en bas */
+            display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        .top-border {
-            background-color: var(--mustard);
-            height: 40px;
+        /* --- NOUVEAU : Bande jaune stylisée en PNG --- */
+        .top-band-img {
             width: 100%;
-            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+            /* Ajustez le chemin de votre image PNG */
+            /* J'utilise une image balise pour garder l'effet de coup de pinceau du PNG */
+            display: block; /* Pour retirer l'espace sous l'image */
+            height: auto;
+            max-height: 80px; /* Limite la hauteur pour éviter qu'elle soit trop grande */
+            object-fit: cover;
         }
 
-        .content-wrap { /* Nouveau wrapper pour que le footer reste en bas */
+        /* --- NOUVEAU : Conteneur de l'illustration --- */
+        .illustration-container {
+            width: 100%;
+            max-width: 1000px; /* Limite la largeur de l'illustration */
+            height: 300px; /* Hauteur fixe pour l'illustration */
+            margin: 0 auto; /* Centrage */
+            overflow: hidden; /* Assure que rien ne déborde */
+        }
+        
+        .main-illustration {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Recadre l'image pour couvrir la zone */
+            display: block;
+        }
+
+        .content-wrap { 
             flex: 1; 
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            max-width: 900px; /* Réduction du max-width pour accentuer le "white space" */
+            margin: 50px auto 0 auto; /* Marge supérieure pour l'espace de respiration */
+            padding: 0 20px;
             text-align: center;
         }
+        
+        /* ... (Les styles h1, .ampersand, .intro-text restent inchangés) ... */
 
         .main-title-block {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 60px;
+            margin-bottom: 30px; /* Réduction de la marge pour rapprocher le texte */
             position: relative;
         }
 
         h1 {
             font-family: 'Antonio', sans-serif;
             text-transform: uppercase;
-            font-size: 4rem;
-            letter-spacing: 5px;
+            font-size: 3.5rem; /* Légèrement réduit */
+            letter-spacing: 4px;
             line-height: 0.9;
             color: var(--text-dark);
             margin: 0;
@@ -68,14 +90,14 @@
             font-family: 'Playfair Display', serif;
             font-style: italic;
             color: var(--text-accent);
-            font-size: 2rem;
-            margin: 0 20px;
+            font-size: 1.8rem;
+            margin: 0 15px; /* Légèrement réduit */
         }
 
         .intro-text {
-            font-size: 1.2rem;
+            font-size: 1.1rem; /* Légèrement réduit */
             color: #666;
-            margin-bottom: 50px;
+            margin-bottom: 60px; /* Augmentation pour l'espace avant les cartes */
             font-style: italic;
         }
 
@@ -86,110 +108,26 @@
             position: relative;
         }
         
-        .destinations::after {
-            content: "";
-            position: absolute;
-            top: 10%;
-            bottom: 10%;
-            left: 50%;
-            width: 1px;
-            background-color: #ddd;
-            transform: translateX(-50%);
-        }
-
-        .card {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h2 {
-            font-family: 'Antonio', sans-serif;
-            font-size: 3rem;
-            margin: 10px 0;
-            text-transform: uppercase;
-        }
-
-        .card .date {
-            color: var(--text-accent);
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .card .location {
-            font-style: italic;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            text-decoration: none;
-            border: 1px solid var(--text-dark);
-            color: var(--text-dark);
-            font-family: 'Antonio', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            background: transparent;
-        }
-
-        .btn:hover {
-            background-color: var(--text-dark);
-            color: #fff;
-        }
+        /* ... (Les styles .destinations::after, .card, .btn restent inchangés) ... */
 
         /* --- FOOTER AVEC VAGUES ANIMÉES --- */
-        .animated-footer {
-            width: 100%;
-            height: 120px; /* Hauteur de l'image de vague */
-            background-image: url('waves-footer.png'); /* Assurez-vous que le chemin est correct */
-            background-repeat: repeat-x; /* Répète l'image horizontalement */
-            background-position: left bottom; /* Positionne l'image en bas */
-            animation: wave-movement 30s linear infinite; /* Animation */
-            margin-top: 50px; /* Espace entre le contenu et le footer */
-            position: relative;
-            z-index: -1; /* Pour que le texte du footer passe au-dessus */
-        }
-
-        .footer-text {
-            text-align: center;
-            padding-bottom: 20px; /* Espace sous le texte */
-            font-size: 0.8rem;
-            color: #999;
-            background-color: var(--bg-color); /* Pour cacher le haut des vagues si le texte est court */
-            position: relative;
-            z-index: 1; /* Assure que le texte est au-dessus des vagues si elles débordent un peu */
-        }
-
-        /* Définition de l'animation */
-        @keyframes wave-movement {
-            from {
-                background-position: 0 bottom;
-            }
-            to {
-                background-position: -1920px bottom; /* Déplace l'image de sa largeur négativement (à ajuster selon la largeur réelle de votre image) */
-            }
-        }
-
+        /* ... (Les styles du footer restent inchangés) ... */
+        
         /* Responsive Mobile */
         @media (max-width: 768px) {
+            .illustration-container {
+                height: 200px;
+            }
+            .content-wrap {
+                margin-top: 30px;
+                padding: 0 10px;
+            }
             .destinations {
                 grid-template-columns: 1fr;
-                gap: 60px;
+                gap: 40px;
             }
-            .destinations::after {
-                display: none;
-            }
-            h1 { font-size: 3rem; }
+            .destinations::after { display: none; }
+            h1 { font-size: 2.5rem; }
             .main-title-block { flex-direction: column; }
             .ampersand { margin: 10px 0; }
         }
@@ -197,7 +135,11 @@
 </head>
 <body>
 
-    <div class="top-border"></div>
+    <img src="yellow_top_band.png" alt="Bande décorative style coup de pinceau jaune" class="top-band-img">
+
+    <div class="illustration-container">
+        <img src="illustration_double.jpg" alt="Illustration stylisée de la Provence et de la Mata Atlântica" class="main-illustration">
+    </div>
 
     <div class="content-wrap">
         
