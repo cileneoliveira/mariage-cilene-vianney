@@ -211,4 +211,43 @@ body {
     .split.left:hover .overlay, .split.right:hover .overlay {
         opacity: 0; /* Pas d'effet couleur au toucher sur mobile */
     }
+    /* À l'intérieur du bloc @media existant */
+.lang-switch-corner { 
+    top: 15px;    /* On le remonte un peu sur petit écran */
+    right: 15px;  /* On le décale un peu vers le bord */
+}
+}
+
+/* --- SÉLECTEUR DE LANGUE (Coin Haut Droite) --- */
+.lang-switch-corner {
+    position: absolute; /* Indispensable pour qu'il flotte au-dessus */
+    top: 30px;          /* Espace depuis le haut */
+    right: 40px;        /* Espace depuis la droite */
+    z-index: 1000;      /* Très important : assure que le bouton est CLIQUABLE et pas sous l'image */
+    
+    font-family: 'Helvetica', sans-serif; /* Police simple pour l'interface */
+    font-size: 0.9rem;
+    color: var(--color-text);
+    letter-spacing: 1px;
+}
+
+.lang-switch-corner a { 
+    text-decoration: none; 
+    color: #999; /* Gris clair pour la langue pas active (PT) */
+    transition: color 0.3s;
+}
+
+.lang-switch-corner a:hover { 
+    color: var(--color-text); /* Devient foncé quand on passe la souris */
+}
+
+.lang-switch-corner .active { 
+    font-weight: bold; 
+    border-bottom: 1px solid var(--color-text); /* Souligné pour dire "c'est ici" */
+    cursor: default;
+}
+
+.lang-switch-corner .separator { 
+    margin: 0 8px; 
+    opacity: 0.5; 
 }
