@@ -10,13 +10,14 @@
     
     <style>
         :root {
-            /* Utilisation du jaune F2C13A comme demandé */
             --bg-color: #FFFEF8;
             --mustard: #F2C13A; 
             --blue-ocean: #2A6E8C;
             --green-palm: #8DB658;
             --text-dark: #2C2C2C;
             --text-accent: #B68D64;
+            --font-name: 'Antonio', sans-serif;
+            --font-body: 'Playfair Display', serif;
         }
 
         body {
@@ -24,155 +25,232 @@
             padding: 0;
             background-color: var(--bg-color);
             color: var(--text-dark);
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-body);
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            position: relative; /* Pour positionner les éléments absolus (langue) */
         }
 
-        /* --- NOUVEAU : Bande jaune stylisée en PNG --- */
+        /* --- ÉLÉMENTS DE HAUT DE PAGE --- */
+        
+        /* Bande jaune stylisée en PNG (Gardée en haut) */
         .top-band-img {
             width: 100%;
-            /* Ajustez le chemin de votre image PNG */
-            /* J'utilise une image balise pour garder l'effet de coup de pinceau du PNG */
-            display: block; /* Pour retirer l'espace sous l'image */
+            display: block;
             height: auto;
-            max-height: 80px; /* Limite la hauteur pour éviter qu'elle soit trop grande */
+            max-height: 80px; 
             object-fit: cover;
+            position: relative;
+            z-index: 10;
         }
 
-        /* --- NOUVEAU : Conteneur de l'illustration --- */
-        .illustration-container {
+        /* Sélecteur de langue */
+        .language-selector {
+            position: absolute;
+            top: 25px; /* Ajustez pour qu'il soit bien sur la bande jaune */
+            right: 30px;
+            font-family: var(--font-name);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--text-dark); /* Couleur du texte sur la bande jaune */
+            z-index: 20;
+        }
+        .language-selector a {
+            text-decoration: none;
+            color: inherit;
+            margin-left: 5px;
+            transition: opacity 0.3s;
+        }
+        .language-selector a:hover {
+            opacity: 0.7;
+        }
+        .language-selector span {
+            color: #999; /* Séparateur gris */
+        }
+
+        /* --- ILLUSTRATION & CONTENU PRINCIPAL --- */
+        
+        /* Conteneur pour positionner les noms au centre de l'illustration */
+        .illustration-area {
+            position: relative;
             width: 100%;
-            max-width: 1000px; /* Limite la largeur de l'illustration */
-            height: 300px; /* Hauteur fixe pour l'illustration */
-            margin: 0 auto; /* Centrage */
-            overflow: hidden; /* Assure que rien ne déborde */
+            height: calc(100vh - 120px); /* Ocuupe presque toute la hauteur - taille de la bande jaune/footer */
+            margin: 20px 0 0 0; /* Ajoute l'espace de respiration de 20px sous la bande jaune */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around; /* Pour centrer le texte verticalement */
+            align-items: center;
         }
         
         .main-illustration {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Recadre l'image pour couvrir la zone */
+            object-fit: contain; /* Laisse l'image visible dans sa totalité, sans la couper */
             display: block;
+            z-index: 1; /* Derrière le texte */
         }
 
-        .content-wrap { 
-            flex: 1; 
-            max-width: 900px; /* Réduction du max-width pour accentuer le "white space" */
-            margin: 50px auto 0 auto; /* Marge supérieure pour l'espace de respiration */
-            padding: 0 20px;
-            text-align: center;
-        }
-        
-        /* ... (Les styles h1, .ampersand, .intro-text restent inchangés) ... */
-
-        .main-title-block {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 30px; /* Réduction de la marge pour rapprocher le texte */
+        /* Conteneur du texte (Noms, Intro, Boutons) */
+        .content-center {
             position: relative;
+            z-index: 5; /* Au-dessus de l'illustration */
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
         }
 
-        h1 {
-            font-family: 'Antonio', sans-serif;
+        /* Noms au centre */
+        .main-title-block {
+            line-height: 1;
+            margin-bottom: 30px; 
+        }
+
+        .main-title-block h1 {
+            font-family: var(--font-name);
             text-transform: uppercase;
-            font-size: 3.5rem; /* Légèrement réduit */
-            letter-spacing: 4px;
-            line-height: 0.9;
+            font-size: 4.5rem; 
+            letter-spacing: 6px;
             color: var(--text-dark);
             margin: 0;
         }
         
-        .ampersand {
-            font-family: 'Playfair Display', serif;
+        .main-title-block .ampersand {
+            font-family: var(--font-body);
             font-style: italic;
             color: var(--text-accent);
-            font-size: 1.8rem;
-            margin: 0 15px; /* Légèrement réduit */
+            font-size: 2.2rem;
+            display: block; /* Pour mettre le '&' sur sa propre ligne entre les prénoms */
+            margin: 10px 0;
         }
 
         .intro-text {
-            font-size: 1.1rem; /* Légèrement réduit */
+            font-size: 1.1rem;
             color: #666;
-            margin-bottom: 60px; /* Augmentation pour l'espace avant les cartes */
+            margin-bottom: 50px;
             font-style: italic;
         }
 
+        /* Cartes de destination (boutons) */
         .destinations {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .card {
+            padding: 15px 0;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card .date {
+            font-family: var(--font-name);
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            padding: 15px 30px;
+            background-color: var(--mustard);
+            color: var(--text-dark);
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .card.brasil-theme .date {
+            background-color: var(--text-dark);
+            color: var(--mustard);
+        }
+
+        .card .date:hover {
+            opacity: 0.9;
         }
         
-        /* ... (Les styles .destinations::after, .card, .btn restent inchangés) ... */
+        /* --- FOOTER (Inchangé) --- */
+        .animated-footer {
+             /* ... (Vos styles pour l'animation) ... */
+             height: 120px;
+             margin-top: 50px; 
+             position: relative;
+             z-index: -1;
+             /* REMARQUE : L'animation du footer a été retirée du code pour le simplifier,
+                mais vous pouvez la remettre si vous avez l'image 'waves-footer.png' */
+        }
+        .footer-text {
+            text-align: center;
+            padding-bottom: 20px;
+            font-size: 0.8rem;
+            color: #999;
+            background-color: var(--bg-color);
+            position: relative;
+            z-index: 1;
+        }
 
-        /* --- FOOTER AVEC VAGUES ANIMÉES --- */
-        /* ... (Les styles du footer restent inchangés) ... */
-        
         /* Responsive Mobile */
         @media (max-width: 768px) {
-            .illustration-container {
-                height: 200px;
+            .illustration-area {
+                height: 70vh; /* Moins haut sur mobile */
+                margin: 10px 0 0 0;
             }
-            .content-wrap {
-                margin-top: 30px;
-                padding: 0 10px;
+            .main-title-block h1 {
+                font-size: 3rem;
+            }
+            .main-title-block .ampersand {
+                font-size: 1.5rem;
             }
             .destinations {
-                grid-template-columns: 1fr;
-                gap: 40px;
+                flex-direction: column;
+                gap: 20px;
             }
-            .destinations::after { display: none; }
-            h1 { font-size: 2.5rem; }
-            .main-title-block { flex-direction: column; }
-            .ampersand { margin: 10px 0; }
+            .card .date {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+            .language-selector {
+                top: 15px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <img src="yellow_top_band.png" alt="Bande décorative style coup de pinceau jaune" class="top-band-img">
-
-    <div class="illustration-container">
-        <img src="illustration_double.png" alt="Illustration stylisée de la Provence et de la Mata Atlântica" class="main-illustration">
+    <div class="language-selector">
+        <a href="?lang=pt">PT</a> <span>|</span> <a href="?lang=fr">FR</a>
     </div>
 
-    <div class="content-wrap">
-        
-        <div class="main-title-block">
-            <h1>Cilene</h1>
-            <span class="ampersand">&</span>
-            <h1>Vianney</h1>
-        </div>
+    <img src="yellow_top_band.png" alt="Bande décorative style coup de pinceau jaune" class="top-band-img">
 
-        <div class="destinations">
+    <div class="illustration-area">
+        <img src="illustration_double.png" alt="Illustration stylisée de la Provence et de la Mata Atlântica" class="main-illustration">
+
+        <div class="content-center">
             
-            <div class="card france-theme">
-                <div style="color: var(--blue-ocean); font-style:italic; margin-bottom:5px;">Sous le soleil de Provence</div>
-                <h2>France</h2>
-                <div class="date">Juillet 2027</div>
-                <div class="location">Château de Vaucouleurs<br>Puget-sur-Argens</div>
+            <div class="main-title-block">
+                <h1>CILENE</h1>
+                <span class="ampersand">&</span>
+                <h1>VIANNEY</h1>
+            </div>
+
+            <div class="destinations">
                 
-                <a href="/france" class="btn">Détails & RSVP</a>
+                <div class="card france-theme">
+                    <a href="/france" class="date">France 17 juillet 2027</a>
                 </div>
 
-            <div class="card brazil-theme">
-                <div style="color: var(--green-palm); font-style:italic; margin-bottom:5px;">Sur la luxuriante Costa Verde</div>
-                <h2>Brasil</h2>
-                <div class="date">Juillet 2028</div>
-                <div class="location">Paraty<br>Rio de Janeiro</div>
-                
-                <a href="/brasil" class="btn">Détails & RSVP</a>
+                <div class="card brazil-theme">
+                    <a href="/brasil" class="date">Brésil juillet 2028</a>
                 </div>
 
+            </div>
         </div>
     </div>
     
-    <div class="animated-footer"></div>
     <div class="footer-text">
         cilenevianney.com
     </div>
