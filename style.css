@@ -50,11 +50,11 @@ body {
 
 /* Images de fond */
 .split.left {
-    background-image: url('assets/france-bg.jpg');
+    background-image: url('france-bg.png');
 }
 
 .split.right {
-    background-image: url('assets/bresil-bg.jpg');
+    background-image: url('bresil-bg.png');
 }
 
 /* --- EFFET "GALERIE" AU SURVOL --- */
