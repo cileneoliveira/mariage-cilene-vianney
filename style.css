@@ -54,7 +54,7 @@ body {
 }
 
 .split.right {
-    background-image: url('bresil-bg.png');
+    background-image: url('bresil-bg_1.png');
 }
 
 /* --- EFFET "GALERIE" AU SURVOL --- */
@@ -121,64 +121,94 @@ body {
     color: #fff;
 }
 
-/* --- LE TITRE CENTRAL GÉANT --- */
-.center-title {
+/* --- LA BANDE CENTRALE (DESKTOP) --- */
+.center-strip {
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    bottom: 0;
+    width: 140px; /* Largeur de la bande blanche - ajuste selon tes goûts */
+    background: #ffffff; /* Fond blanc pur style galerie */
+    transform: translateX(-50%); /* Centre parfaitement la bande */
     z-index: 20;
-    pointer-events: none; /* Permet de cliquer à travers */
-    mix-blend-mode: multiply; /* Effet de fusion avec le fond */
+    display: flex;
+    align-items: center; /* Centre verticalement avant rotation */
+    justify-content: center; /* Centre horizontalement avant rotation */
 }
 
-.center-title h1 {
-    font-family: 'Winterthur', sans-serif; /* TA POLICE */
-    font-size: 15vh; /* Taille relative à la hauteur de l'écran */
-    line-height: 0.8;
+.center-strip h1 {
+    /* C'est ici qu'on tourne le texte */
+    transform: rotate(-90deg); 
+    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    
+    /* Le Style Typographique */
+    font-family: 'Winterthur', sans-serif; /* Ta police */
+    font-size: 5rem; /* Taille imposante */
     color: var(--color-text);
-    text-align: center;
-    display: flex;
-    flex-direction: column; /* Vertical */
-    align-items: center;
+    letter-spacing: 2px; /* Espacement lettres élégant */
+    margin: 0;
 }
 
 .amp {
-    font-family: 'Times New Roman', serif;
+    font-family: 'Times New Roman', serif; /* Le "&" en serif pour le contraste */
     font-style: italic;
-    font-size: 5vh;
-    margin: 10px 0;
     font-weight: lighter;
+    margin: 0 15px; /* Espace autour du & */
+    font-size: 4rem; /* Un peu plus petit pour être élégant */
 }
 
-/* --- RESPONSIVE MOBILE --- */
+/* --- VERSION MOBILE (Code Complet à jour) --- */
 @media (max-width: 768px) {
-    body { overflow: auto; } /* On autorise le scroll */
-
+    
+    /* 1. On autorise le scroll */
+    body { overflow: auto; } 
+    
+    /* 2. On empile les blocs verticalement */
     .split-container {
-        flex-direction: column; /* Empilement vertical */
+        flex-direction: column; 
     }
 
-    .center-title h1 {
-        font-size: 10vh; /* Un peu plus petit sur mobile */
-        flex-direction: column;
+    /* 3. Ajustement du titre central (Bande horizontale) */
+    .center-strip {
+        /* On annule la position verticale du bureau */
+        top: 50%;
+        bottom: auto;
+        left: 0;
+        width: 100%; /* Prend toute la largeur */
+        height: 70px; /* Bande moins épaisse sur mobile */
+        transform: translateY(-50%); /* Centre verticalement */
+        flex-direction: row; /* Texte côte à côte */
     }
 
+    .center-strip h1 {
+        /* On remet le texte à l'endroit, mais on garde l'effet étiré */
+        transform: rotate(0deg) scaleY(1.2); 
+        font-size: 2.2rem; /* Taille adaptée au mobile */
+        letter-spacing: 1px;
+    }
+
+    .amp {
+        font-size: 1.8rem;
+        margin: 0 10px;
+    }
+
+    /* 4. Les Images (50% de l'écran chacune) */
     .split {
         width: 100%;
-        height: 50vh; /* Chaque bloc prend la moitié de l'écran */
+        height: 50vh; 
     }
-
-    /* Sur mobile, on affiche le contenu tout le temps, pas besoin de survol */
+    
+    /* 5. Texte sur les images (Toujours visible sur mobile) */
     .content {
         opacity: 1;
         transform: translateY(0);
-        background: rgba(255,255,255,0.6); /* Petit fond blanc pour lisibilité */
-        padding: 20px;
-        width: 100%;
+        background: rgba(255,255,255,0.7); /* Fond plus lisible */
+        padding: 10px 20px;
+        width: 80%; /* Pas trop large */
+        margin-bottom: 40px; /* On remonte un peu pour ne pas toucher la bande centrale */
     }
-
+    
     .split.left:hover .overlay, .split.right:hover .overlay {
-        opacity: 0; /* Pas d'effet hover coloré sur mobile */
+        opacity: 0; /* Pas d'effet couleur au toucher sur mobile */
     }
 }
