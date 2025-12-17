@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariage au Brésil | Cilene & Vianney</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CONFIGURATION --- */
+        :root {
+            --color-gold: #d4af37;      /* On garde le doré pour la cohérence */
+            --color-white: #ffffff;
+            --color-white-dim: #dddddd;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Helvetica', sans-serif;
+            color: var(--color-white);
+            overflow-x: hidden;
+            background-color: #000; /* Fond noir par défaut au chargement */
+        }
+
+        /* --- FOND D'ÉCRAN FIXE --- */
+        .bg-fixed {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* C'est ici qu'on change l'image pour le Brésil */
+            background-image: url('bresil-bg_1.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        /* --- FILTRE SOMBRE --- */
+        /* Indispensable pour lire du blanc sur une façade blanche */
+        .overlay-dark {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.45); /* Un poil plus sombre car la façade est blanche */
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 40px; box-sizing: border-box;
+            z-index: 100;
+        }
+        .nav-logo {
+            font-family: 'Antonio', sans-serif; font-weight: bold; font-size: 1.5rem;
+            text-decoration: none; color: white; letter-spacing: 1px;
+        }
+        .back-link {
+            text-decoration: none; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.8);
+        }
+
+        /* --- CONTENU --- */
+        .scroll-content {
+            position: relative; z-index: 1; padding-bottom: 100px;
+        }
+
+        /* --- HEADER --- */
+        header.hero {
+            height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            text-align: center;
+        }
+
+        h1.names {
+            font-family: 'Antonio', sans-serif;
+            font-size: 10vw;
+            line-height: 0.9;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .hero-details {
+            margin-top: 20px;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--color-gold);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Antonio', sans-serif;
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        p.text-body {
+            font-size: 1.2rem; line-height: 1.8; color: var(--color-white-dim); font-weight: 300;
+        }
+
+        /* --- PROGRAMME --- */
+        .event-item { margin-bottom: 60px; }
+        .event-day {
+            font-family: 'Antonio', sans-serif; font-size: 2rem; color: var(--color-gold);
+            margin-bottom: 10px; display: block;
+        }
+        .event-title {
+            font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0 0 10px 0;
+        }
+        .event-desc {
+            font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto;
+        }
+
+        /* --- INFOS --- */
+        .info-grid { text-align: left; margin-top: 40px; }
+        .info-block { margin-bottom: 50px; }
+        .info-block h3 {
+            font-family: 'Antonio', sans-serif; font-size: 1.5rem; color: var(--color-gold);
+            margin-bottom: 10px; text-transform: uppercase;
+        }
+        .info-block p, .info-block li {
+            font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,0.8); margin: 5px 0;
+        }
+
+        /* --- BOUTON RSVP --- */
+        .rsvp-btn {
+            display: inline-block; margin-top: 50px;
+            border: 1px solid white; color: white;
+            padding: 15px 40px; text-decoration: none;
+            font-family: 'Antonio', sans-serif; font-size: 1.2rem; letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+        .rsvp-btn:hover { background: white; color: black; }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            h1.names { font-size: 15vw; }
+            .section-title { font-size: 2.2rem; }
+            .event-title { font-size: 2rem; }
+            .rsvp-btn { width: 100%; box-sizing: border-box; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-fixed"></div>
+    <div class="overlay-dark"></div>
+
+    <nav>
+        <a href="index.html" class="back-link">← Accueil</a>
+        <a href="index.html" class="nav-logo">C & V</a>
+    </nav>
+
+    <div class="scroll-content">
+
+        <header class="hero">
+            <h1 class="names">Paraty<br>Brésil</h1>
+            <div class="hero-details">L'Hiver Tropical — 2028</div>
+        </header>
+
+        <section>
+            <p class="text-body">
+                Cap sur l'hémisphère sud.<br>
+                Rendez-vous dans les rues pavées du centre historique de Paraty pour une célébration intime et colorée.
+            </p>
+        </section>
+
+        <section>
+            <h2 class="section-title">Le Programme</h2>
+
+            <div class="event-item">
+                <span class="event-day">Vendredi</span>
+                <h3 class="event-title">Caïpirinhas de Bienvenue</h3>
+                <div class="event-desc">Coucher de soleil sur le port et première soirée décontractée au rythme de la Samba.</div>
+            </div>
+
+            <div class="event-item">
+                <span class="event-day">Samedi</span>
+                <h3 class="event-title">Le Mariage</h3>
+                <div class="event-desc">Cérémonie dans la Chapelle coloniale, suivie d'une fête tropicale dans une Pousada privée.</div>
+            </div>
+
+            <div class="event-item">
+                <span class="event-day">Dimanche</span>
+                <h3 class="event-title">Escuna Tour</h3>
+                <div class="event-desc">Journée en mer sur un bateau traditionnel (Escuna). Baignade dans les criques et déjeuner à bord.</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Logistique</h2>
+
+            <div class="info-grid">
+
+                <div class="info-block">
+                    <h3>Y Aller</h3>
+                    <p>Vol pour Rio de Janeiro (GIG).</p>
+                    <p>Puis Transfert privé ou Bus vers Paraty (environ 4h de route le long de la Costa Verde).</p>
+                </div>
+
+                <div class="info-block">
+                    <h3>Dormir</h3>
+                    <p>Le mariage aura lieu dans le Centre Historique (sans voitures).</p>
+                    <p>Nous vous recommandons de réserver une Pousada à l'intérieur du centre pour tout faire à pied.</p>
+                </div>
+
+                <div class="info-block">
+                    <h3>Météo</h3>
+                    <p>C'est l'hiver au Brésil, ce qui signifie... 25°C et un grand soleil ! Prévoyez une petite laine pour le soir.</p>
+                </div>
+
+            </div>
+
+            <a href="#" class="rsvp-btn" target="_blank">RÉPONDRE (Bientôt)</a>
+        </section>
+
+    </div>
+
+</body>
+</html>
