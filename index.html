@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
+        /* Définition des couleurs et polices */
         :root {
-            --bg-color: #FFFEF8;
+            /* Nouveau fond d'écran BEIGE pour correspondre aux vagues */
+            --bg-color: #FAF5E8; 
             --mustard: #F2C13A; 
-            --blue-ocean: #2A6E8C;
-            --green-palm: #8DB658;
             --text-dark: #2C2C2C;
             --text-accent: #B68D64;
             --font-name: 'Antonio', sans-serif;
@@ -23,19 +23,29 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
+            background-color: var(--bg-color); /* Applique le fond beige */
             color: var(--text-dark);
             font-family: var(--font-body);
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            position: relative; /* Pour positionner les éléments absolus (langue) */
+            position: relative;
         }
 
-        /* --- ÉLÉMENTS DE HAUT DE PAGE --- */
+        /* Wrapper pour centrer le contenu et pousser le footer en bas */
+        .content-wrap { 
+            flex: 1; 
+            max-width: 900px; 
+            margin: 50px auto 0 auto; /* Espace de respiration après la bande jaune */
+            padding: 0 20px;
+            text-align: center;
+        }
+
+
+        /* --- 1. ÉLÉMENTS DE HAUT DE PAGE --- */
         
-        /* Bande jaune stylisée en PNG (Gardée en haut) */
+        /* Bande jaune stylisée en PNG */
         .top-band-img {
             width: 100%;
             display: block;
@@ -49,12 +59,12 @@
         /* Sélecteur de langue */
         .language-selector {
             position: absolute;
-            top: 25px; /* Ajustez pour qu'il soit bien sur la bande jaune */
+            top: 25px; 
             right: 30px;
             font-family: var(--font-name);
             font-size: 0.9rem;
             letter-spacing: 1px;
-            color: var(--text-dark); /* Couleur du texte sur la bande jaune */
+            color: var(--text-dark); 
             z-index: 20;
         }
         .language-selector a {
@@ -67,47 +77,18 @@
             opacity: 0.7;
         }
         .language-selector span {
-            color: #999; /* Séparateur gris */
+            color: #999;
         }
 
-        /* --- ILLUSTRATION & CONTENU PRINCIPAL --- */
-        
-        /* Conteneur pour positionner les noms au centre de l'illustration */
-        .illustration-area {
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 120px); /* Ocuupe presque toute la hauteur - taille de la bande jaune/footer */
-            margin: 20px 0 0 0; /* Ajoute l'espace de respiration de 20px sous la bande jaune */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around; /* Pour centrer le texte verticalement */
-            align-items: center;
-        }
-        
-        .main-illustration {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Laisse l'image visible dans sa totalité, sans la couper */
-            display: block;
-            z-index: 1; /* Derrière le texte */
-        }
+        /* --- 2. CONTENU PRINCIPAL (Noms et boutons) --- */
 
-        /* Conteneur du texte (Noms, Intro, Boutons) */
-        .content-center {
-            position: relative;
-            z-index: 5; /* Au-dessus de l'illustration */
-            text-align: center;
-            max-width: 900px;
-            padding: 0 20px;
-        }
-
-        /* Noms au centre */
+        /* NOMS : SUR LA MÊME LIGNE */
         .main-title-block {
-            line-height: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 30px; 
+            line-height: 1;
         }
 
         .main-title-block h1 {
@@ -124,8 +105,8 @@
             font-style: italic;
             color: var(--text-accent);
             font-size: 2.2rem;
-            display: block; /* Pour mettre le '&' sur sa propre ligne entre les prénoms */
-            margin: 10px 0;
+            margin: 0 20px; 
+            display: inline;
         }
 
         .intro-text {
@@ -140,12 +121,6 @@
             display: flex;
             justify-content: center;
             gap: 30px;
-        }
-
-        .card {
-            padding: 15px 0;
-            text-align: center;
-            transition: transform 0.3s ease;
         }
 
         .card .date {
@@ -171,50 +146,50 @@
             opacity: 0.9;
         }
         
-        /* --- FOOTER (Inchangé) --- */
-        .animated-footer {
-             /* ... (Vos styles pour l'animation) ... */
-             height: 120px;
-             margin-top: 50px; 
-             position: relative;
-             z-index: -1;
-             /* REMARQUE : L'animation du footer a été retirée du code pour le simplifier,
-                mais vous pouvez la remettre si vous avez l'image 'waves-footer.png' */
+        /* --- 3. FOOTER AVEC VAGUES ANIMÉES --- */
+
+        /* Définition de l'animation de défilement */
+        @keyframes wave-movement {
+            from { background-position: 0 bottom; }
+            to { background-position: -2000px bottom; }
         }
+
+        .animated-footer {
+            width: 100%;
+            height: 120px; 
+            
+            /* Utilisation de l'image de vague (renommée en footer_waves.jpg) */
+            background-image: url('footer_waves.png'); 
+            background-repeat: repeat-x; 
+            background-position: left bottom; 
+            
+            /* Application de l'animation */
+            animation: wave-movement 30s linear infinite;
+            
+            margin-top: 50px; 
+            position: relative;
+            z-index: -1; 
+        }
+
         .footer-text {
             text-align: center;
             padding-bottom: 20px;
             font-size: 0.8rem;
             color: #999;
-            background-color: var(--bg-color);
+            background-color: var(--bg-color); /* Fond beige */
             position: relative;
-            z-index: 1;
+            z-index: 1; 
         }
 
         /* Responsive Mobile */
         @media (max-width: 768px) {
-            .illustration-area {
-                height: 70vh; /* Moins haut sur mobile */
-                margin: 10px 0 0 0;
-            }
-            .main-title-block h1 {
-                font-size: 3rem;
-            }
-            .main-title-block .ampersand {
-                font-size: 1.5rem;
-            }
-            .destinations {
-                flex-direction: column;
-                gap: 20px;
-            }
-            .card .date {
-                font-size: 1rem;
-                padding: 12px 25px;
-            }
-            .language-selector {
-                top: 15px;
-                right: 10px;
-            }
+            .content-wrap { margin-top: 30px; }
+            .main-title-block { flex-direction: column; }
+            .main-title-block h1 { font-size: 3rem; }
+            .main-title-block .ampersand { font-size: 1.5rem; margin: 5px 0; }
+            .destinations { flex-direction: column; gap: 20px; }
+            .card .date { font-size: 1rem; padding: 12px 25px; }
+            .language-selector { top: 15px; right: 10px; }
         }
     </style>
 </head>
@@ -224,33 +199,30 @@
         <a href="?lang=pt">PT</a> <span>|</span> <a href="?lang=fr">FR</a>
     </div>
 
-    <img src="yellow_top_band.png" alt="Bande décorative style coup de pinceau jaune" class="top-band-img">
+    <img src="yellow_top_band.png" alt="Bande décorative jaune" class="top-band-img">
 
-    <div class="illustration-area">
-        <img src="illustration_double.png" alt="Illustration stylisée de la Provence et de la Mata Atlântica" class="main-illustration">
+    <div class="content-wrap">
+        
+        <div class="main-title-block">
+            <h1>CILENE</h1>
+            <span class="ampersand">&</span>
+            <h1>VIANNEY</h1>
+        </div>
 
-        <div class="content-center">
+        <div class="destinations">
             
-            <div class="main-title-block">
-                <h1>CILENE</h1>
-                <span class="ampersand">&</span>
-                <h1>VIANNEY</h1>
+            <div class="card france-theme">
+                <a href="/france" class="date">France 17 juillet 2027</a>
             </div>
 
-            <div class="destinations">
-                
-                <div class="card france-theme">
-                    <a href="/france" class="date">France 17 juillet 2027</a>
-                </div>
-
-                <div class="card brazil-theme">
-                    <a href="/brasil" class="date">Brésil juillet 2028</a>
-                </div>
-
+            <div class="card brazil-theme">
+                <a href="/brasil" class="date">Brésil juillet 2028</a>
             </div>
+
         </div>
     </div>
     
+    <div class="animated-footer"></div>
     <div class="footer-text">
         cilenevianney.com
     </div>
