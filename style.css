@@ -140,34 +140,35 @@ body {
     transform: rotate(-90deg);
     white-space: nowrap;
     
-    /* STYLE AFFINÉ */
     font-family: 'Oswald', sans-serif;
     font-weight: 300; 
     font-size: 5rem;
-    color: var(--color-text);
+    color: var(--color-text); /* Même couleur pour tout le bloc */
     
-    /* L'ESPACEMENT EST LA CLÉ */
-    letter-spacing: 1px; /* Grand espacement pour aérer le bloc */
+    /* On serre les lettres pour l'aspect étiré */
+    letter-spacing: -1px; 
     text-transform: uppercase;
     
     line-height: 1;
     margin: 0;
+    display: flex;
+    align-items: center;
 }
 
 .amp {
-    /* Choisis ta police ici (ex: Inter ou Roboto) */
-    font-family: 'Oswald', sans-serif; 
-    font-weight: 200;
-    font-size: 3rem;
+    font-family: 'Oswald', sans-serif; /* Même police */
+    font-weight: 300; /* Même épaisseur */
+    font-size: 3.5rem; /* Plus petit que les lettres */
     
-    /* SUPPRESSION DE L'ESPACE : */
-    /* Comme le h1 a un letter-spacing de 12px ou 15px, 
-       on met une marge négative pour "aspirer" les textes vers le centre */
-    margin: 0 -15px; 
-    letter-spacing: 0; 
-
-    /* STYLE VISUEL */
+    /* Ajustement de l'espace autour du & */
+    margin: 0 15px; 
+    
+    /* Centrage vertical du & par rapport aux noms */
     display: inline-block;
+    transform: translateY(-2px); 
+    
+    /* On s'assure qu'il n'hérite pas du letter-spacing négatif */
+    letter-spacing: normal; 
 }
 
 /* --- VERSION MOBILE (Code Complet à jour) --- */
@@ -193,20 +194,15 @@ body {
         flex-direction: row; /* Texte côte à côte */
     }
 
-    .center-strip h1 {
-        /* On remet le texte à l'endroit, mais on garde l'effet étiré */
-        transform: rotate(0deg) scaleY(1.2);
-        font-family: 'Oswald', sans-serif;
-        font-size: 2.8rem; /* Taille adaptée au mobile */
-        font-weight: 300;
-        letter-spacing: 3px;
+    center-strip h1 {
+        font-size: 3rem; /* On augmente la présence sur mobile */
+        letter-spacing: 0px; 
+        transform: rotate(0deg); /* On le garde à l'endroit sur mobile */
     }
-
+    
     .amp {
-        font-size: 2.2rem;
-        font-weight: 100;
-        margin: 0 15px;
-        transform: scaleY(1.5); /* On l'étire fort verticalement pour le style artistique */
+        font-size: 2rem;
+        margin: 0 10px;
     }
 
     /* 4. Les Images (50% de l'écran chacune) */
