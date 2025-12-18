@@ -1,8 +1,8 @@
-/* --- RESET & BASES --- */
+/* --- 1. VARIABLES & RESET --- */
 :root {
-    --color-text: #3a3a36; /* Ton gris anthracite */
-    --color-france: #eec045; /* Jaune moutarde (approximatif invitation) */
-    --color-brasil: #88a883; /* Vert palmier (approximatif invitation) */
+    --color-text: #3a3a36; /* Gris anthracite */
+    --color-france: #eec045; /* Jaune */
+    --color-brasil: #88a883; /* Vert */
     --bg-light: #f9f9f9;
 }
 
@@ -13,19 +13,23 @@
 }
 
 body {
-    font-family: 'Antonio', sans-serif; /* Fallback si pas de police chargée */
-    overflow: hidden; /* Empêche le scroll sur la page d'accueil desktop */
+    /* Fallback solide si Winterthur plante */
+    font-family: 'Impact', 'Antonio', sans-serif; 
+    overflow: hidden; /* Pas de scroll sur PC */
     height: 100vh;
+    background-color: var(--bg-light);
 }
 
-/* --- CHARGEMENT DE TA POLICE (Si tu as le fichier) --- */
+/* --- 2. CHARGEMENT DE LA POLICE --- */
+/* VÉRIFIE BIEN QUE LE FICHIER S'APPELLE EXACTEMENT COMME ÇA DANS TON DOSSIER ASSETS */
 @font-face {
     font-family: 'Winterthur';
     src: url('WinterthurCondensed.ttf') format('truetype');
-    /* Si tu n'as pas le fichier, ça prendra Helvetica par défaut */
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* --- LE CONTENEUR PRINCIPAL --- */
+/* --- 3. STRUCTURE PRINCIPALE --- */
 .split-container {
     display: flex;
     width: 100%;
@@ -33,178 +37,174 @@ body {
     position: relative;
 }
 
-/* --- LES DEUX BLOCS (FRANCE & BRESIL) --- */
+/* --- 4. LES BLOCS IMAGE (GAUCHE & DROITE) --- */
 .split {
-    flex: 1; /* Chacun prend 50% */
+    flex: 1; /* 50% chacun */
     position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-end; /* Texte en bas */
     text-decoration: none;
-    transition: all 0.5s ease;
     background-size: cover;
     background-position: center;
     overflow: hidden;
-    padding-bottom: 80px; /* Espace pour le texte du bas */
+    padding-bottom: 80px;
+    
+    /* Assure que l'image est derrière le titre */
+    z-index: 1; 
 }
 
-/* Images de fond */
+/* Images de fond - Assure-toi que les chemins sont bons */
 .split.left {
-    background-image: url('assets/france-bg.jpg'); 
+    background-image: url('france-bg.jpg'); 
 }
 
 .split.right {
-    background-image: url('assets/bresil-bg.jpg');
+    background-image: url('bresil-bg_2.jpg');
 }
 
-/* --- EFFET "GALERIE" AU SURVOL --- */
+/* --- 5. EFFET AU SURVOL (Overlay couleur) --- */
 .overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.2; /* Légèrement visible par défaut */
-    transition: opacity 0.4s ease;
+    background-color: #000; /* Base noire si couleur marche pas */
+    opacity: 0.2;
+    transition: opacity 0.4s ease, background-color 0.4s ease;
+    z-index: 2; /* Juste au-dessus de l'image */
 }
 
-/* France : Filtre Jaune */
+/* Couleurs spécifiques */
 .split.left .overlay { background-color: var(--color-france); opacity: 0; }
 .split.left:hover .overlay { opacity: 0.85; }
 
-/* Brésil : Filtre Vert */
 .split.right .overlay { background-color: var(--color-brasil); opacity: 0; }
 .split.right:hover .overlay { opacity: 0.85; }
 
-/* --- TEXTES INTÉRIEURS (Date, Bouton) --- */
+/* --- 6. TEXTES INFO (France/Brésil) --- */
 .content {
     position: relative;
-    z-index: 10;
+    z-index: 10; /* Au-dessus de l'overlay */
     text-align: center;
     color: var(--color-text);
-    opacity: 0; /* Caché par défaut */
+    opacity: 0;
     transform: translateY(20px);
     transition: all 0.4s ease;
 }
 
-/* Apparition au survol */
 .split:hover .content {
     opacity: 1;
     transform: translateY(0);
 }
 
 .content h2 {
-    font-family: 'Times New Roman', serif; /* Contraste élégant */
+    font-family: 'Times New Roman', serif;
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
 
 .content p {
-    font-family: 'Arial', sans-serif;
+    font-family: sans-serif;
     letter-spacing: 1px;
-    margin-bottom: 20px;
     text-transform: uppercase;
     font-size: 0.8rem;
+    margin-bottom: 20px;
 }
 
-.btn {
-    border: 1px solid var(--color-text);
-    padding: 10px 30px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    background: transparent;
-    transition: background 0.3s;
-}
-
-.btn:hover {
-    background: var(--color-text);
-    color: #fff;
-}
-
-/* --- LE TITRE CENTRAL GÉANT --- */
-/* --- LE TITRE CENTRAL GÉANT --- */
+/* --- 7. LE TITRE CENTRAL (CILENE & VIANNEY) --- */
 .center-title {
     position: absolute;
     top: 50%;
     left: 50%;
-    /* On utilise translate3d pour une meilleure fluidité */
-    transform: translate(-50%, -50%); 
-    z-index: 20;
+    transform: translate(-50%, -50%);
+    
+    /* TRES IMPORTANT : Z-index élevé pour être sûr qu'il est visible */
+    z-index: 50; 
+    
+    /* Permet de cliquer sur les liens France/Brésil à travers le titre */
     pointer-events: none; 
-    mix-blend-mode: multiply; 
-    width: 100%; /* Force le conteneur à prendre toute la largeur pour centrer */
+    
+    width: 100%;
     display: flex;
-    justify-content: center; /* Centre horizontalement le bloc h1 */
+    justify-content: center;
 }
 
 .center-title h1 {
     font-family: 'Winterthur', sans-serif;
-    font-size: 15vh; 
-    line-height: 0.8;
+    /* Taille adaptée : 13vh est grand mais tient dans l'écran */
+    font-size: 13vh; 
+    line-height: 0.85; /* Resserre les lignes */
     color: var(--color-text);
+    
+    /* J'ai enlevé mix-blend-mode pour l'instant pour garantir la visibilité */
+    /* mix-blend-mode: multiply; */ 
+    
+    margin: 0;
+    padding: 0;
     text-align: center;
     
-    /* INDISPENSABLE : Supprimer les marges par défaut du navigateur */
-    margin: 0; 
-    padding: 0;
-    
+    /* Empilement Vertical */
     display: flex;
     flex-direction: column; 
-    align-items: center; /* Centre CILENE, &, VIANNEY entre eux */
+    align-items: center;
 }
 
 .amp {
-    font-family: 'Times New Roman', serif;
+    font-family: 'Times New Roman', serif; /* Ou ta police préférée */
     font-style: italic;
-    font-size: 5vh;
+    font-size: 4vh; /* Plus petit que les prénoms */
+    font-weight: 300;
     margin: 10px 0;
-    font-weight: lighter;
+    display: block; /* Force le retour à la ligne */
 }
 
-/* --- RESPONSIVE MOBILE --- */
+/* --- 8. MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
-    body { 
-        overflow-x: hidden; /* Évite le scroll horizontal */
-        overflow-y: auto;   /* Scroll vertical autorisé */
-    } 
     
+    body {
+        overflow-y: auto; /* Scroll autorisé */
+        overflow-x: hidden;
+    }
+
     .split-container {
-        flex-direction: column; 
-    }
-
-    /* Ajustement du titre sur mobile */
-    .center-title {
-        /* On le fixe au milieu de l'écran même quand on scrolle */
-        position: fixed; 
-        top: 50%;
-        transform: translate(-50%, -50%);
-        mix-blend-mode: normal; /* "Multiply" rend mal sur certains fonds mobiles */
-    }
-
-    .center-title h1 {
-        font-size: 12vw; /* On taille par rapport à la LARGEUR (vw) et pas la hauteur sur mobile */
-        color: #fff; /* Souvent plus lisible en blanc sur les photos en mobile, sinon garde var(--color-text) */
-        text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Ombre pour lisibilité */
-    }
-    
-    .amp {
-        font-size: 3rem; /* Taille fixe pour le & */
-        margin: 5px 0;
+        flex-direction: column; /* L'un sous l'autre */
+        height: auto; /* Hauteur libre */
     }
 
     .split {
         width: 100%;
-        height: 50vh; 
-        padding-bottom: 40px; /* Moins d'espace en bas */
+        height: 50vh; /* Chaque image fait la moitié de l'écran */
+        padding-bottom: 0;
+        align-items: center; /* Centre le contenu info */
     }
-    
-    /* Fond blanc semi-transparent pour lire les textes France/Brésil */
+
+    /* Ajustement du titre pour Mobile */
+    .center-title {
+        position: absolute; /* Reste au milieu de la page globale */
+        top: 50%; 
+        transform: translate(-50%, -50%);
+        height: auto;
+    }
+
+    .center-title h1 {
+        /* On réduit la taille pour le mobile */
+        font-size: 15vw; /* Basé sur la largeur pour ne pas déborder */
+        color: #fff; /* Blanc pour être lisible sur les photos sombres */
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Ombre pour lisibilité */
+    }
+
+    /* Le contenu France/Brésil toujours visible */
     .content {
         opacity: 1;
         transform: translateY(0);
-        background: rgba(255,255,255,0.8); 
-        padding: 15px;
-        width: 90%; /* Un peu de marge sur les côtés */
-        border-radius: 4px; /* Un peu plus doux */
+        background: rgba(255,255,255,0.9);
+        padding: 15px 30px;
+        border-radius: 50px;
+        margin-top: 150px; /* Pousse le contenu vers le bas pour ne pas toucher le titre */
     }
+    
+    /* Désactive les hover colorés sur mobile */
+    .overlay { display: none; }
 }
