@@ -142,7 +142,7 @@ body {
     white-space: nowrap; /* Empêche le texte de passer à la ligne */
     
     /* Le Style Typographique */
-    font-family: 'Winterthur', sans-serif; /* Ta police */
+    font-family: 'Oswald', sans-serif; /* Ta police */
     font-size: 5rem; /* Taille imposante */
     color: var(--color-text);
     letter-spacing: 2px; /* Espacement lettres élégant */
@@ -182,7 +182,8 @@ body {
 
     .center-strip h1 {
         /* On remet le texte à l'endroit, mais on garde l'effet étiré */
-        transform: rotate(0deg) scaleY(1.2); 
+        transform: rotate(0deg) scaleY(1.2);
+        font-family: 'Oswald', sans-serif;
         font-size: 2.2rem; /* Taille adaptée au mobile */
         letter-spacing: 1px;
     }
