@@ -21,7 +21,7 @@ body {
 /* --- CHARGEMENT DE TA POLICE (Si tu as le fichier) --- */
 @font-face {
     font-family: 'Winterthur';
-    src: url('assets/WinterthurCondensed.tff') format('tff');
+    src: url('assets/WinterthurCondensed.ttf') format('ttf');
     /* Si tu n'as pas le fichier, ça prendra Helvetica par défaut */
 }
 
