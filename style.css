@@ -13,17 +13,17 @@
 }
 
 body {
-    font-family: 'Helvetica', sans-serif; /* Fallback si pas de police chargée */
+    font-family: 'Oswald', sans-serif; /* Fallback si pas de police chargée */
     overflow: hidden; /* Empêche le scroll sur la page d'accueil desktop */
     height: 100vh;
 }
 
-/* --- CHARGEMENT DE TA POLICE (Si tu as le fichier) --- */
+/* --- CHARGEMENT DE TA POLICE (Si tu as le fichier)
 @font-face {
     font-family: 'Winterthur';
     src: url('assets/WinterthurCondensed-Regular.woff2') format('woff2');
-    /* Si tu n'as pas le fichier, ça prendra Helvetica par défaut */
-}
+   Si tu n'as pas le fichier, ça prendra Helvetica par défaut
+} --- */
 
 /* --- LE CONTENEUR PRINCIPAL --- */
 .split-container {
