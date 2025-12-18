@@ -150,11 +150,24 @@ body {
 }
 
 .amp {
-    font-family: 'Times New Roman', serif; /* Le "&" en serif pour le contraste */
+    /* On change pour une police plus "Haute Couture" */
+    font-family: 'Playfair Display', serif; 
     font-style: italic;
-    font-weight: lighter;
-    margin: 0 15px; /* Espace autour du & */
-    font-size: 4rem; /* Un peu plus petit pour être élégant */
+    font-weight: 300;
+    
+    /* Taille et Couleur */
+    font-size: 4rem; 
+    color: var(--color-text);
+    
+    /* LE SECRET DU CENTRAGE : */
+    display: inline-block; 
+    margin: 0 10px; /* Espace horizontal */
+    
+    /* Ajustement vertical (vu qu'il est incliné, c'est ce qui le centre dans la ligne) */
+    transform: translateY(-8px); 
+    
+    /* Lissage de la police */
+    -webkit-font-smoothing: antialiased;
 }
 
 /* --- VERSION MOBILE (Code Complet à jour) --- */
