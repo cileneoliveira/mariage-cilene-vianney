@@ -21,7 +21,7 @@ body {
 /* --- CHARGEMENT DE TA POLICE (Si tu as le fichier) --- */
 @font-face {
     font-family: 'Winterthur';
-    src: url('assets/WinterthurCondensed.ttf') format('ttf');
+    src: url('WinterthurCondensed.ttf') format('truetype');
     /* Si tu n'as pas le fichier, ça prendra Helvetica par défaut */
 }
 
@@ -122,25 +122,35 @@ body {
 }
 
 /* --- LE TITRE CENTRAL GÉANT --- */
+/* --- LE TITRE CENTRAL GÉANT --- */
 .center-title {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    /* On utilise translate3d pour une meilleure fluidité */
+    transform: translate(-50%, -50%); 
     z-index: 20;
-    pointer-events: none; /* Permet de cliquer à travers */
-    mix-blend-mode: multiply; /* Effet de fusion avec le fond */
+    pointer-events: none; 
+    mix-blend-mode: multiply; 
+    width: 100%; /* Force le conteneur à prendre toute la largeur pour centrer */
+    display: flex;
+    justify-content: center; /* Centre horizontalement le bloc h1 */
 }
 
 .center-title h1 {
-    font-family: 'Winterthur', sans-serif; /* TA POLICE */
-    font-size: 15vh; /* Taille relative à la hauteur de l'écran */
+    font-family: 'Winterthur', sans-serif;
+    font-size: 15vh; 
     line-height: 0.8;
     color: var(--color-text);
     text-align: center;
+    
+    /* INDISPENSABLE : Supprimer les marges par défaut du navigateur */
+    margin: 0; 
+    padding: 0;
+    
     display: flex;
-    flex-direction: column; /* Vertical */
-    align-items: center;
+    flex-direction: column; 
+    align-items: center; /* Centre CILENE, &, VIANNEY entre eux */
 }
 
 .amp {
@@ -153,32 +163,48 @@ body {
 
 /* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
-    body { overflow: auto; } /* On autorise le scroll */
+    body { 
+        overflow-x: hidden; /* Évite le scroll horizontal */
+        overflow-y: auto;   /* Scroll vertical autorisé */
+    } 
     
     .split-container {
-        flex-direction: column; /* Empilement vertical */
+        flex-direction: column; 
+    }
+
+    /* Ajustement du titre sur mobile */
+    .center-title {
+        /* On le fixe au milieu de l'écran même quand on scrolle */
+        position: fixed; 
+        top: 50%;
+        transform: translate(-50%, -50%);
+        mix-blend-mode: normal; /* "Multiply" rend mal sur certains fonds mobiles */
     }
 
     .center-title h1 {
-        font-size: 10vh; /* Un peu plus petit sur mobile */
-        flex-direction: column; 
+        font-size: 12vw; /* On taille par rapport à la LARGEUR (vw) et pas la hauteur sur mobile */
+        color: #fff; /* Souvent plus lisible en blanc sur les photos en mobile, sinon garde var(--color-text) */
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Ombre pour lisibilité */
     }
     
+    .amp {
+        font-size: 3rem; /* Taille fixe pour le & */
+        margin: 5px 0;
+    }
+
     .split {
         width: 100%;
-        height: 50vh; /* Chaque bloc prend la moitié de l'écran */
+        height: 50vh; 
+        padding-bottom: 40px; /* Moins d'espace en bas */
     }
     
-    /* Sur mobile, on affiche le contenu tout le temps, pas besoin de survol */
+    /* Fond blanc semi-transparent pour lire les textes France/Brésil */
     .content {
         opacity: 1;
         transform: translateY(0);
-        background: rgba(255,255,255,0.6); /* Petit fond blanc pour lisibilité */
-        padding: 20px;
-        width: 100%;
-    }
-    
-    .split.left:hover .overlay, .split.right:hover .overlay {
-        opacity: 0; /* Pas d'effet hover coloré sur mobile */
+        background: rgba(255,255,255,0.8); 
+        padding: 15px;
+        width: 90%; /* Un peu de marge sur les côtés */
+        border-radius: 4px; /* Un peu plus doux */
     }
 }
