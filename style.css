@@ -142,7 +142,7 @@ body {
     
     /* STYLE AFFINÉ */
     font-family: 'Oswald', sans-serif;
-    font-weight: 200; /* Le plus fin possible */
+    font-weight: 300; /* Le plus fin possible */
     font-size: 5rem;
     color: var(--color-text);
     
@@ -155,19 +155,21 @@ body {
 }
 
 .amp {
-    /* Sans empattements, fin et moderne */
-    font-family: 'Montserrat', sans-serif;
+    /* Choisis ta police ici (ex: Inter ou Roboto) */
+    font-family: 'Oswald', sans-serif; 
     font-weight: 200;
-    font-size: 3.5rem;
+    font-size: 3rem;
     
-    /* On annule l'espacement d'Oswald pour le centrer */
+    /* SUPPRESSION DE L'ESPACE : */
+    /* Comme le h1 a un letter-spacing de 12px ou 15px, 
+       on met une marge négative pour "aspirer" les textes vers le centre */
+    margin: 0 -25px; 
     letter-spacing: 0; 
-    margin: 0 10px;
-    
-    /* On l'étire un peu vers le haut pour rappeler le style Oswald */
+
+    /* STYLE VISUEL */
     display: inline-block;
-    transform: scaleY(1.2) translateY(-5px); 
-    opacity: 0.8;
+    transform: scaleY(1.3) translateY(-4px); /* Étiré vers le haut pour matcher Oswald */
+    opacity: 0.7;
 }
 
 /* --- VERSION MOBILE (Code Complet à jour) --- */
@@ -188,7 +190,7 @@ body {
         bottom: auto;
         left: 0;
         width: 100%; /* Prend toute la largeur */
-        height: 70px; /* Bande moins épaisse sur mobile */
+        height: 100px; /* Bande moins épaisse sur mobile */
         transform: translateY(-50%); /* Centre verticalement */
         flex-direction: row; /* Texte côte à côte */
     }
@@ -197,13 +199,16 @@ body {
         /* On remet le texte à l'endroit, mais on garde l'effet étiré */
         transform: rotate(0deg) scaleY(1.2);
         font-family: 'Oswald', sans-serif;
-        font-size: 2.2rem; /* Taille adaptée au mobile */
-        letter-spacing: 1px;
+        font-size: 2.8rem; /* Taille adaptée au mobile */
+        font-weight: 300;
+        letter-spacing: 3px;
     }
 
     .amp {
-        font-size: 1.8rem;
-        margin: 0 10px;
+        font-size: 2.2rem;
+        font-weight: 100;
+        margin: 0 15px;
+        transform: scaleY(1.5); /* On l'étire fort verticalement pour le style artistique */
     }
 
     /* 4. Les Images (50% de l'écran chacune) */
