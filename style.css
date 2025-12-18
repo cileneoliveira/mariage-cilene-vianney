@@ -147,7 +147,7 @@ body {
     color: var(--color-text);
     
     /* L'ESPACEMENT EST LA CLÉ */
-    letter-spacing: 10px; /* Grand espacement pour aérer le bloc */
+    letter-spacing: 1px; /* Grand espacement pour aérer le bloc */
     text-transform: uppercase;
     
     line-height: 1;
