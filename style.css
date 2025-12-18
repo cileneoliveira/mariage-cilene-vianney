@@ -162,7 +162,7 @@ body {
     
     /* On annule l'espacement d'Oswald pour le centrer */
     letter-spacing: 0; 
-    margin: 0 30px;
+    margin: 0 10px;
     
     /* On l'étire un peu vers le haut pour rappeler le style Oswald */
     display: inline-block;
