@@ -142,12 +142,12 @@ body {
     
     /* STYLE AFFINÉ */
     font-family: 'Oswald', sans-serif;
-    font-weight: 300; /* Le plus fin possible */
+    font-weight: 300; 
     font-size: 5rem;
     color: var(--color-text);
     
     /* L'ESPACEMENT EST LA CLÉ */
-    letter-spacing: 12px; /* Grand espacement pour aérer le bloc */
+    letter-spacing: 10px; /* Grand espacement pour aérer le bloc */
     text-transform: uppercase;
     
     line-height: 1;
@@ -163,13 +163,11 @@ body {
     /* SUPPRESSION DE L'ESPACE : */
     /* Comme le h1 a un letter-spacing de 12px ou 15px, 
        on met une marge négative pour "aspirer" les textes vers le centre */
-    margin: 0 -25px; 
+    margin: 0 -15px; 
     letter-spacing: 0; 
 
     /* STYLE VISUEL */
     display: inline-block;
-    transform: scaleY(1.3) translateY(-4px); /* Étiré vers le haut pour matcher Oswald */
-    opacity: 0.7;
 }
 
 /* --- VERSION MOBILE (Code Complet à jour) --- */
