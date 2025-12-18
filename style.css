@@ -137,37 +137,31 @@ body {
 }
 
 .center-strip h1 {
-    /* C'est ici qu'on tourne le texte */
-    transform: rotate(-90deg); 
-    white-space: nowrap; /* Empêche le texte de passer à la ligne */
+    transform: rotate(-90deg);
+    white-space: nowrap;
     
-    /* Le Style Typographique */
-    font-family: 'Oswald', sans-serif; /* Ta police */
-    font-size: 5rem; /* Taille imposante */
+    /* STYLE AFFINÉ */
+    font-family: 'Oswald', sans-serif;
+    font-weight: 200; /* Le plus fin possible */
+    font-size: 4.5rem; /* On réduit un peu la taille pour plus d'élégance */
     color: var(--color-text);
-    letter-spacing: 2px; /* Espacement lettres élégant */
+    
+    /* L'ESPACEMENT EST LA CLÉ */
+    letter-spacing: 12px; /* Grand espacement pour aérer le bloc */
+    text-transform: uppercase;
+    
+    line-height: 1;
     margin: 0;
 }
 
 .amp {
-    /* On change pour une police plus "Haute Couture" */
-    font-family: 'Playfair Display', serif; 
-    font-style: italic;
-    font-weight: 300;
-    
-    /* Taille et Couleur */
-    font-size: 4rem; 
-    color: var(--color-text);
-    
-    /* LE SECRET DU CENTRAGE : */
-    display: inline-block; 
-    margin: 0 10px; /* Espace horizontal */
-    
-    /* Ajustement vertical (vu qu'il est incliné, c'est ce qui le centre dans la ligne) */
-    transform: translateY(-8px); 
-    
-    /* Lissage de la police */
-    -webkit-font-smoothing: antialiased;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 200; 
+    font-size: 3rem; /* Plus petit que les noms */
+    margin: 0 30px; /* Plus d'espace autour */
+    opacity: 0.6; /* On l'efface un peu visuellement */
+    display: inline-block;
+    transform: translateY(-2px);
 }
 
 /* --- VERSION MOBILE (Code Complet à jour) --- */
