@@ -143,7 +143,7 @@ body {
     /* STYLE AFFINÉ */
     font-family: 'Oswald', sans-serif;
     font-weight: 200; /* Le plus fin possible */
-    font-size: 4.5rem; /* On réduit un peu la taille pour plus d'élégance */
+    font-size: 5rem;
     color: var(--color-text);
     
     /* L'ESPACEMENT EST LA CLÉ */
@@ -155,13 +155,19 @@ body {
 }
 
 .amp {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 200; 
-    font-size: 3rem; /* Plus petit que les noms */
-    margin: 0 30px; /* Plus d'espace autour */
-    opacity: 0.6; /* On l'efface un peu visuellement */
+    /* Sans empattements, fin et moderne */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 3.5rem;
+    
+    /* On annule l'espacement d'Oswald pour le centrer */
+    letter-spacing: 0; 
+    margin: 0 30px;
+    
+    /* On l'étire un peu vers le haut pour rappeler le style Oswald */
     display: inline-block;
-    transform: translateY(-2px);
+    transform: scaleY(1.2) translateY(-5px); 
+    opacity: 0.8;
 }
 
 /* --- VERSION MOBILE (Code Complet à jour) --- */
