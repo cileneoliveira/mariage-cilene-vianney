@@ -18,12 +18,12 @@ body {
     height: 100vh;
 }
 
-/* --- CHARGEMENT DE TA POLICE (Si tu as le fichier)
+/* --- CHARGEMENT DE TA POLICE (Si tu as le fichier) --- */
 @font-face {
     font-family: 'Winterthur';
-    src: url('assets/WinterthurCondensed-Regular.woff2') format('woff2');
-   Si tu n'as pas le fichier, ça prendra Helvetica par défaut
-} --- */
+    src: url('assets/WinterthurCondensed.tff') format('tff');
+    /* Si tu n'as pas le fichier, ça prendra Helvetica par défaut */
+}
 
 /* --- LE CONTENEUR PRINCIPAL --- */
 .split-container {
@@ -50,11 +50,11 @@ body {
 
 /* Images de fond */
 .split.left {
-    background-image: url('france-bg.png');
+    background-image: url('assets/france-bg.jpg'); 
 }
 
 .split.right {
-    background-image: url('bresil-bg_2.png');
+    background-image: url('assets/bresil-bg.jpg');
 }
 
 /* --- EFFET "GALERIE" AU SURVOL --- */
@@ -121,133 +121,64 @@ body {
     color: #fff;
 }
 
-/* --- LA BANDE CENTRALE (DESKTOP) --- */
-.center-strip {
+/* --- LE TITRE CENTRAL GÉANT --- */
+.center-title {
     position: absolute;
+    top: 50%;
     left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 140px; /* Largeur de la bande blanche - ajuste selon tes goûts */
-    background: #ffffff; /* Fond blanc pur style galerie */
-    transform: translateX(-50%); /* Centre parfaitement la bande */
+    transform: translate(-50%, -50%);
     z-index: 20;
-    display: flex;
-    align-items: center; /* Centre verticalement avant rotation */
-    justify-content: center; /* Centre horizontalement avant rotation */
+    pointer-events: none; /* Permet de cliquer à travers */
+    mix-blend-mode: multiply; /* Effet de fusion avec le fond */
 }
 
-.center-strip h1 {
-    /* Rotation du texte */
-    transform: rotate(-90deg) scaleY(1.3); /* scaleY(1.3) étire la police en hauteur de 30% ! */
-    white-space: nowrap;
-    
-    /* Nouvelle Police */
-    font-family: 'Antonio', sans-serif; 
-    font-weight: 400; /* Regular (ni trop gras, ni trop fin) */
-    
-    /* Ajustements */
-    font-size: 5rem; 
+.center-title h1 {
+    font-family: 'Winterthur', sans-serif; /* TA POLICE */
+    font-size: 15vh; /* Taille relative à la hauteur de l'écran */
+    line-height: 0.8;
     color: var(--color-text);
-    letter-spacing: 0.1em; /* Un peu d'air entre les lettres */
-    margin: 0;
-}s: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Vertical */
+    align-items: center;
 }
 
 .amp {
-    font-family: 'Times New Roman', serif; /* Le "&" en serif pour le contraste */
+    font-family: 'Times New Roman', serif;
     font-style: italic;
+    font-size: 5vh;
+    margin: 10px 0;
     font-weight: lighter;
-    margin: 0 15px; /* Espace autour du & */
-    font-size: 4rem; /* Un peu plus petit pour être élégant */
 }
 
-/* --- VERSION MOBILE (Code Complet à jour) --- */
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 768px) {
+    body { overflow: auto; } /* On autorise le scroll */
     
-    /* 1. On autorise le scroll */
-    body { overflow: auto; } 
-    
-    /* 2. On empile les blocs verticalement */
     .split-container {
+        flex-direction: column; /* Empilement vertical */
+    }
+
+    .center-title h1 {
+        font-size: 10vh; /* Un peu plus petit sur mobile */
         flex-direction: column; 
     }
-
-    /* 3. Ajustement du titre central (Bande horizontale) */
-    .center-strip {
-        /* On annule la position verticale */
-        top: 50%;
-        bottom: auto;
-        left: 0;
-        width: 100%; /* Prend toute la largeur */
-        height: 80px; /* Hauteur de la bande */
-        transform: translateY(-50%); /* Centre verticalement */
-        flex-direction: row;
-    }
-
-    .center-strip h1 {
-        transform: rotate(0deg) scaleY(1.2); /* Un peu moins étiré sur mobile */
-        font-size: 2.5rem;
-    }
     
-    .amp {
-        font-size: 1.8rem;
-    }
-
-    /* Ajustement des photos pour laisser la place au milieu */
     .split {
-        height: 50vh; /* Moitié de l'écran */
+        width: 100%;
+        height: 50vh; /* Chaque bloc prend la moitié de l'écran */
     }
     
-    /* 5. Texte sur les images (Toujours visible sur mobile) */
+    /* Sur mobile, on affiche le contenu tout le temps, pas besoin de survol */
     .content {
         opacity: 1;
         transform: translateY(0);
-        background: rgba(255,255,255,0.7); /* Fond plus lisible */
-        padding: 10px 20px;
-        width: 80%; /* Pas trop large */
-        margin-bottom: 40px; /* On remonte un peu pour ne pas toucher la bande centrale */
+        background: rgba(255,255,255,0.6); /* Petit fond blanc pour lisibilité */
+        padding: 20px;
+        width: 100%;
     }
     
     .split.left:hover .overlay, .split.right:hover .overlay {
-        opacity: 0; /* Pas d'effet couleur au toucher sur mobile */
+        opacity: 0; /* Pas d'effet hover coloré sur mobile */
     }
-    /* À l'intérieur du bloc @media existant */
-.lang-switch-corner { 
-    top: 15px;    /* On le remonte un peu sur petit écran */
-    right: 15px;  /* On le décale un peu vers le bord */
-}
-}
-
-/* --- SÉLECTEUR DE LANGUE (Coin Haut Droite) --- */
-.lang-switch-corner {
-    position: absolute; /* Indispensable pour qu'il flotte au-dessus */
-    top: 30px;          /* Espace depuis le haut */
-    right: 40px;        /* Espace depuis la droite */
-    z-index: 1000;      /* Très important : assure que le bouton est CLIQUABLE et pas sous l'image */
-    
-    font-family: 'Helvetica', sans-serif; /* Police simple pour l'interface */
-    font-size: 0.9rem;
-    color: var(--color-text);
-    letter-spacing: 1px;
-}
-
-.lang-switch-corner a { 
-    text-decoration: none; 
-    color: #999; /* Gris clair pour la langue pas active (PT) */
-    transition: color 0.3s;
-}
-
-.lang-switch-corner a:hover { 
-    color: var(--color-text); /* Devient foncé quand on passe la souris */
-}
-
-.lang-switch-corner .active { 
-    font-weight: bold; 
-    border-bottom: 1px solid var(--color-text); /* Souligné pour dire "c'est ici" */
-    cursor: default;
-}
-
-.lang-switch-corner .separator { 
-    margin: 0 8px; 
-    opacity: 0.5; 
 }
