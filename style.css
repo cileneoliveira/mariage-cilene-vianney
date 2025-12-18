@@ -1,35 +1,50 @@
 /* --- 1. VARIABLES & RESET --- */
 :root {
-    --color-text: #3a3a36; /* Gris anthracite */
+    --color-text: #3a3a36; 
     --color-france: #eec045; /* Jaune */
     --color-brasil: #88a883; /* Vert */
     --bg-light: #f9f9f9;
+    --strip-width: 140px; /* Largeur de la bande blanche */
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    /* Fallback solide si Winterthur plante */
-    font-family: 'Impact', 'Antonio', sans-serif; 
+    font-family: 'Arial', sans-serif; 
     overflow: hidden; /* Pas de scroll sur PC */
     height: 100vh;
-    background-color: var(--bg-light);
+    width: 100vw;
 }
 
-/* --- 2. CHARGEMENT DE LA POLICE --- */
-/* VÉRIFIE BIEN QUE LE FICHIER S'APPELLE EXACTEMENT COMME ÇA DANS TON DOSSIER ASSETS */
+/* --- 2. POLICE (Vérifie bien le nom du fichier !) --- */
 @font-face {
     font-family: 'Winterthur';
-    src: url('WinterthurCondensed.ttf') format('truetype');
+    /* Si ton fichier s'appelle WinterthurCondensed.ttf, c'est bon. */
+    /* Sinon change le nom ici */
+    src: url('WinterthurCondensed.ttf') format('truetype'); 
     font-weight: normal;
     font-style: normal;
 }
 
-/* --- 3. STRUCTURE PRINCIPALE --- */
+/* --- 3. NAVIGATION (Coin Haut Gauche/Droite) --- */
+.lang-switch-corner {
+    position: absolute;
+    top: 30px;
+    left: 30px; /* Ou 'right: 30px' si tu veux à droite */
+    z-index: 100; /* Au-dessus de tout */
+    font-family: 'Arial', sans-serif;
+    font-size: 0.9rem;
+    color: var(--color-text);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.lang-switch-corner a { text-decoration: none; color: #999; transition: 0.3s; }
+.lang-switch-corner a:hover { color: #000; }
+.lang-switch-corner .separator { margin: 0 5px; opacity: 0.5; }
+.lang-switch-corner .active { color: #000; border-bottom: 1px solid #000; }
+
+/* --- 4. CONTENEUR PRINCIPAL --- */
 .split-container {
     display: flex;
     width: 100%;
@@ -37,174 +52,154 @@ body {
     position: relative;
 }
 
-/* --- 4. LES BLOCS IMAGE (GAUCHE & DROITE) --- */
+/* --- 5. LES DEUX CÔTÉS (GAUCHE & DROITE) --- */
 .split {
-    flex: 1; /* 50% chacun */
+    flex: 1; 
     position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-end; /* Texte en bas */
     text-decoration: none;
-    background-size: cover;
-    background-position: center;
     overflow: hidden;
     padding-bottom: 80px;
+    transition: all 0.5s ease;
     
-    /* Assure que l'image est derrière le titre */
-    z-index: 1; 
+    /* Image de fond */
+    background-size: cover;
+    background-position: center;
 }
 
-/* Images de fond - Assure-toi que les chemins sont bons */
+/* --- IMAGES & COULEURS DE FOND --- */
 .split.left {
     background-image: url('france-bg.png'); 
+    background-color: var(--color-france); /* Couleur si image manque */
 }
 
 .split.right {
     background-image: url('bresil-bg_2.png');
+    background-color: var(--color-brasil); /* Couleur si image manque */
 }
 
-/* --- 5. EFFET AU SURVOL (Overlay couleur) --- */
+/* --- L'EFFET DE COULEUR AU SURVOL --- */
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000; /* Base noire si couleur marche pas */
-    opacity: 0.2;
-    transition: opacity 0.4s ease, background-color 0.4s ease;
-    z-index: 2; /* Juste au-dessus de l'image */
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; /* Invisible par défaut, on voit l'image */
+    transition: opacity 0.4s ease;
+    z-index: 1;
 }
 
-/* Couleurs spécifiques */
-.split.left .overlay { background-color: var(--color-france); opacity: 0; }
-.split.left:hover .overlay { opacity: 0.85; }
+/* Au survol, on affiche la couleur */
+.split.left:hover .overlay { background-color: var(--color-france); opacity: 0.9; }
+.split.right:hover .overlay { background-color: var(--color-brasil); opacity: 0.9; }
 
-.split.right .overlay { background-color: var(--color-brasil); opacity: 0; }
-.split.right:hover .overlay { opacity: 0.85; }
-
-/* --- 6. TEXTES INFO (France/Brésil) --- */
+/* --- TEXTE (France / Brésil) --- */
 .content {
     position: relative;
-    z-index: 10; /* Au-dessus de l'overlay */
+    z-index: 10;
     text-align: center;
-    color: var(--color-text);
+    color: var(--color-text); /* Gris foncé */
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.4s ease;
 }
 
-.split:hover .content {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* Le texte apparaît au survol */
+.split:hover .content { opacity: 1; transform: translateY(0); }
 
-.content h2 {
-    font-family: 'Times New Roman', serif;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
+.content h2 { font-family: serif; font-size: 2.5rem; margin-bottom: 0.5rem; }
+.content p { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; }
 
-.content p {
-    font-family: sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    margin-bottom: 20px;
-}
 
-/* --- 7. LE TITRE CENTRAL (CILENE & VIANNEY) --- */
-.center-title {
+/* --- 6. LA BANDE BLANCHE CENTRALE (CORRIGÉE) --- */
+.center-strip {
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    bottom: 0;
+    width: var(--strip-width); /* Bande blanche fixe */
+    background: #ffffff; /* FOND BLANC POUR CULOTTER */
+    transform: translateX(-50%); /* Parfaitement centré */
+    z-index: 50; /* Au-dessus des images */
     
-    /* TRES IMPORTANT : Z-index élevé pour être sûr qu'il est visible */
-    z-index: 50; 
-    
-    /* Permet de cliquer sur les liens France/Brésil à travers le titre */
-    pointer-events: none; 
-    
-    width: 100%;
     display: flex;
+    align-items: center;
     justify-content: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Légère ombre */
 }
 
-.center-title h1 {
-    font-family: 'Winterthur', sans-serif;
-    /* Taille adaptée : 13vh est grand mais tient dans l'écran */
-    font-size: 13vh; 
-    line-height: 0.85; /* Resserre les lignes */
+.center-strip h1 {
+    /* Rotation du texte pour qu'il tienne dans la bande */
+    transform: rotate(-90deg);
+    white-space: nowrap;
+    
+    /* Style du Texte */
+    font-family: 'Winterthur', sans-serif; /* Ta police */
+    font-size: 5rem; /* Ajuste selon la taille de ta police */
     color: var(--color-text);
-    
-    /* J'ai enlevé mix-blend-mode pour l'instant pour garantir la visibilité */
-    /* mix-blend-mode: multiply; */ 
-    
     margin: 0;
-    padding: 0;
-    text-align: center;
     
-    /* Empilement Vertical */
+    /* Centrage */
     display: flex;
-    flex-direction: column; 
     align-items: center;
+    justify-content: center;
+    gap: 20px; /* Espace entre les prénoms et le & */
 }
 
 .amp {
-    font-family: 'Times New Roman', serif; /* Ou ta police préférée */
+    font-family: serif;
     font-style: italic;
-    font-size: 4vh; /* Plus petit que les prénoms */
+    font-size: 4rem;
     font-weight: 300;
-    margin: 10px 0;
-    display: block; /* Force le retour à la ligne */
+    /* Petit ajustement pour que le & soit bien aligné */
+    position: relative;
+    top: -5px; 
 }
 
-/* --- 8. MOBILE RESPONSIVE --- */
-@media (max-width: 768px) {
-    
-    body {
-        overflow-y: auto; /* Scroll autorisé */
-        overflow-x: hidden;
-    }
 
-    .split-container {
-        flex-direction: column; /* L'un sous l'autre */
-        height: auto; /* Hauteur libre */
-    }
+/* --- 7. MOBILE (RESPONSIVE) --- */
+@media (max-width: 768px) {
+    body { overflow-y: auto; overflow-x: hidden; }
+    
+    .split-container { flex-direction: column; } /* Empilement vertical */
 
     .split {
         width: 100%;
-        height: 50vh; /* Chaque image fait la moitié de l'écran */
+        height: 50vh;
+        align-items: center; /* Centre le contenu France/Brésil */
         padding-bottom: 0;
-        align-items: center; /* Centre le contenu info */
     }
 
-    /* Ajustement du titre pour Mobile */
-    .center-title {
-        position: absolute; /* Reste au milieu de la page globale */
-        top: 50%; 
-        transform: translate(-50%, -50%);
-        height: auto;
+    /* La bande blanche devient horizontale au milieu */
+    .center-strip {
+        width: 100%;
+        height: 100px; /* Hauteur de la bande */
+        top: 50%;
+        left: 0;
+        bottom: auto;
+        transform: translateY(-50%);
+        background: #fff;
     }
 
-    .center-title h1 {
-        /* On réduit la taille pour le mobile */
-        font-size: 15vw; /* Basé sur la largeur pour ne pas déborder */
-        color: #fff; /* Blanc pour être lisible sur les photos sombres */
-        text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Ombre pour lisibilité */
+    .center-strip h1 {
+        transform: rotate(0deg); /* Texte à l'endroit */
+        font-size: 2.5rem; /* Plus petit pour mobile */
+        flex-direction: row;
+        gap: 10px;
     }
 
-    /* Le contenu France/Brésil toujours visible */
+    .amp { font-size: 2rem; top: 0; }
+
+    /* Contenu toujours visible sur mobile avec fond blanc */
     .content {
         opacity: 1;
         transform: translateY(0);
-        background: rgba(255,255,255,0.9);
-        padding: 15px 30px;
-        border-radius: 50px;
-        margin-top: 150px; /* Pousse le contenu vers le bas pour ne pas toucher le titre */
+        background: rgba(255,255,255,0.8);
+        padding: 10px 20px;
+        border-radius: 30px;
+        /* On décale le contenu pour ne pas qu'il soit sous la bande centrale */
     }
+    .split.left .content { margin-bottom: 60px; }
+    .split.right .content { margin-top: 60px; }
     
-    /* Désactive les hover colorés sur mobile */
-    .overlay { display: none; }
+    .overlay { display: none; } /* Pas de couleur au survol sur mobile */
 }
