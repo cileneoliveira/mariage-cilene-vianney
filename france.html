@@ -13,9 +13,9 @@
     <style>
         /* --- CONFIGURATION --- */
         :root {
-            --color-gold: #d4af37;      /* Doré pour les accents */
-            --color-white: #ffffff;     /* Texte principal */
-            --color-white-dim: #dddddd; /* Texte secondaire */
+            --color-gold: #d4af37;
+            --color-white: #ffffff;
+            --color-white-dim: #dddddd;
         }
 
         body { 
@@ -25,21 +25,29 @@
             overflow-x: hidden;
         }
 
-        /* --- FOND D'ÉCRAN FIXE (IMMERSION) --- */
-        .bg-fixed {
+        /* --- VIDEO DE FOND (CORRIGÉ POUR ÉVITER LES BORDS NOIRS) --- */
+        #bg-video-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('france-bg.png'); /* TON IMAGE ICI */
-            background-size: cover;
-            background-position: center;
-            z-index: -2;
+            top: 0; 
+            left: 0; 
+            width: 100vw; /* Prend toute la largeur de la fenêtre */
+            height: 100vh; /* Prend toute la hauteur de la fenêtre */
+            z-index: -2; /* Tout au fond */
+            overflow: hidden;
+        }
+
+        video#bg-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Zoom dans la vidéo pour qu'elle remplisse tout l'écran sans déformer */
+            object-position: center; /* Centre la vidéo */
         }
 
         /* --- FILTRE SOMBRE (Pour lisibilité) --- */
         .overlay-dark {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Assombrit l'image de 40% */
+            background: rgba(0, 0, 0, 0.4); /* Assombrit de 40% */
             z-index: -1;
         }
 
@@ -119,7 +127,7 @@
             font-weight: 300;
         }
 
-        /* --- PROGRAMME (TIMELINE ÉPURÉE) --- */
+        /* --- PROGRAMME (TIMELINE) --- */
         .event-item {
             margin-bottom: 60px;
             position: relative;
@@ -143,14 +151,14 @@
             margin: 0 auto;
         }
 
-        /* --- SEMAINE D'AVANT (Distinction subtile) --- */
+        /* --- SEMAINE D'AVANT --- */
         .week-before {
             border-top: 1px solid rgba(255,255,255,0.2);
             border-bottom: 1px solid rgba(255,255,255,0.2);
             padding: 100px 20px;
         }
 
-        /* --- INFOS (Minimaliste) --- */
+        /* --- INFOS --- */
         .info-grid {
             text-align: left;
             margin-top: 40px;
@@ -206,7 +214,12 @@
 </head>
 <body>
 
-    <div class="bg-fixed"></div>
+    <div id="bg-video-container">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="background-france.mp4" type="video/mp4">
+        </video>
+    </div>
+
     <div class="overlay-dark"></div>
 
     <nav>
@@ -287,7 +300,7 @@
 
                  <div class="info-block">
                     <h3>Enfants</h3>
-                    <p>Bienvenus tout au log du weekend !<br> Samedi : baby-sitters prévues sur place.</p>
+                    <p>Bienvenus tout au long du weekend !<br> Samedi : baby-sitters prévues sur place.</p>
                 </div>
 
             </div>
@@ -296,6 +309,14 @@
         </section>
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var video = document.getElementById("bg-video");
+            // Vitesse de lecture (0.5 = moitié de la vitesse normale)
+            video.playbackRate = 0.5;
+        });
+    </script>
 
 </body>
 </html>
