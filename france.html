@@ -12,10 +12,9 @@
     <style>
         /* --- DÉCLARATION POLICE --- */
         @font-face {
-            font-family: 'Winter Arthur';
+            font-family: 'Winterthur';
             src: url('WinterthurCondensed.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
+            font-weight: normal; font-style: normal;
         }
 
         /* --- CONFIGURATION --- */
@@ -24,7 +23,7 @@
             --color-white: #ffffff;
             --color-white-dim: #dddddd;
             
-            --font-title: 'Winter Arthur', cursive;
+            --font-title: 'Winterthur', cursive;
             --font-text: 'Cormorant Garamond', serif;
         }
 
@@ -33,20 +32,16 @@
             font-family: var(--font-text);
             color: var(--color-white);
             overflow-x: hidden;
-            font-size: 18px;
-            background-color: #000; /* Fond noir par défaut */
+            background-color: #000;
         }
 
-        /* --- VIDEO DE FOND + IMAGE DE SECOURS --- */
+        /* --- VIDEO DE FOND --- */
         #bg-video-container {
             position: fixed; top: 0; left: 0; 
             width: 100vw; height: 100vh;
             z-index: -2; overflow: hidden;
-            
-            /* Image de secours (CSS) si la balise video ne charge pas */
-            background-image: url('france-bg.png');
-            background-size: cover;
-            background-position: center;
+            background-image: url('france-bg.png'); /* Image de secours */
+            background-size: cover; background-position: center;
         }
 
         video#bg-video {
@@ -54,82 +49,63 @@
             object-fit: cover; object-position: center;
         }
 
-        /* --- FILTRE SOMBRE & DÉGRADÉ --- */
+        /* --- FILTRE --- */
         .overlay-dark {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Dégradé léger en haut pour lire le menu, et sombre globalement */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.3) 100%);
+            background: rgba(0,0,0,0.3); /* Juste un filtre plat pour uniformiser */
             z-index: -1;
         }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; width: 100%;
-            height: 100px;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 40px; 
-            box-sizing: border-box;
+        /* --- ÉLÉMENTS FLOTTANTS (NAVIGATION ÉCLATÉE) --- */
+        /* Style commun pour les petits liens aux coins */
+        .floating-corner {
+            position: fixed;
             z-index: 100;
-            /* Plus de flou, juste de la transparence */
-        }
-
-        /* Groupe de Langues (Gauche) */
-        .nav-lang {
             font-family: var(--font-text);
+            text-transform: uppercase;
+            letter-spacing: 2px;
             font-size: 0.9rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.6);
-        }
-        .nav-lang span { color: white; font-weight: bold; border-bottom: 1px solid white;} /* Langue active */
-        .nav-lang a { text-decoration: none; color: rgba(255,255,255,0.6); transition: 0.3s; }
-        .nav-lang a:hover { color: white; }
-
-        /* Lien Mariage Brésil (Droite) */
-        .nav-link-right { 
-            text-decoration: none; 
-            font-family: var(--font-text);
-            font-size: 0.9rem; 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            color: rgba(255,255,255,0.9); 
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-        }
-        .nav-link-right:hover { color: var(--color-gold); }
-
-        /* BOUTON RSVP CENTRAL */
-        .nav-rsvp {
-            position: absolute; left: 50%; transform: translateX(-50%);
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            font-family: var(--font-text);
-            font-size: 1rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            transition: all 0.3s ease;
+            mix-blend-mode: difference; /* Astuce pour lisibilité sur fond clair ou sombre */
+        }
+        .floating-corner:hover { color: var(--color-white); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+
+        /* Top Gauche : Langues */
+        .pos-top-left { top: 40px; left: 40px; }
+        .active-lang { font-weight: bold; border-bottom: 1px solid white; color: white;}
+
+        /* Top Droite : Accueil */
+        .pos-top-right { top: 40px; right: 40px; }
+
+        /* Bas Droite : Lien Brésil (Style Spécial) */
+        .pos-bottom-right { 
+            bottom: 40px; right: 40px; 
+            text-align: right;
+        }
+        
+        /* Design du bouton Brésil : Un "Tag" élégant */
+        .brazil-tag {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 5px;
+            font-style: italic;
+            text-transform: none;
+            letter-spacing: 1px;
+        }
+        .brazil-link {
+            font-size: 1.1rem;
             font-weight: bold;
             color: var(--color-gold);
-            
-            /* Style bouton fin */
-            padding: 10px 30px;
-            border: 1px solid var(--color-gold);
-            background: rgba(0,0,0,0.2); /* Très légère teinte pour lisibilité */
-            transition: all 0.4s ease;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
         }
+        .pos-bottom-right:hover .brazil-link { border-bottom-color: var(--color-gold); }
 
-        .nav-rsvp:hover {
-            background-color: var(--color-gold);
-            color: white;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-        }
 
-        /* --- CONTENU --- */
-        .scroll-content {
-            position: relative; z-index: 1; padding-bottom: 100px;
-        }
-
-        /* --- HERO HEADER --- */
+        /* --- HERO CENTRAL (Prénoms, Date, RSVP) --- */
         header.hero {
             height: 100vh;
             display: flex; flex-direction: column; 
@@ -146,139 +122,110 @@
             margin: 0;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* Style du "&" */
         .ampersand {
             font-family: 'Cormorant Garamond', serif;
             font-style: italic;
             font-size: 0.5em; 
-            vertical-align: middle;
             color: var(--color-gold);
-            margin: 0 15px;
+            margin: 0 10px;
         }
         
         .hero-details {
             margin-top: 15px;
             font-family: var(--font-text);
-            font-style: italic;
             font-size: 1.8rem;
             color: var(--color-white);
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-            margin-bottom: 40px; /* Espace avant la flèche */
+        }
+
+        /* --- BOUTON RSVP (Central Hero) --- */
+        .hero-rsvp-btn {
+            margin-top: 40px; /* Espace après la date */
+            margin-bottom: 60px; /* Espace avant la flèche */
+            
+            display: inline-block;
+            text-decoration: none;
+            font-family: var(--font-text);
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--color-white);
+            
+            /* Design : Cadre fin élégant */
+            padding: 15px 40px;
+            border: 1px solid rgba(255,255,255,0.6);
+            backdrop-filter: blur(3px); /* Effet verre dépoli */
+            transition: all 0.4s ease;
+        }
+
+        .hero-rsvp-btn:hover {
+            background-color: var(--color-white);
+            color: #000; /* Texte devient noir */
+            border-color: var(--color-white);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+            transform: translateY(-2px);
         }
 
         /* --- FLÈCHE DE SCROLL --- */
         .scroll-indicator {
-            /* Pas de position absolute pour qu'elle suive le flux, 
-               mais on peut la forcer en bas si tu préfères. 
-               Ici je la mets dans le flux juste après le texte */
-            margin-top: 20px; 
-            animation: bounce 2s infinite;
+            animation: bounce 2.5s infinite;
             cursor: pointer;
             opacity: 0.8;
         }
-        
         .arrow-down { 
-            font-size: 2.5rem; 
+            font-size: 2rem; 
             color: var(--color-white);
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
-
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-10px);}
             60% {transform: translateY(-5px);}
         }
 
-        /* --- SECTIONS --- */
-        section {
-            padding: 100px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
+        /* --- CONTENU --- */
+        .scroll-content { position: relative; z-index: 1; padding-bottom: 100px; }
 
-        .section-title {
-            font-family: var(--font-title);
-            font-size: 4rem;
-            color: var(--color-gold);
-            margin-bottom: 60px;
-            line-height: 1;
-        }
-
-        p.text-body {
-            font-size: 1.4rem; line-height: 1.6; color: var(--color-white-dim);
-        }
-
-        /* --- PROGRAMME --- */
-        .event-item { margin-bottom: 70px; }
-        .event-day {
-            font-family: var(--font-title); font-size: 2.5rem; color: var(--color-white);
-            margin-bottom: 5px; display: block;
-        }
-        .event-title {
-            font-family: var(--font-text); font-size: 2.2rem; color: var(--color-gold);
-            margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;
-        }
-        .event-desc {
-            font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.8);
-        }
-
-        .week-before {
-            border-top: 1px solid rgba(255,255,255,0.2);
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding: 100px 20px;
-        }
-
-        /* --- INFOS --- */
-        .info-grid { 
-            text-align: left; margin-top: 40px; 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-        }
-        .info-block h3 {
-            font-family: var(--font-title); font-size: 2rem; color: var(--color-gold); margin-bottom: 15px;
-        }
-        .info-block p, .info-block li {
-            font-size: 1.1rem; line-height: 1.5; color: rgba(255,255,255,0.9);
-        }
-        .info-block ul { padding-left: 20px; }
-        .info-block a { color: white; }
-
-        .rsvp-btn-footer {
-            display: inline-block; margin-top: 60px;
-            background-color: transparent;
-            border: 1px solid var(--color-gold); 
-            color: var(--color-gold);
-            padding: 15px 50px; text-decoration: none;
-            font-family: var(--font-text); font-size: 1.2rem; 
-            text-transform: uppercase; letter-spacing: 3px;
-            transition: all 0.3s;
-        }
+        /* --- SECTIONS STANDARD --- */
+        section { padding: 100px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
+        .section-title { font-family: var(--font-title); font-size: 4rem; color: var(--color-gold); margin-bottom: 60px; line-height: 1; }
+        p.text-body { font-size: 1.4rem; line-height: 1.6; color: var(--color-white-dim); }
+        .rsvp-btn-footer { display: inline-block; margin-top: 60px; border: 1px solid var(--color-gold); color: var(--color-gold); padding: 15px 50px; text-decoration: none; font-family: var(--font-text); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 3px; transition: all 0.3s; }
         .rsvp-btn-footer:hover { background: var(--color-gold); color: white; }
+        
+        /* Styles Programme & Infos identiques... */
+        .event-item { margin-bottom: 70px; }
+        .event-day { font-family: var(--font-title); font-size: 2.5rem; color: var(--color-white); display: block; }
+        .event-title { font-family: var(--font-text); font-size: 2.2rem; color: var(--color-gold); margin: 0 0 10px 0; text-transform: uppercase; }
+        .event-desc { font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.8); }
+        .info-grid { text-align: left; margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        .info-block h3 { font-family: var(--font-title); font-size: 2rem; color: var(--color-gold); margin-bottom: 15px; }
+        .info-block p, .info-block li { font-size: 1.1rem; line-height: 1.5; color: rgba(255,255,255,0.9); }
+        .week-before { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 100px 20px; }
 
         /* --- MOBILE --- */
         @media (max-width: 768px) {
-            nav { padding: 0 20px; height: 80px; }
+            /* Sur mobile, on remet les coins un peu plus au bord */
+            .pos-top-left { top: 20px; left: 20px; font-size: 0.8rem; }
+            .pos-top-right { top: 20px; right: 20px; font-size: 0.8rem; }
             
-            .nav-lang { font-size: 0.8rem; }
-            .nav-link-right { font-size: 0.7rem; letter-spacing: 1px; }
-            
-            /* RSVP plus petit sur mobile pour que ça tienne */
-            .nav-rsvp { 
-                font-size: 0.7rem; padding: 8px 15px; border-width: 1px;
-                position: static; /* On l'enlève du centre absolu si pas de place */
-                transform: none;
-                display: none; /* OPTIONNEL: Cacher le bouton nav sur mobile si trop serré ? */
+            /* Le lien Brésil en bas peut gêner le scroll ou être caché par la barre du navigateur */
+            /* On le centre en bas */
+            .pos-bottom-right { 
+                bottom: 30px; left: 50%; right: auto; 
+                transform: translateX(-50%); 
+                width: 100%; text-align: center;
             }
-            /* Ou si tu veux garder le bouton sur mobile, active flex-column ou ajuste les tailles */
-            
-            h1.names { font-size: 3.5rem; letter-spacing: 2px; }
-            .ampersand { display: block; margin: 0; font-size: 0.6em; } 
+
+            h1.names { font-size: 3.5rem; }
             .hero-details { font-size: 1.3rem; }
-            .info-grid { grid-template-columns: 1fr; } 
+            .hero-rsvp-btn { padding: 12px 30px; font-size: 0.9rem; margin-bottom: 40px;}
+            .info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -292,15 +239,18 @@
 
     <div class="overlay-dark"></div>
 
-    <nav>
-        <div class="nav-lang">
-            <span>FR</span> &nbsp;|&nbsp; <a href="index-pt.html">PT</a>
-        </div>
-        
-        <a href="mailto:votremail@gmail.com" class="nav-rsvp">Répondre</a>
-        
-        <a href="bresil.html" class="nav-link-right">Mariage Brésil →</a>
-    </nav>
+    <div class="floating-corner pos-top-left">
+        <span class="active-lang">FR</span> &nbsp; <a href="index-pt.html" style="opacity:0.6; text-decoration:none; color:white;">PT</a>
+    </div>
+
+    <a href="index.html" class="floating-corner pos-top-right">
+        Accueil
+    </a>
+
+    <a href="bresil.html" class="floating-corner pos-bottom-right">
+        <span class="brazil-tag">L'autre fête</span>
+        <span class="brazil-link">Mariage Brésil →</span>
+    </a>
 
     <div class="scroll-content">
 
@@ -310,6 +260,10 @@
             </h1>
             
             <div class="hero-details">16, <strong>17</strong>, 18 juillet 2027</div>
+            
+            <a href="mailto:votremail@gmail.com" class="hero-rsvp-btn">
+                RSVP
+            </a>
 
             <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'});">
                 <div class="arrow-down">↓</div>
@@ -349,44 +303,33 @@
             <p class="text-body">
                 Pour prolonger l'été, nous serons sur place dès le <strong>mardi 13 Juillet</strong>.
                 <br><br>
-                Si vous êtes dans le coin, rejoignez-nous pour des moments informels : plage, balades et dîners improvisés. 
+                Si vous êtes dans le coin, rejoignez-nous pour des moments informels.
             </p>
         </section>
 
         <section>
             <h2 class="section-title">Infos Pratiques</h2>
-            
             <div class="info-grid">
-                
                 <div class="info-block">
                     <h3>Venir</h3>
                     <p>Gare TGV : Saint-Raphaël Valescure (20 min).</p>
                     <p>Voiture : A8 sortie 37 Puget-sur-Argens.</p>
                 </div>
-
                 <div class="info-block">
                     <h3>Dormir</h3>
-                    <p>Suggestions :</p>
-                    <ul>
-                        <li>Hôtel Le Gabian</li>
-                        <li>Domaine des Oliviers</li>
-                        <li>Airbnb à Puget-sur-Argens</li>
-                    </ul>
+                    <p>Suggestions : Hôtel Le Gabian, Domaine des Oliviers...</p>
                 </div>
-
                 <div class="info-block">
                     <h3>Sécurité</h3>
-                    <p>Navettes de nuit prévues (1h-5h) pour les retours.</p>
+                    <p>Navettes de nuit prévues (1h-5h).</p>
                 </div>
-
                  <div class="info-block">
                     <h3>Enfants</h3>
-                    <p>Bienvenus tout au long du weekend ! Baby-sitters prévues le samedi soir.</p>
+                    <p>Baby-sitters prévues le samedi soir.</p>
                 </div>
-
             </div>
             
-            <a href="mailto:votremail@gmail.com" class="rsvp-btn-footer">RÉPONDRE</a>
+            <a href="mailto:votremail@gmail.com" class="rsvp-btn-footer">RSVP</a>
         </section>
 
     </div>
