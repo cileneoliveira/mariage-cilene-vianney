@@ -40,7 +40,7 @@
             position: fixed; top: 0; left: 0; 
             width: 100vw; height: 100vh;
             z-index: -2; overflow: hidden;
-            background-image: url('france-bg.png'); /* Image de secours */
+            background-image: url('france-bg.png');
             background-size: cover; background-position: center;
         }
 
@@ -49,63 +49,67 @@
             object-fit: cover; object-position: center;
         }
 
-        /* --- FILTRE --- */
         .overlay-dark {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3); /* Juste un filtre plat pour uniformiser */
+            background: rgba(0,0,0,0.3);
             z-index: -1;
         }
 
-        /* --- ÉLÉMENTS FLOTTANTS (NAVIGATION ÉCLATÉE) --- */
-        /* Style commun pour les petits liens aux coins */
-        .floating-corner {
-            position: fixed;
-            z-index: 100;
+        /* --- NAVIGATION FLOTTANTE --- */
+        
+        /* 1. Langues (Haut Gauche) */
+        .pos-top-left { 
+            position: fixed; top: 40px; left: 40px; z-index: 100;
+            font-family: var(--font-text); font-size: 0.9rem; letter-spacing: 1px;
+            color: rgba(255,255,255,0.8);
+        }
+        .pos-top-left a { text-decoration: none; color: white; transition: 0.3s; }
+        .pos-top-left a:hover { color: var(--color-gold); }
+        .lang-separator { opacity: 0.5; margin: 0 5px; }
+
+        /* 2. Accueil (Haut Droite) - MODIFIÉ POUR VISIBILITÉ */
+        .pos-top-right { 
+            position: fixed; top: 40px; right: 40px; z-index: 100;
+            text-decoration: none;
             font-family: var(--font-text);
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.9rem;
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            mix-blend-mode: difference; /* Astuce pour lisibilité sur fond clair ou sombre */
-        }
-        .floating-corner:hover { color: var(--color-white); text-shadow: 0 0 10px rgba(255,255,255,0.5); }
-
-        /* Top Gauche : Langues */
-        .pos-top-left { top: 40px; left: 40px; }
-        .active-lang { font-weight: bold; border-bottom: 1px solid white; color: white;}
-
-        /* Top Droite : Accueil */
-        .pos-top-right { top: 40px; right: 40px; }
-
-        /* Bas Droite : Lien Brésil (Style Spécial) */
-        .pos-bottom-right { 
-            bottom: 40px; right: 40px; 
-            text-align: right;
-        }
-        
-        /* Design du bouton Brésil : Un "Tag" élégant */
-        .brazil-tag {
-            display: block;
             font-size: 0.8rem;
-            opacity: 0.7;
-            margin-bottom: 5px;
-            font-style: italic;
-            text-transform: none;
-            letter-spacing: 1px;
+            font-weight: bold;
+            color: white;
+            
+            /* Nouveau style "Bouton Visible" */
+            background-color: rgba(0, 0, 0, 0.5); /* Fond sombre semi-transparent */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Bordure fine */
+            padding: 10px 25px;
+            border-radius: 50px; /* Bords arrondis */
+            backdrop-filter: blur(5px); /* Flou d'arrière-plan */
+            transition: all 0.3s ease;
+        }
+        .pos-top-right:hover { 
+            background-color: white; 
+            color: black; 
+            border-color: white;
+        }
+
+        /* 3. Lien Brésil (Bas Droite) */
+        .pos-bottom-right { 
+            position: fixed; bottom: 40px; right: 40px; z-index: 100;
+            text-align: right; text-decoration: none;
+        }
+        .brazil-tag {
+            display: block; font-size: 0.8rem; opacity: 0.8; margin-bottom: 5px;
+            font-family: var(--font-text); font-style: italic; color: white;
         }
         .brazil-link {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--color-gold);
-            border-bottom: 1px solid transparent;
-            padding-bottom: 2px;
+            font-family: var(--font-text); font-size: 1.1rem; font-weight: bold;
+            color: var(--color-gold); text-transform: uppercase; letter-spacing: 1px;
+            border-bottom: 1px solid transparent; padding-bottom: 2px; transition: 0.3s;
         }
-        .pos-bottom-right:hover .brazil-link { border-bottom-color: var(--color-gold); }
+        .pos-bottom-right:hover .brazil-link { border-bottom-color: var(--color-gold); color: white; }
 
 
-        /* --- HERO CENTRAL (Prénoms, Date, RSVP) --- */
+        /* --- HERO HEADER --- */
         header.hero {
             height: 100vh;
             display: flex; flex-direction: column; 
@@ -133,55 +137,50 @@
             margin: 0 10px;
         }
         
+        /* DATE : DESIGN MODIFIÉ */
         .hero-details {
-            margin-top: 15px;
+            margin-top: 20px;
             font-family: var(--font-text);
-            font-size: 1.8rem;
+            font-size: 1.5rem; /* Texte normal un peu plus petit */
             color: var(--color-white);
             letter-spacing: 2px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Espace entre les éléments */
         }
 
-        /* --- BOUTON RSVP (Central Hero) --- */
+        /* Le 17 en évidence */
+        .date-highlight {
+            font-family: var(--font-title); /* On utilise la police calligraphique */
+            font-size: 4rem; /* Beaucoup plus gros */
+            color: var(--color-gold);
+            line-height: 0; /* Pour ne pas décaler la ligne */
+            position: relative;
+            top: 5px; /* Petit ajustement optique */
+        }
+
+        /* --- BOUTON RSVP --- */
         .hero-rsvp-btn {
-            margin-top: 40px; /* Espace après la date */
-            margin-bottom: 60px; /* Espace avant la flèche */
-            
-            display: inline-block;
-            text-decoration: none;
-            font-family: var(--font-text);
-            font-size: 1rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: var(--color-white);
-            
-            /* Design : Cadre fin élégant */
+            margin-top: 50px; 
+            margin-bottom: 60px;
+            display: inline-block; text-decoration: none;
+            font-family: var(--font-text); font-size: 1rem; letter-spacing: 3px;
+            text-transform: uppercase; font-weight: 600; color: var(--color-white);
             padding: 15px 40px;
             border: 1px solid rgba(255,255,255,0.6);
-            backdrop-filter: blur(3px); /* Effet verre dépoli */
+            backdrop-filter: blur(3px);
             transition: all 0.4s ease;
         }
-
         .hero-rsvp-btn:hover {
-            background-color: var(--color-white);
-            color: #000; /* Texte devient noir */
-            border-color: var(--color-white);
+            background-color: var(--color-white); color: #000;
             box-shadow: 0 0 20px rgba(255,255,255,0.4);
-            transform: translateY(-2px);
         }
 
         /* --- FLÈCHE DE SCROLL --- */
-        .scroll-indicator {
-            animation: bounce 2.5s infinite;
-            cursor: pointer;
-            opacity: 0.8;
-        }
-        .arrow-down { 
-            font-size: 2rem; 
-            color: var(--color-white);
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
-        }
+        .scroll-indicator { animation: bounce 2.5s infinite; cursor: pointer; opacity: 0.8; }
+        .arrow-down { font-size: 2rem; color: var(--color-white); text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-10px);}
@@ -190,15 +189,12 @@
 
         /* --- CONTENU --- */
         .scroll-content { position: relative; z-index: 1; padding-bottom: 100px; }
-
-        /* --- SECTIONS STANDARD --- */
         section { padding: 100px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
         .section-title { font-family: var(--font-title); font-size: 4rem; color: var(--color-gold); margin-bottom: 60px; line-height: 1; }
         p.text-body { font-size: 1.4rem; line-height: 1.6; color: var(--color-white-dim); }
         .rsvp-btn-footer { display: inline-block; margin-top: 60px; border: 1px solid var(--color-gold); color: var(--color-gold); padding: 15px 50px; text-decoration: none; font-family: var(--font-text); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 3px; transition: all 0.3s; }
         .rsvp-btn-footer:hover { background: var(--color-gold); color: white; }
         
-        /* Styles Programme & Infos identiques... */
         .event-item { margin-bottom: 70px; }
         .event-day { font-family: var(--font-title); font-size: 2.5rem; color: var(--color-white); display: block; }
         .event-title { font-family: var(--font-text); font-size: 2.2rem; color: var(--color-gold); margin: 0 0 10px 0; text-transform: uppercase; }
@@ -208,22 +204,14 @@
         .info-block p, .info-block li { font-size: 1.1rem; line-height: 1.5; color: rgba(255,255,255,0.9); }
         .week-before { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 100px 20px; }
 
-        /* --- MOBILE --- */
         @media (max-width: 768px) {
-            /* Sur mobile, on remet les coins un peu plus au bord */
-            .pos-top-left { top: 20px; left: 20px; font-size: 0.8rem; }
-            .pos-top-right { top: 20px; right: 20px; font-size: 0.8rem; }
+            .pos-top-left { top: 20px; left: 20px; }
+            .pos-top-right { top: 20px; right: 20px; padding: 8px 15px; font-size: 0.7rem; }
+            .pos-bottom-right { bottom: 30px; left: 50%; right: auto; transform: translateX(-50%); width: 100%; text-align: center; }
             
-            /* Le lien Brésil en bas peut gêner le scroll ou être caché par la barre du navigateur */
-            /* On le centre en bas */
-            .pos-bottom-right { 
-                bottom: 30px; left: 50%; right: auto; 
-                transform: translateX(-50%); 
-                width: 100%; text-align: center;
-            }
-
             h1.names { font-size: 3.5rem; }
-            .hero-details { font-size: 1.3rem; }
+            .hero-details { font-size: 1.2rem; flex-direction: row; align-items: baseline;}
+            .date-highlight { font-size: 3rem; }
             .hero-rsvp-btn { padding: 12px 30px; font-size: 0.9rem; margin-bottom: 40px;}
             .info-grid { grid-template-columns: 1fr; }
         }
@@ -239,17 +227,19 @@
 
     <div class="overlay-dark"></div>
 
-    <div class="floating-corner pos-top-left">
-        <span class="active-lang">FR</span> &nbsp; <a href="index-pt.html" style="opacity:0.6; text-decoration:none; color:white;">PT</a>
+    <div class="pos-top-left">
+        <span style="font-weight:bold; border-bottom:1px solid white;">FR</span> 
+        <span class="lang-separator">|</span> 
+        <a href="bresil.html">PT</a>
     </div>
 
-    <a href="index.html" class="floating-corner pos-top-right">
+    <a href="index.html" class="pos-top-right">
         Accueil
     </a>
 
-    <a href="bresil.html" class="floating-corner pos-bottom-right">
+    <a href="bresil.html" class="pos-bottom-right">
         <span class="brazil-tag">L'autre fête</span>
-        <span class="brazil-link">Mariage Brésil →</span>
+        <span class="brazil-link">Le Mariage au Brésil →</span>
     </a>
 
     <div class="scroll-content">
@@ -259,7 +249,11 @@
                 Cilene <span class="ampersand">&</span> Vianney
             </h1>
             
-            <div class="hero-details">16, <strong>17</strong>, 18 juillet 2027</div>
+            <div class="hero-details">
+                <span>16,</span>
+                <span class="date-highlight">17</span>
+                <span>, 18 juillet 2027</span>
+            </div>
             
             <a href="mailto:votremail@gmail.com" class="hero-rsvp-btn">
                 RSVP
