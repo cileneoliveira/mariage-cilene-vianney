@@ -10,10 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- DÉCLARATION DE LA POLICE CUSTOM "Winterthur" --- */
+        /* --- DÉCLARATION POLICE --- */
         @font-face {
-            font-family: 'Winterthur'; /* On garde ce nom de référence pour le CSS */
-            /* CORRECTION ICI : Nom du fichier .ttf et format truetype */
+            font-family: 'Winterthur';
             src: url('WinterthurCondensed.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
@@ -23,11 +22,10 @@
         :root {
             --color-gold: #d4af37;
             --color-white: #ffffff;
-            --color-white-dim: #f0f0f0;
+            --color-white-dim: #dddddd;
             
-            /* Variables de polices */
-            --font-title: 'Winterthur', cursive;       /* Utilise ton fichier .ttf */
-            --font-text: 'Cormorant Garamond', serif;     /* Google Font */
+            --font-title: 'Winterthur', cursive;
+            --font-text: 'Cormorant Garamond', serif;
         }
 
         body { 
@@ -40,93 +38,89 @@
 
         /* --- VIDEO DE FOND --- */
         #bg-video-container {
-            position: fixed;
-            top: 0; left: 0; 
+            position: fixed; top: 0; left: 0; 
             width: 100vw; height: 100vh;
-            z-index: -2;
-            overflow: hidden; 
+            z-index: -2; overflow: hidden; 
         }
 
         video#bg-video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
+            width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
         }
 
-        /* --- FILTRE SOMBRE --- */
+        /* --- FILTRE SOMBRE & DÉGRADÉ --- */
         .overlay-dark {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.35);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            /* Dégradé pour que la Nav soit toujours lisible en haut */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.4) 100%);
             z-index: -1;
         }
 
         /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%;
-            height: 80px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            padding: 0 40px; 
+            height: 90px; /* Un peu plus d'espace */
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 50px; 
             box-sizing: border-box;
             z-index: 100;
+            /* Le flou qui empêche le texte de passer "sur" le bouton visuellement */
+            backdrop-filter: blur(2px); 
+            -webkit-backdrop-filter: blur(2px);
         }
 
-        /* Liens latéraux */
+        /* Liens latéraux (Minimalistes, sans boutons) */
         .nav-link { 
             text-decoration: none; 
             font-family: var(--font-text);
             font-size: 1rem; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
-            color: rgba(255,255,255,0.8); 
+            color: rgba(255,255,255,0.9); 
             font-weight: 600;
-            transition: 0.3s;
-            padding: 8px 15px;
-            border-radius: 4px;
-            background: rgba(0,0,0,0.2); 
-            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Ombre pour lisibilité sur vidéo */
         }
 
-        .nav-link:hover {
-            background: white;
-            color: black;
-            border-color: white;
+        /* Petit effet de soulignement élégant au survol */
+        .nav-link::after {
+            content: '';
+            position: absolute; width: 0; height: 1px;
+            bottom: -5px; left: 0;
+            background-color: var(--color-gold);
+            transition: width 0.3s;
         }
+        .nav-link:hover { color: white; }
+        .nav-link:hover::after { width: 100%; }
 
         /* BOUTON RSVP CENTRAL */
         .nav-rsvp {
-            position: absolute; 
-            left: 50%;
-            transform: translateX(-50%);
-            
+            position: absolute; left: 50%; transform: translateX(-50%);
             text-decoration: none;
             font-family: var(--font-text);
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: bold;
-            color: var(--color-gold);
+            color: var(--color-white);
             
-            padding: 10px 30px;
-            border: 1px solid var(--color-gold);
+            /* Style bouton fin et élégant */
+            padding: 12px 35px;
+            border: 1px solid var(--color-white);
+            background: rgba(0,0,0,0.1); /* Fond très léger */
             transition: all 0.4s ease;
-            backdrop-filter: blur(2px);
         }
 
         .nav-rsvp:hover {
-            background-color: var(--color-gold);
-            color: white;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            background-color: var(--color-white);
+            color: black;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
-        /* --- CONTENU SCROLLABLE --- */
+        /* --- CONTENU --- */
         .scroll-content {
-            position: relative;
-            z-index: 1;
-            padding-bottom: 100px;
+            position: relative; z-index: 1; padding-bottom: 100px;
         }
 
         /* --- HEADER --- */
@@ -139,41 +133,51 @@
         
         h1.names {
             font-family: var(--font-title);
-            font-size: 8rem; 
-            line-height: 0.8;
+            font-size: 7rem; /* Ajusté pour MAJ */
+            line-height: 1.1;
             font-weight: normal;
             margin: 0;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            
+            /* TRANSFORMATION EN MAJUSCULES */
+            text-transform: uppercase;
+            letter-spacing: 0.05em; /* Aère les lettres */
+        }
+
+        /* Style spécifique pour le "&" */
+        .ampersand {
+            font-family: 'Cormorant Garamond', serif; /* Police différente pour le & */
+            font-style: italic;
+            font-size: 0.5em; /* 50% de la taille des prénoms */
+            vertical-align: middle;
+            color: var(--color-gold);
+            margin: 0 10px;
         }
         
         .hero-details {
-            margin-top: 10px;
+            margin-top: 20px;
             font-family: var(--font-text);
             font-style: italic;
-            font-size: 2rem;
-            color: var(--color-gold);
+            font-size: 1.8rem;
+            color: var(--color-white);
             letter-spacing: 1px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        /* --- FLÈCHE DE SCROLL --- */
+        /* --- FLÈCHE DE SCROLL (Sans texte) --- */
         .scroll-indicator {
             position: absolute;
-            bottom: 30px;
+            bottom: 5vh; /* Positionnée en bas de l'écran */
             left: 50%;
             transform: translateX(-50%);
-            text-align: center;
             animation: bounce 2s infinite;
             cursor: pointer;
-            opacity: 0.8;
+            opacity: 0.7;
         }
         
-        .scroll-indicator span {
-            font-family: var(--font-text);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
+        .arrow-down { 
+            font-size: 2.5rem; 
+            color: var(--color-white);
         }
-        .arrow-down { font-size: 2rem; }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
@@ -183,7 +187,7 @@
 
         /* --- SECTIONS --- */
         section {
-            padding: 90px 20px;
+            padding: 100px 20px;
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
@@ -193,37 +197,26 @@
             font-family: var(--font-title);
             font-size: 4rem;
             color: var(--color-gold);
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             line-height: 1;
         }
 
         p.text-body {
-            font-size: 1.4rem; 
-            line-height: 1.6; 
-            color: var(--color-white-dim);
+            font-size: 1.4rem; line-height: 1.6; color: var(--color-white-dim);
         }
 
         /* --- PROGRAMME --- */
         .event-item { margin-bottom: 70px; }
         .event-day {
-            font-family: var(--font-title); 
-            font-size: 2.5rem; 
-            color: var(--color-white);
-            margin-bottom: 5px; 
-            display: block;
+            font-family: var(--font-title); font-size: 2.5rem; color: var(--color-white);
+            margin-bottom: 5px; display: block;
         }
         .event-title {
-            font-family: var(--font-text); 
-            font-size: 2.2rem; 
-            color: var(--color-gold);
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: var(--font-text); font-size: 2.2rem; color: var(--color-gold);
+            margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;
         }
         .event-desc {
-            font-size: 1.2rem; 
-            font-style: italic;
-            color: rgba(255,255,255,0.8);
+            font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.8);
         }
 
         .week-before {
@@ -234,22 +227,14 @@
 
         /* --- INFOS --- */
         .info-grid { 
-            text-align: left; 
-            margin-top: 40px; 
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            text-align: left; margin-top: 40px; 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
         }
         .info-block h3 {
-            font-family: var(--font-title); 
-            font-size: 2rem; 
-            color: var(--color-gold);
-            margin-bottom: 15px;
+            font-family: var(--font-title); font-size: 2rem; color: var(--color-gold); margin-bottom: 15px;
         }
         .info-block p, .info-block li {
-            font-size: 1.1rem; 
-            line-height: 1.5; 
-            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem; line-height: 1.5; color: rgba(255,255,255,0.9);
         }
         .info-block ul { padding-left: 20px; }
         .info-block a { color: white; }
@@ -257,24 +242,29 @@
         .rsvp-btn-footer {
             display: inline-block; margin-top: 60px;
             background-color: transparent;
-            border: 2px solid var(--color-gold); 
+            border: 1px solid var(--color-gold); 
             color: var(--color-gold);
-            padding: 15px 50px; 
-            text-decoration: none;
-            font-family: var(--font-text); 
-            font-size: 1.3rem; 
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            padding: 15px 50px; text-decoration: none;
+            font-family: var(--font-text); font-size: 1.2rem; 
+            text-transform: uppercase; letter-spacing: 3px;
             transition: all 0.3s;
         }
         .rsvp-btn-footer:hover { background: var(--color-gold); color: white; }
 
         /* --- MOBILE --- */
         @media (max-width: 768px) {
-            nav { padding: 0 15px; }
-            .nav-link { font-size: 0.7rem; padding: 6px 10px; }
-            .nav-rsvp { font-size: 0.8rem; padding: 8px 15px; }
-            h1.names { font-size: 4rem; }
+            nav { padding: 0 20px; height: 70px; }
+            
+            .nav-link { font-size: 0.7rem; }
+            .nav-rsvp { 
+                font-size: 0.7rem; padding: 8px 20px; border-width: 1px;
+            }
+
+            /* Ajustements Titre Mobile */
+            h1.names { font-size: 3.5rem; letter-spacing: 2px; }
+            .ampersand { display: block; margin: 5px 0; font-size: 0.6em; } /* Le & passe à la ligne sur mobile */
+            .hero-details { font-size: 1.3rem; margin-top: 15px;}
+            
             .info-grid { grid-template-columns: 1fr; } 
         }
     </style>
@@ -291,18 +281,22 @@
 
     <nav>
         <a href="index.html" class="nav-link">← Accueil</a>
+        
         <a href="mailto:votremail@gmail.com" class="nav-rsvp">Répondre</a>
+        
         <a href="bresil.html" class="nav-link">Brésil 🇧🇷 →</a>
     </nav>
 
     <div class="scroll-content">
 
         <header class="hero">
-            <h1 class="names">Cilene & Vianney</h1>
+            <h1 class="names">
+                Cilene <span class="ampersand">&</span> Vianney
+            </h1>
+            
             <div class="hero-details">16, <strong>17</strong>, 18 juillet 2027</div>
 
             <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'});">
-                <span>Découvrir</span>
                 <div class="arrow-down">↓</div>
             </div>
         </header>
