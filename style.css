@@ -14,35 +14,34 @@ body {
     overflow: hidden; /* Pas de scroll sur PC */
     height: 100vh;
     width: 100vw;
+    background-color: #000;
 }
 
-/* --- 2. POLICE (Vérifie bien le nom du fichier !) --- */
+/* --- 2. POLICE --- */
 @font-face {
     font-family: 'Winterthur';
-    /* Si ton fichier s'appelle WinterthurCondensed.ttf, c'est bon. */
-    /* Sinon change le nom ici */
     src: url('WinterthurCondensed.ttf') format('truetype'); 
     font-weight: normal;
     font-style: normal;
 }
 
-/* --- 3. NAVIGATION (Coin Haut Gauche/Droite) --- */
+/* --- 3. NAVIGATION (Coin Haut Gauche) --- */
 .lang-switch-corner {
     position: absolute;
     top: 30px;
-    left: 30px; /* Ou 'right: 30px' si tu veux à droite */
-    z-index: 100; /* Au-dessus de tout */
+    left: 30px;
+    z-index: 100;
     font-family: 'Arial', sans-serif;
     font-size: 0.9rem;
-    color: var(--color-text);
+    color: #fff; /* Blanc pour être visible sur la vidéo */
     font-weight: bold;
     letter-spacing: 1px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
-.lang-switch-corner a { text-decoration: none; color: #999; transition: 0.3s; }
-.lang-switch-corner a:hover { color: #000; }
+.lang-switch-corner a { text-decoration: none; color: rgba(255,255,255,0.7); transition: 0.3s; }
+.lang-switch-corner a:hover { color: #fff; }
 .lang-switch-corner .separator { margin: 0 5px; opacity: 0.5; }
-.lang-switch-corner .active { color: #000; border-bottom: 1px solid #000; }
 
 /* --- 4. CONTENEUR PRINCIPAL --- */
 .split-container {
@@ -55,7 +54,7 @@ body {
 /* --- 5. LES DEUX CÔTÉS (GAUCHE & DROITE) --- */
 .split {
     flex: 1; 
-    position: relative;
+    position: relative; /* Indispensable pour la vidéo en absolute */
     display: flex;
     justify-content: center;
     align-items: flex-end; /* Texte en bas */
@@ -64,179 +63,140 @@ body {
     padding-bottom: 80px;
     transition: all 0.5s ease;
     
-    /* Image de fond */
+    /* CONFIGURATION DU BACKUP PHOTO (Si la vidéo ne charge pas) */
     background-size: cover;
     background-position: center;
 }
 
-/* --- IMAGES & COULEURS DE FOND --- */
+/* Définis ici tes images fixes de secours (pas les mp4) */
 .split.left {
-    background-image: url('background-france-loop.mp4'); 
-    background-color: var(--color-france); /* Couleur si image manque */
+    background-image: url('france-bg.jpg'); /* IMAGE jpg/png */
+    background-color: var(--color-france);
 }
 
 .split.right {
-    background-image: url('background-bresil-loop.mp4');
-    background-color: var(--color-brasil); /* Couleur si image manque */
+    background-image: url('bresil-bg.jpg'); /* IMAGE jpg/png */
+    background-color: var(--color-brasil);
 }
 
-/* --- L'EFFET DE COULEUR AU SURVOL --- */
+/* --- VIDEO : C'est ici que la magie opère --- */
+/* Ce style s'applique à la balise <video> que tu dois mettre dans le HTML */
+.split video {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; /* Remplit tout l'espace */
+    z-index: 0; /* Tout au fond, par dessus l'image background */
+    transition: transform 0.6s ease;
+}
+
+/* Zoom léger de la vidéo au survol */
+.split:hover video {
+    transform: scale(1.05);
+}
+
+/* --- L'EFFET DE COULEUR AU SURVOL (OVERLAY) --- */
 .overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0; /* Invisible par défaut, on voit l'image */
+    opacity: 0; 
     transition: opacity 0.4s ease;
-    z-index: 1;
+    z-index: 1; /* Au-dessus de la vidéo */
 }
 
-/* Au survol, on affiche la couleur */
-.split.left:hover .overlay { background-color: var(--color-france); opacity: 0.9; }
-.split.right:hover .overlay { background-color: var(--color-brasil); opacity: 0.9; }
+.split.left:hover .overlay { background-color: var(--color-france); opacity: 0.85; }
+.split.right:hover .overlay { background-color: var(--color-brasil); opacity: 0.85; }
 
 /* --- TEXTE (France / Brésil) --- */
 .content {
     position: relative;
-    z-index: 10;
+    z-index: 10; /* Au-dessus de tout */
     text-align: center;
-    color: var(--color-text); /* Gris foncé */
-    opacity: 0;
-    transform: translateY(20px);
+    color: #fff; /* Blanc par défaut sur la vidéo */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    opacity: 1; /* Toujours visible */
+    transform: translateY(0);
     transition: all 0.4s ease;
 }
 
-/* Le texte apparaît au survol */
-.split:hover .content { opacity: 1; transform: translateY(0); }
+/* Au survol, le texte devient gris foncé car le fond coloré apparait */
+.split:hover .content { 
+    color: var(--color-text); 
+    text-shadow: none;
+}
 
 .content h2 { font-family: serif; font-size: 2.5rem; margin-bottom: 0.5rem; }
 .content p { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; }
 
 
-/* --- 6. LA BANDE BLANCHE CENTRALE (CORRIGÉE) --- */
+/* --- 6. LA BANDE BLANCHE CENTRALE --- */
 .center-strip {
     position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: var(--strip-width); /* Bande blanche fixe */
-    background: #ffffff; /* FOND BLANC POUR CULOTTER */
-    transform: translateX(-50%); /* Parfaitement centré */
-    z-index: 50; /* Au-dessus des images */
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 20px rgba(0,0,0,0.1); /* Légère ombre */
+    left: 50%; top: 0; bottom: 0;
+    width: var(--strip-width);
+    background: #ffffff;
+    transform: translateX(-50%);
+    z-index: 50; /* Au-dessus des vidéos */
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
 .center-strip h1 {
-    /* Rotation du texte pour qu'il tienne dans la bande */
     transform: rotate(-90deg);
     white-space: nowrap;
-    
-    /* Style du Texte */
-    font-family: 'Winterthur', sans-serif; /* Ta police */
-    font-size: 5rem; /* Ajuste selon la taille de ta police */
+    font-family: 'Winterthur', sans-serif;
+    font-size: 5rem;
     color: var(--color-text);
     margin: 0;
-    
-    /* Centrage */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px; /* Espace entre les prénoms et le & */
+    display: flex; align-items: center; justify-content: center;
+    gap: 20px;
 }
 
 .amp {
-    font-family: serif;
-    font-style: italic;
-    font-size: 4rem;
-    font-weight: 300;
-    /* Petit ajustement pour que le & soit bien aligné */
-    position: relative;
-    top: -5px; 
+    font-family: serif; font-style: italic; font-size: 4rem; font-weight: 300;
+    position: relative; top: -5px; 
 }
 
+/* --- 7. BOUTON ACCUEIL (Bas Gauche) --- */
+.home-btn {
+    position: absolute; bottom: 30px; left: 30px;
+    z-index: 100;
+    text-decoration: none;
+    font-family: 'Arial', sans-serif; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 2px; font-weight: bold;
+    color: #fff;
+    opacity: 0.8;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    transition: 0.3s;
+}
+.home-btn:hover { opacity: 1; text-decoration: underline; }
 
-/* --- 8. MOBILE RESPONSIVE (CORRIGÉ) --- */
+/* --- 8. MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
-    
-    body {
-        overflow-y: auto; 
-        overflow-x: hidden;
-    }
+    body { overflow-y: auto; overflow-x: hidden; }
+    .split-container { flex-direction: column; }
 
-    .split-container {
-        flex-direction: column; 
-    }
-
-    /* Ajustement des images */
     .split {
-        width: 100%;
-        height: 50vh; 
-        padding-bottom: 0;
-        align-items: center; 
-        justify-content: center; /* Centre le texte verticalement */
+        width: 100%; height: 50vh; 
+        padding-bottom: 0; align-items: center; justify-content: center;
     }
 
-    /* BANDE BLANCHE HORIZONTALE */
+    /* Bande centrale horizontale */
     .center-strip {
-        width: 100%;
-        height: 90px; /* Un peu plus fin pour l'élégance */
-        top: 50%;
-        left: 0;
-        bottom: auto;
+        width: 100%; height: 90px;
+        top: 50%; left: 0; bottom: auto;
         transform: translateY(-50%);
-        background: #ffffff;
-        border-top: 1px solid rgba(0,0,0,0.05); /* Détail subtil */
+        border-top: 1px solid rgba(0,0,0,0.05);
         border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
-    .center-strip h1 {
-        transform: rotate(0deg); 
-        font-size: 2.2rem; /* Taille équilibrée */
-        flex-direction: row; /* Tout sur une ligne */
-        gap: 15px;
-    }
+    .center-strip h1 { transform: rotate(0deg); font-size: 2.2rem; flex-direction: row; gap: 15px; }
+    .amp { font-size: 1.8rem; top: 0; margin: 0; }
 
-    .amp { 
-        font-size: 1.8rem; 
-        top: 0; 
-        margin: 0;
-    }
-
-    /* LE CONTENU (FRANCE / BRÉSIL) - STYLE ÉLÉGANT */
-    .content {
-        opacity: 1;
-        transform: translateY(0);
-        
-        /* PLUS DE FOND BLANC ! */
-        background: none; 
-        padding: 0;
-        margin: 0;
-        border-radius: 0;
-        
-        /* On décale le texte pour qu'il ne soit pas collé à la bande blanche */
-    }
-    
-    /* Positionnement précis pour éviter la bande centrale */
+    /* Texte mobile */
+    .content { margin: 0; }
     .split.left .content { margin-bottom: 60px; }
     .split.right .content { margin-top: 60px; }
 
-    /* TYPOGRAPHIE SUR MOBILE */
-    .content h2 {
-        font-size: 2rem;
-        color: #ffffff; /* Texte Blanc Pur */
-        text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Ombre pour lire sur la photo */
-        margin-bottom: 5px;
-    }
-
-    .content p {
-        color: #ffffff;
-        font-size: 0.9rem;
-        letter-spacing: 3px; /* Très espacé pour le style */
-        text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        font-weight: normal;
-    }
-    
+    /* Pas de couleur au survol sur mobile */
     .overlay { display: none; }
-}ur au survol sur mobile */
 }
