@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- DÉCLARATION POLICE --- */
+        /* --- POLICE CUSTOM --- */
         @font-face {
-            font-family: 'Winterthur';
+            font-family: 'WinterthurCondensed';
             src: url('WinterthurCondensed.ttf') format('truetype');
             font-weight: normal; font-style: normal;
         }
@@ -23,7 +23,7 @@
             --color-white: #ffffff;
             --color-white-dim: #dddddd;
             
-            --font-title: 'Winterthur', cursive;
+            --font-title: 'WinterthurCondensed', cursive;
             --font-text: 'Cormorant Garamond', serif;
         }
 
@@ -40,7 +40,7 @@
             position: fixed; top: 0; left: 0; 
             width: 100vw; height: 100vh;
             z-index: -2; overflow: hidden;
-            background-image: url('france-bg.png');
+            background-image: url('france-bg.png'); /* Backup Image */
             background-size: cover; background-position: center;
         }
 
@@ -51,62 +51,36 @@
 
         .overlay-dark {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.3); /* Filtre léger */
             z-index: -1;
         }
 
-        /* --- NAVIGATION FLOTTANTE --- */
-        
-        /* 1. Langues (Haut Gauche) */
-        .pos-top-left { 
-            position: fixed; top: 40px; left: 40px; z-index: 100;
-            font-family: var(--font-text); font-size: 0.9rem; letter-spacing: 1px;
-            color: rgba(255,255,255,0.8);
-        }
-        .pos-top-left a { text-decoration: none; color: white; transition: 0.3s; }
-        .pos-top-left a:hover { color: var(--color-gold); }
-        .lang-separator { opacity: 0.5; margin: 0 5px; }
-
-        /* 2. Accueil (Haut Droite) - MODIFIÉ POUR VISIBILITÉ */
-        .pos-top-right { 
-            position: fixed; top: 40px; right: 40px; z-index: 100;
-            text-decoration: none;
-            font-family: var(--font-text);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            color: white;
-            
-            /* Nouveau style "Bouton Visible" */
-            background-color: rgba(0, 0, 0, 0.5); /* Fond sombre semi-transparent */
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Bordure fine */
-            padding: 10px 25px;
-            border-radius: 50px; /* Bords arrondis */
-            backdrop-filter: blur(5px); /* Flou d'arrière-plan */
+        /* --- NAVIGATION AUX 4 COINS --- */
+        /* Style commun */
+        .corner-link {
+            position: fixed; z-index: 100;
+            font-family: var(--font-text); font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 2px;
+            text-decoration: none; color: rgba(255,255,255,0.8);
             transition: all 0.3s ease;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
         }
-        .pos-top-right:hover { 
-            background-color: white; 
-            color: black; 
-            border-color: white;
-        }
+        .corner-link:hover { color: var(--color-gold); }
 
-        /* 3. Lien Brésil (Bas Droite) */
-        .pos-bottom-right { 
-            position: fixed; bottom: 40px; right: 40px; z-index: 100;
-            text-align: right; text-decoration: none;
-        }
-        .brazil-tag {
-            display: block; font-size: 0.8rem; opacity: 0.8; margin-bottom: 5px;
-            font-family: var(--font-text); font-style: italic; color: white;
-        }
-        .brazil-link {
-            font-family: var(--font-text); font-size: 1.1rem; font-weight: bold;
-            color: var(--color-gold); text-transform: uppercase; letter-spacing: 1px;
-            border-bottom: 1px solid transparent; padding-bottom: 2px; transition: 0.3s;
-        }
-        .pos-bottom-right:hover .brazil-link { border-bottom-color: var(--color-gold); color: white; }
+        /* 1. HAUT GAUCHE : Langues */
+        .pos-top-left { top: 40px; left: 40px; cursor: default; }
+        .pos-top-left a { text-decoration: none; color: rgba(255,255,255,0.6); transition: 0.3s; }
+        .pos-top-left a:hover { color: white; }
+        .active-lang { color: white; font-weight: bold; border-bottom: 1px solid white; }
+
+        /* 2. HAUT DROITE : Mariage Brésil */
+        .pos-top-right { top: 40px; right: 40px; text-align: right; font-weight: bold; color: white;}
+        
+        /* 3. BAS GAUCHE : Accueil */
+        .pos-bottom-left { bottom: 40px; left: 40px; }
+
+        /* 4. BAS DROITE : Contact */
+        .pos-bottom-right { bottom: 40px; right: 40px; text-align: right; }
 
 
         /* --- HERO HEADER --- */
@@ -137,31 +111,54 @@
             margin: 0 10px;
         }
         
-        /* DATE : DESIGN MODIFIÉ */
-        .hero-details {
-            margin-top: 20px;
-            font-family: var(--font-text);
-            font-size: 1.5rem; /* Texte normal un peu plus petit */
-            color: var(--color-white);
-            letter-spacing: 2px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        /* --- BLOC DATE & LIEU --- */
+        .hero-info-block {
+            margin-top: 15px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 15px; /* Espace entre les éléments */
+            gap: 5px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        /* Le 17 en évidence */
+        .date-line {
+            font-family: var(--font-text);
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: white;
+            display: flex;
+            align-items: baseline; /* Aligne le texte sur la ligne de base */
+            gap: 10px;
+        }
+
+        /* Le 17 en style Calligraphique Doré */
         .date-highlight {
-            font-family: var(--font-title); /* On utilise la police calligraphique */
-            font-size: 4rem; /* Beaucoup plus gros */
+            font-family: var(--font-title);
+            font-size: 4rem; /* Très grand */
             color: var(--color-gold);
-            line-height: 0; /* Pour ne pas décaler la ligne */
+            line-height: 0;
             position: relative;
-            top: 5px; /* Petit ajustement optique */
+            top: 8px; /* Ajustement fin pour l'alignement */
+            margin: 0 5px;
         }
 
-        /* --- BOUTON RSVP --- */
+        /* Lien Google Maps */
+        .location-link {
+            font-family: var(--font-text);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.4);
+            padding-bottom: 2px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .location-link:hover { color: var(--color-gold); border-color: var(--color-gold); }
+
+        /* --- BOUTON RSVP HERO --- */
         .hero-rsvp-btn {
             margin-top: 50px; 
             margin-bottom: 60px;
@@ -170,7 +167,7 @@
             text-transform: uppercase; font-weight: 600; color: var(--color-white);
             padding: 15px 40px;
             border: 1px solid rgba(255,255,255,0.6);
-            backdrop-filter: blur(3px);
+            backdrop-filter: blur(2px);
             transition: all 0.4s ease;
         }
         .hero-rsvp-btn:hover {
@@ -206,12 +203,14 @@
 
         @media (max-width: 768px) {
             .pos-top-left { top: 20px; left: 20px; }
-            .pos-top-right { top: 20px; right: 20px; padding: 8px 15px; font-size: 0.7rem; }
-            .pos-bottom-right { bottom: 30px; left: 50%; right: auto; transform: translateX(-50%); width: 100%; text-align: center; }
-            
+            .pos-top-right { top: 20px; right: 20px; }
+            .pos-bottom-left { bottom: 20px; left: 20px; }
+            .pos-bottom-right { bottom: 20px; right: 20px; }
+            .corner-link { font-size: 0.7rem; } /* Plus petit sur mobile */
+
             h1.names { font-size: 3.5rem; }
-            .hero-details { font-size: 1.2rem; flex-direction: row; align-items: baseline;}
             .date-highlight { font-size: 3rem; }
+            .date-line { font-size: 1rem; }
             .hero-rsvp-btn { padding: 12px 30px; font-size: 0.9rem; margin-bottom: 40px;}
             .info-grid { grid-template-columns: 1fr; }
         }
@@ -227,19 +226,21 @@
 
     <div class="overlay-dark"></div>
 
-    <div class="pos-top-left">
-        <span style="font-weight:bold; border-bottom:1px solid white;">FR</span> 
-        <span class="lang-separator">|</span> 
-        <a href="bresil.html">PT</a>
+    <div class="corner-link pos-top-left">
+        <span class="active-lang">FR</span> &nbsp;|&nbsp; 
+        <a href="france-pt.html">PT</a>
     </div>
 
-    <a href="index.html" class="pos-top-right">
-        Accueil
+    <a href="bresil.html" class="corner-link pos-top-right">
+        Mariage Brésil →
     </a>
 
-    <a href="bresil.html" class="pos-bottom-right">
-        <span class="brazil-tag">L'autre fête</span>
-        <span class="brazil-link">Le Mariage au Brésil →</span>
+    <a href="index.html" class="corner-link pos-bottom-left">
+        ← Accueil
+    </a>
+
+    <a href="mailto:votremail@gmail.com" class="corner-link pos-bottom-right">
+        Contact
     </a>
 
     <div class="scroll-content">
@@ -249,14 +250,18 @@
                 Cilene <span class="ampersand">&</span> Vianney
             </h1>
             
-            <div class="hero-details">
-                <span>16,</span>
-                <span class="date-highlight">17</span>
-                <span>, 18 juillet 2027</span>
+            <div class="hero-info-block">
+                <div class="date-line">
+                    16, <span class="date-highlight">17</span>, 18 Juillet 2027
+                </div>
+                
+                <a href="https://goo.gl/maps/EXEMPLE_LIEN_CHATEAU" target="_blank" class="location-link">
+                    Château de Vaucouleurs
+                </a>
             </div>
             
             <a href="mailto:votremail@gmail.com" class="hero-rsvp-btn">
-                RSVP
+                Répondre à l'invitation
             </a>
 
             <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'});">
@@ -323,7 +328,7 @@
                 </div>
             </div>
             
-            <a href="mailto:votremail@gmail.com" class="rsvp-btn-footer">RSVP</a>
+            <a href="mailto:votremail@gmail.com" class="rsvp-btn-footer">RÉPONDRE</a>
         </section>
 
     </div>
