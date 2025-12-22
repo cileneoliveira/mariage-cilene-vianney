@@ -40,7 +40,7 @@
             position: fixed; top: 0; left: 0; 
             width: 100vw; height: 100vh;
             z-index: -2; overflow: hidden;
-            background-image: url('france-bg.png'); /* Backup Image */
+            background-image: url('france-bg.png'); 
             background-size: cover; background-position: center;
         }
 
@@ -51,12 +51,11 @@
 
         .overlay-dark {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.3); /* Filtre léger */
+            background: rgba(0,0,0,0.3);
             z-index: -1;
         }
 
         /* --- NAVIGATION AUX 4 COINS --- */
-        /* Style commun */
         .corner-link {
             position: fixed; z-index: 100;
             font-family: var(--font-text); font-size: 0.9rem;
@@ -67,20 +66,14 @@
         }
         .corner-link:hover { color: var(--color-gold); }
 
-        /* 1. HAUT GAUCHE : Langues */
         .pos-top-left { top: 40px; left: 40px; cursor: default; }
         .pos-top-left a { text-decoration: none; color: rgba(255,255,255,0.6); transition: 0.3s; }
         .pos-top-left a:hover { color: white; }
         .active-lang { color: white; font-weight: bold; border-bottom: 1px solid white; }
 
-        /* 2. HAUT DROITE : Mariage Brésil */
         .pos-top-right { top: 40px; right: 40px; text-align: right; font-weight: bold; color: white;}
-        
-        /* 3. BAS GAUCHE : Accueil */
         .pos-bottom-left { bottom: 40px; left: 40px; }
-
-        /* 4. BAS DROITE : Contact */
-        .pos-bottom-right { bottom: 40px; right: 40px; text-align: right; }
+        .pos-bottom-right { bottom: 40px; right: 40px; text-align: right; cursor: pointer; }
 
 
         /* --- HERO HEADER --- */
@@ -111,61 +104,37 @@
             margin: 0 10px;
         }
         
-        /* --- BLOC DATE & LIEU --- */
+        /* --- BLOC DATE & LIEU (Doré & Manuscrit) --- */
         .hero-info-block {
-            margin-top: 15px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 5px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        .date-line {
-            font-family: var(--font-text);
-            font-size: 1.4rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: white;
-            display: flex;
-            align-items: baseline; /* Aligne le texte sur la ligne de base */
-            gap: 10px;
-        }
-
-        /* Le 17 en style Calligraphique Doré */
-        .date-highlight {
+        .golden-handwritten {
             font-family: var(--font-title);
-            font-size: 4rem; /* Très grand */
-            color: var(--color-gold);
-            line-height: 0;
-            position: relative;
-            top: 8px; /* Ajustement fin pour l'alignement */
-            margin: 0 5px;
-        }
-
-        /* Lien Google Maps */
-        .location-link {
-            font-family: var(--font-text);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255,255,255,0.9);
+            font-size: 2.8rem; 
+            color: var(--color-gold); 
+            line-height: 1.2;
             text-decoration: none;
-            border-bottom: 1px solid rgba(255,255,255,0.4);
-            padding-bottom: 2px;
-            margin-top: 15px;
             transition: 0.3s;
         }
-        .location-link:hover { color: var(--color-gold); border-color: var(--color-gold); }
+        
+        a.golden-handwritten:hover {
+            color: white;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+        }
 
         /* --- BOUTON RSVP HERO --- */
         .hero-rsvp-btn {
-            margin-top: 50px; 
+            margin-top: 60px; 
             margin-bottom: 60px;
             display: inline-block; text-decoration: none;
             font-family: var(--font-text); font-size: 1rem; letter-spacing: 3px;
             text-transform: uppercase; font-weight: 600; color: var(--color-white);
-            padding: 15px 40px;
+            padding: 15px 50px; /* Un peu plus large */
             border: 1px solid rgba(255,255,255,0.6);
             backdrop-filter: blur(2px);
             transition: all 0.4s ease;
@@ -185,12 +154,10 @@
         }
 
         /* --- CONTENU --- */
-        .scroll-content { position: relative; z-index: 1; padding-bottom: 100px; }
+        .scroll-content { position: relative; z-index: 1; padding-bottom: 0px; /* Footer prend le relais */ }
         section { padding: 100px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
         .section-title { font-family: var(--font-title); font-size: 4rem; color: var(--color-gold); margin-bottom: 60px; line-height: 1; }
         p.text-body { font-size: 1.4rem; line-height: 1.6; color: var(--color-white-dim); }
-        .rsvp-btn-footer { display: inline-block; margin-top: 60px; border: 1px solid var(--color-gold); color: var(--color-gold); padding: 15px 50px; text-decoration: none; font-family: var(--font-text); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 3px; transition: all 0.3s; }
-        .rsvp-btn-footer:hover { background: var(--color-gold); color: white; }
         
         .event-item { margin-bottom: 70px; }
         .event-day { font-family: var(--font-title); font-size: 2.5rem; color: var(--color-white); display: block; }
@@ -201,18 +168,60 @@
         .info-block p, .info-block li { font-size: 1.1rem; line-height: 1.5; color: rgba(255,255,255,0.9); }
         .week-before { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 100px 20px; }
 
+        /* --- FOOTER CONTACT (Nouveau) --- */
+        footer.footer-contact {
+            background: rgba(0,0,0,0.6); /* Fond sombre pour bien lire */
+            padding: 80px 20px 100px 20px; /* Padding bas pour laisser place au lien Contact */
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .footer-title {
+            font-family: var(--font-title);
+            font-size: 3rem;
+            color: var(--color-white);
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            font-family: var(--font-text);
+            font-size: 1.2rem;
+            color: var(--color-white-dim);
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 15px 30px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        
+        .contact-item:hover {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .contact-item strong { display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; opacity: 0.7;}
+
         @media (max-width: 768px) {
             .pos-top-left { top: 20px; left: 20px; }
             .pos-top-right { top: 20px; right: 20px; }
             .pos-bottom-left { bottom: 20px; left: 20px; }
             .pos-bottom-right { bottom: 20px; right: 20px; }
-            .corner-link { font-size: 0.7rem; } /* Plus petit sur mobile */
+            .corner-link { font-size: 0.7rem; } 
 
             h1.names { font-size: 3.5rem; }
-            .date-highlight { font-size: 3rem; }
-            .date-line { font-size: 1rem; }
+            .golden-handwritten { font-size: 2rem; }
             .hero-rsvp-btn { padding: 12px 30px; font-size: 0.9rem; margin-bottom: 40px;}
             .info-grid { grid-template-columns: 1fr; }
+            
+            .contact-links { flex-direction: column; gap: 20px; }
         }
     </style>
 </head>
@@ -227,21 +236,13 @@
     <div class="overlay-dark"></div>
 
     <div class="corner-link pos-top-left">
-        <span class="active-lang">FR</span> &nbsp;|&nbsp; 
-        <a href="france-pt.html">PT</a>
+        <span class="active-lang">FR</span>  |  <a href="france-pt.html">PT</a>
     </div>
 
-    <a href="bresil.html" class="corner-link pos-top-right">
-        Mariage Brésil →
-    </a>
-
-    <a href="index.html" class="corner-link pos-bottom-left">
-        ← Accueil
-    </a>
-
-    <a href="mailto:votremail@gmail.com" class="corner-link pos-bottom-right">
-        Contact
-    </a>
+    <a href="bresil.html" class="corner-link pos-top-right">Mariage Brésil →</a>
+    <a href="index.html" class="corner-link pos-bottom-left">← Accueil</a>
+    
+    <a href="#footer-contact" class="corner-link pos-bottom-right">Contact</a>
 
     <div class="scroll-content">
 
@@ -251,17 +252,16 @@
             </h1>
             
             <div class="hero-info-block">
-                <div class="date-line">
-                    16, <span class="date-highlight">17</span>, 18 Juillet 2027
+                <div class="golden-handwritten">
+                    17 Juillet 2027
                 </div>
-                
-                <a href="https://goo.gl/maps/EXEMPLE_LIEN_CHATEAU" target="_blank" class="location-link">
+                <a href="https://goo.gl/maps/TON_LIEN_MAPS" target="_blank" class="golden-handwritten">
                     Château de Vaucouleurs
                 </a>
             </div>
             
-            <a href="mailto:votremail@gmail.com" class="hero-rsvp-btn">
-                Répondre à l'invitation
+            <a href="https://tally.so/r/TON_LIEN_ICI" target="_blank" class="hero-rsvp-btn">
+                RSVP
             </a>
 
             <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'});">
@@ -318,18 +318,24 @@
                     <h3>Dormir</h3>
                     <p>Suggestions : Hôtel Le Gabian, Domaine des Oliviers...</p>
                 </div>
-                <div class="info-block">
-                    <h3>Sécurité</h3>
-                    <p>Navettes de nuit prévues (1h-5h).</p>
-                </div>
-                 <div class="info-block">
-                    <h3>Enfants</h3>
-                    <p>Baby-sitters prévues le samedi soir.</p>
-                </div>
             </div>
-            
-            <a href="mailto:votremail@gmail.com" class="rsvp-btn-footer">RÉPONDRE</a>
         </section>
+
+        <footer id="footer-contact" class="footer-contact">
+            <h2 class="footer-title">Une question ?</h2>
+            
+            <div class="contact-links">
+                <a href="https://wa.me/33600000000" target="_blank" class="contact-item">
+                    <strong>Message</strong>
+                    WhatsApp
+                </a>
+
+                <a href="mailto:votremail@gmail.com" class="contact-item">
+                    <strong>Email</strong>
+                    votremail@gmail.com
+                </a>
+            </div>
+        </footer>
 
     </div>
 
