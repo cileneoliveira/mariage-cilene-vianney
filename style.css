@@ -71,12 +71,12 @@ body {
 
 /* --- IMAGES & COULEURS DE FOND --- */
 .split.left {
-    background-image: url('france-bg.png'); 
+    background-image: url('background-france-loop.mp4'); 
     background-color: var(--color-france); /* Couleur si image manque */
 }
 
 .split.right {
-    background-image: url('brasil-bg_4.jpg');
+    background-image: url('background-bresil-loop.mp4');
     background-color: var(--color-brasil); /* Couleur si image manque */
 }
 
