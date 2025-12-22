@@ -7,22 +7,35 @@
     <title>Mariage en Provence | Cilene & Vianney</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
+        /* --- DÉCLARATION DE LA POLICE CUSTOM "Winterthur" --- */
+        @font-face {
+            font-family: 'Winterthur'; /* On garde ce nom de référence pour le CSS */
+            /* CORRECTION ICI : Nom du fichier .ttf et format truetype */
+            src: url('WinterthurCondensed.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         /* --- CONFIGURATION --- */
         :root {
             --color-gold: #d4af37;
             --color-white: #ffffff;
-            --color-white-dim: #dddddd;
+            --color-white-dim: #f0f0f0;
+            
+            /* Variables de polices */
+            --font-title: 'Winterthur', cursive;       /* Utilise ton fichier .ttf */
+            --font-text: 'Cormorant Garamond', serif;     /* Google Font */
         }
 
         body { 
             margin: 0; padding: 0;
-            font-family: 'Helvetica', sans-serif;
+            font-family: var(--font-text);
             color: var(--color-white);
             overflow-x: hidden;
+            font-size: 18px;
         }
 
         /* --- VIDEO DE FOND --- */
@@ -37,7 +50,7 @@
         video#bg-video {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Remplit l'écran sans déformer */
+            object-fit: cover;
             object-position: center;
         }
 
@@ -45,29 +58,68 @@
         .overlay-dark {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.3); /* Ajuste l'opacité ici si trop sombre */
+            background: rgba(0, 0, 0, 0.35);
             z-index: -1;
         }
 
         /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 30px 40px; box-sizing: border-box;
+            height: 80px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 0 40px; 
+            box-sizing: border-box;
             z-index: 100;
         }
 
+        /* Liens latéraux */
         .nav-link { 
-            text-decoration: none; font-size: 0.9rem; 
-            text-transform: uppercase; letter-spacing: 2px; 
-            color: rgba(255,255,255,0.9); 
-            font-weight: bold;
-            border-bottom: 1px solid transparent;
+            text-decoration: none; 
+            font-family: var(--font-text);
+            font-size: 1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: rgba(255,255,255,0.8); 
+            font-weight: 600;
             transition: 0.3s;
+            padding: 8px 15px;
+            border-radius: 4px;
+            background: rgba(0,0,0,0.2); 
+            border: 1px solid rgba(255,255,255,0.2);
         }
+
         .nav-link:hover {
-            border-bottom: 1px solid white;
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* BOUTON RSVP CENTRAL */
+        .nav-rsvp {
+            position: absolute; 
+            left: 50%;
+            transform: translateX(-50%);
+            
+            text-decoration: none;
+            font-family: var(--font-text);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: var(--color-gold);
+            
+            padding: 10px 30px;
+            border: 1px solid var(--color-gold);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .nav-rsvp:hover {
+            background-color: var(--color-gold);
             color: white;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
         /* --- CONTENU SCROLLABLE --- */
@@ -83,25 +135,24 @@
             display: flex; flex-direction: column; 
             justify-content: center; align-items: center;
             text-align: center;
-            position: relative;
         }
         
         h1.names {
-            font-family: 'Antonio', sans-serif;
-            font-size: 10vw;
-            line-height: 0.9;
-            text-transform: uppercase;
-            font-weight: 300;
+            font-family: var(--font-title);
+            font-size: 8rem; 
+            line-height: 0.8;
+            font-weight: normal;
             margin: 0;
-            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         .hero-details {
-            margin-top: 20px;
-            font-family: 'Playfair Display', serif;
+            margin-top: 10px;
+            font-family: var(--font-text);
             font-style: italic;
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: var(--color-gold);
+            letter-spacing: 1px;
         }
 
         /* --- FLÈCHE DE SCROLL --- */
@@ -117,14 +168,12 @@
         }
         
         .scroll-indicator span {
-            display: block;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
+            font-family: var(--font-text);
             text-transform: uppercase;
-            margin-bottom: 5px;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
         }
-
-        .arrow-down { font-size: 2rem; line-height: 1; }
+        .arrow-down { font-size: 2rem; }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
@@ -134,38 +183,47 @@
 
         /* --- SECTIONS --- */
         section {
-            padding: 80px 20px;
+            padding: 90px 20px;
             max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
 
         .section-title {
-            font-family: 'Antonio', sans-serif;
-            font-size: 3rem;
-            text-transform: uppercase;
-            margin-bottom: 60px;
-            letter-spacing: 2px;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            display: inline-block;
-            padding-bottom: 10px;
+            font-family: var(--font-title);
+            font-size: 4rem;
+            color: var(--color-gold);
+            margin-bottom: 50px;
+            line-height: 1;
         }
 
         p.text-body {
-            font-size: 1.2rem; line-height: 1.8; color: var(--color-white-dim); font-weight: 300;
+            font-size: 1.4rem; 
+            line-height: 1.6; 
+            color: var(--color-white-dim);
         }
 
         /* --- PROGRAMME --- */
-        .event-item { margin-bottom: 60px; position: relative; }
+        .event-item { margin-bottom: 70px; }
         .event-day {
-            font-family: 'Antonio', sans-serif; font-size: 2rem; color: var(--color-gold);
-            margin-bottom: 10px; display: block;
+            font-family: var(--font-title); 
+            font-size: 2.5rem; 
+            color: var(--color-white);
+            margin-bottom: 5px; 
+            display: block;
         }
         .event-title {
-            font-family: 'Playfair Display', serif; font-size: 2.5rem; margin: 0 0 10px 0;
+            font-family: var(--font-text); 
+            font-size: 2.2rem; 
+            color: var(--color-gold);
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .event-desc {
-            font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto;
+            font-size: 1.2rem; 
+            font-style: italic;
+            color: rgba(255,255,255,0.8);
         }
 
         .week-before {
@@ -175,33 +233,49 @@
         }
 
         /* --- INFOS --- */
-        .info-grid { text-align: left; margin-top: 40px; }
-        .info-block { margin-bottom: 50px; }
+        .info-grid { 
+            text-align: left; 
+            margin-top: 40px; 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
         .info-block h3 {
-            font-family: 'Antonio', sans-serif; font-size: 1.5rem; color: var(--color-gold);
-            margin-bottom: 10px; text-transform: uppercase;
+            font-family: var(--font-title); 
+            font-size: 2rem; 
+            color: var(--color-gold);
+            margin-bottom: 15px;
         }
         .info-block p, .info-block li {
-            font-size: 1rem; line-height: 1.6; color: rgba(255,255,255,0.8); margin: 5px 0;
+            font-size: 1.1rem; 
+            line-height: 1.5; 
+            color: rgba(255,255,255,0.9);
         }
-        .info-block a { color: white; text-decoration: underline; }
+        .info-block ul { padding-left: 20px; }
+        .info-block a { color: white; }
 
-        .rsvp-btn {
-            display: inline-block; margin-top: 50px;
-            border: 1px solid white; color: white;
-            padding: 15px 40px; text-decoration: none;
-            font-family: 'Antonio', sans-serif; font-size: 1.2rem; letter-spacing: 2px;
+        .rsvp-btn-footer {
+            display: inline-block; margin-top: 60px;
+            background-color: transparent;
+            border: 2px solid var(--color-gold); 
+            color: var(--color-gold);
+            padding: 15px 50px; 
+            text-decoration: none;
+            font-family: var(--font-text); 
+            font-size: 1.3rem; 
+            text-transform: uppercase;
+            letter-spacing: 3px;
             transition: all 0.3s;
         }
-        .rsvp-btn:hover { background: white; color: black; }
+        .rsvp-btn-footer:hover { background: var(--color-gold); color: white; }
 
+        /* --- MOBILE --- */
         @media (max-width: 768px) {
-            h1.names { font-size: 15vw; margin-bottom: 10px;}
-            .hero-details { font-size: 1.2rem; }
-            .section-title { font-size: 2.2rem; }
-            .event-title { font-size: 2rem; }
-            nav { padding: 20px; }
-            .nav-link { font-size: 0.7rem; }
+            nav { padding: 0 15px; }
+            .nav-link { font-size: 0.7rem; padding: 6px 10px; }
+            .nav-rsvp { font-size: 0.8rem; padding: 8px 15px; }
+            h1.names { font-size: 4rem; }
+            .info-grid { grid-template-columns: 1fr; } 
         }
     </style>
 </head>
@@ -209,21 +283,23 @@
 
     <div id="bg-video-container">
         <video autoplay muted loop playsinline id="bg-video">
-            <source src="background-france.mp4" type="video/mp4">
+            <source src="background-france-loop.mp4" type="video/mp4">
         </video>
     </div>
 
     <div class="overlay-dark"></div>
 
     <nav>
-        <div class="nav-center"></div> <a href="bresil.html" class="nav-link">Brésil 🇧🇷 →</a>
+        <a href="index.html" class="nav-link">← Accueil</a>
+        <a href="mailto:votremail@gmail.com" class="nav-rsvp">Répondre</a>
+        <a href="bresil.html" class="nav-link">Brésil 🇧🇷 →</a>
     </nav>
 
     <div class="scroll-content">
 
         <header class="hero">
-            <h1 class="names">Cilene<br>& Vianney</h1>
-            <div class="hero-details">16,<strong>17</strong>,18 juillet 2027</div>
+            <h1 class="names">Cilene & Vianney</h1>
+            <div class="hero-details">16, <strong>17</strong>, 18 juillet 2027</div>
 
             <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'});">
                 <span>Découvrir</span>
@@ -249,13 +325,13 @@
             <div class="event-item">
                 <span class="event-day">Samedi 17</span>
                 <h3 class="event-title">Le Grand Jour</h3>
-                <div class="event-desc">Cérémonie<br>Suivie du cocktail, du dîner et de la fête</div>
+                <div class="event-desc">Cérémonie, Cocktail, Dîner & Fête</div>
             </div>
 
             <div class="event-item">
                 <span class="event-day">Dimanche 18</span>
                 <h3 class="event-title">Déjeuner & Piscine</h3>
-                <div class="event-desc">Déjeuner décontracté pour finir le weekend en douceur</div>
+                <div class="event-desc">Brunch décontracté pour finir en douceur</div>
             </div>
         </section>
 
@@ -265,7 +341,6 @@
                 Pour prolonger l'été, nous serons sur place dès le <strong>mardi 13 Juillet</strong>.
                 <br><br>
                 Si vous êtes dans le coin, rejoignez-nous pour des moments informels : plage, balades et dîners improvisés. 
-                <br><span style="font-size:0.9rem; opacity:0.7;">(Activités libres à la charge de chacun)</span>
             </p>
         </section>
 
@@ -282,7 +357,7 @@
 
                 <div class="info-block">
                     <h3>Dormir</h3>
-                    <p>Quelques suggestions à proximité :</p>
+                    <p>Suggestions :</p>
                     <ul>
                         <li>Hôtel Le Gabian</li>
                         <li>Domaine des Oliviers</li>
@@ -292,17 +367,17 @@
 
                 <div class="info-block">
                     <h3>Sécurité</h3>
-                    <p>Des navettes de nuit (1h-5h) vous raccompagneront le samedi soir vers les hôtels proches.</p>
+                    <p>Navettes de nuit prévues (1h-5h) pour les retours.</p>
                 </div>
 
                  <div class="info-block">
                     <h3>Enfants</h3>
-                    <p>Bienvenus tout au long du weekend !<br> Samedi : baby-sitters prévues sur place.</p>
+                    <p>Bienvenus tout au long du weekend ! Baby-sitters prévues le samedi soir.</p>
                 </div>
 
             </div>
-
-            <a href="#" class="rsvp-btn">RÉPONDRE</a>
+            
+            <a href="mailto:votremail@gmail.com" class="rsvp-btn-footer">RÉPONDRE</a>
         </section>
 
     </div>
