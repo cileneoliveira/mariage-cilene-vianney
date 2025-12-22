@@ -12,7 +12,7 @@
     <style>
         /* --- DÉCLARATION POLICE --- */
         @font-face {
-            font-family: 'Winterthur';
+            font-family: 'Winter Arthur';
             src: url('WinterthurCondensed.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
@@ -24,7 +24,7 @@
             --color-white: #ffffff;
             --color-white-dim: #dddddd;
             
-            --font-title: 'Winterthur', cursive;
+            --font-title: 'Winter Arthur', cursive;
             --font-text: 'Cormorant Garamond', serif;
         }
 
@@ -34,13 +34,19 @@
             color: var(--color-white);
             overflow-x: hidden;
             font-size: 18px;
+            background-color: #000; /* Fond noir par défaut */
         }
 
-        /* --- VIDEO DE FOND --- */
+        /* --- VIDEO DE FOND + IMAGE DE SECOURS --- */
         #bg-video-container {
             position: fixed; top: 0; left: 0; 
             width: 100vw; height: 100vh;
-            z-index: -2; overflow: hidden; 
+            z-index: -2; overflow: hidden;
+            
+            /* Image de secours (CSS) si la balise video ne charge pas */
+            background-image: url('france-bg.png');
+            background-size: cover;
+            background-position: center;
         }
 
         video#bg-video {
@@ -51,71 +57,71 @@
         /* --- FILTRE SOMBRE & DÉGRADÉ --- */
         .overlay-dark {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Dégradé pour que la Nav soit toujours lisible en haut */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.4) 100%);
+            /* Dégradé léger en haut pour lire le menu, et sombre globalement */
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 20%, rgba(0,0,0,0.3) 100%);
             z-index: -1;
         }
 
         /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%;
-            height: 90px; /* Un peu plus d'espace */
+            height: 100px;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 50px; 
+            padding: 0 40px; 
             box-sizing: border-box;
             z-index: 100;
-            /* Le flou qui empêche le texte de passer "sur" le bouton visuellement */
-            backdrop-filter: blur(2px); 
-            -webkit-backdrop-filter: blur(2px);
+            /* Plus de flou, juste de la transparence */
         }
 
-        /* Liens latéraux (Minimalistes, sans boutons) */
-        .nav-link { 
+        /* Groupe de Langues (Gauche) */
+        .nav-lang {
+            font-family: var(--font-text);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+        .nav-lang span { color: white; font-weight: bold; border-bottom: 1px solid white;} /* Langue active */
+        .nav-lang a { text-decoration: none; color: rgba(255,255,255,0.6); transition: 0.3s; }
+        .nav-lang a:hover { color: white; }
+
+        /* Lien Mariage Brésil (Droite) */
+        .nav-link-right { 
             text-decoration: none; 
             font-family: var(--font-text);
-            font-size: 1rem; 
+            font-size: 0.9rem; 
             text-transform: uppercase; 
             letter-spacing: 2px; 
             color: rgba(255,255,255,0.9); 
             font-weight: 600;
             transition: all 0.3s ease;
             position: relative;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5); /* Ombre pour lisibilité sur vidéo */
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
         }
-
-        /* Petit effet de soulignement élégant au survol */
-        .nav-link::after {
-            content: '';
-            position: absolute; width: 0; height: 1px;
-            bottom: -5px; left: 0;
-            background-color: var(--color-gold);
-            transition: width 0.3s;
-        }
-        .nav-link:hover { color: white; }
-        .nav-link:hover::after { width: 100%; }
+        .nav-link-right:hover { color: var(--color-gold); }
 
         /* BOUTON RSVP CENTRAL */
         .nav-rsvp {
             position: absolute; left: 50%; transform: translateX(-50%);
             text-decoration: none;
             font-family: var(--font-text);
-            font-size: 0.9rem;
+            font-size: 1rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: bold;
-            color: var(--color-white);
+            color: var(--color-gold);
             
-            /* Style bouton fin et élégant */
-            padding: 12px 35px;
-            border: 1px solid var(--color-white);
-            background: rgba(0,0,0,0.1); /* Fond très léger */
+            /* Style bouton fin */
+            padding: 10px 30px;
+            border: 1px solid var(--color-gold);
+            background: rgba(0,0,0,0.2); /* Très légère teinte pour lisibilité */
             transition: all 0.4s ease;
         }
 
         .nav-rsvp:hover {
-            background-color: var(--color-white);
-            color: black;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            background-color: var(--color-gold);
+            color: white;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
         /* --- CONTENU --- */
@@ -123,66 +129,68 @@
             position: relative; z-index: 1; padding-bottom: 100px;
         }
 
-        /* --- HEADER --- */
+        /* --- HERO HEADER --- */
         header.hero {
             height: 100vh;
             display: flex; flex-direction: column; 
             justify-content: center; align-items: center;
             text-align: center;
+            position: relative;
         }
         
         h1.names {
             font-family: var(--font-title);
-            font-size: 7rem; /* Ajusté pour MAJ */
-            line-height: 1.1;
+            font-size: 7rem;
+            line-height: 1;
             font-weight: normal;
             margin: 0;
-            
-            /* TRANSFORMATION EN MAJUSCULES */
             text-transform: uppercase;
-            letter-spacing: 0.05em; /* Aère les lettres */
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Style spécifique pour le "&" */
+        /* Style du "&" */
         .ampersand {
-            font-family: 'Cormorant Garamond', serif; /* Police différente pour le & */
+            font-family: 'Cormorant Garamond', serif;
             font-style: italic;
-            font-size: 0.5em; /* 50% de la taille des prénoms */
+            font-size: 0.5em; 
             vertical-align: middle;
             color: var(--color-gold);
-            margin: 0 10px;
+            margin: 0 15px;
         }
         
         .hero-details {
-            margin-top: 20px;
+            margin-top: 15px;
             font-family: var(--font-text);
             font-style: italic;
             font-size: 1.8rem;
             color: var(--color-white);
             letter-spacing: 1px;
             text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            margin-bottom: 40px; /* Espace avant la flèche */
         }
 
-        /* --- FLÈCHE DE SCROLL (Sans texte) --- */
+        /* --- FLÈCHE DE SCROLL --- */
         .scroll-indicator {
-            position: absolute;
-            bottom: 5vh; /* Positionnée en bas de l'écran */
-            left: 50%;
-            transform: translateX(-50%);
+            /* Pas de position absolute pour qu'elle suive le flux, 
+               mais on peut la forcer en bas si tu préfères. 
+               Ici je la mets dans le flux juste après le texte */
+            margin-top: 20px; 
             animation: bounce 2s infinite;
             cursor: pointer;
-            opacity: 0.7;
+            opacity: 0.8;
         }
         
         .arrow-down { 
             font-size: 2.5rem; 
             color: var(--color-white);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
-            40% {transform: translateX(-50%) translateY(-10px);}
-            60% {transform: translateX(-50%) translateY(-5px);}
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
         }
 
         /* --- SECTIONS --- */
@@ -253,18 +261,23 @@
 
         /* --- MOBILE --- */
         @media (max-width: 768px) {
-            nav { padding: 0 20px; height: 70px; }
+            nav { padding: 0 20px; height: 80px; }
             
-            .nav-link { font-size: 0.7rem; }
+            .nav-lang { font-size: 0.8rem; }
+            .nav-link-right { font-size: 0.7rem; letter-spacing: 1px; }
+            
+            /* RSVP plus petit sur mobile pour que ça tienne */
             .nav-rsvp { 
-                font-size: 0.7rem; padding: 8px 20px; border-width: 1px;
+                font-size: 0.7rem; padding: 8px 15px; border-width: 1px;
+                position: static; /* On l'enlève du centre absolu si pas de place */
+                transform: none;
+                display: none; /* OPTIONNEL: Cacher le bouton nav sur mobile si trop serré ? */
             }
-
-            /* Ajustements Titre Mobile */
-            h1.names { font-size: 3.5rem; letter-spacing: 2px; }
-            .ampersand { display: block; margin: 5px 0; font-size: 0.6em; } /* Le & passe à la ligne sur mobile */
-            .hero-details { font-size: 1.3rem; margin-top: 15px;}
+            /* Ou si tu veux garder le bouton sur mobile, active flex-column ou ajuste les tailles */
             
+            h1.names { font-size: 3.5rem; letter-spacing: 2px; }
+            .ampersand { display: block; margin: 0; font-size: 0.6em; } 
+            .hero-details { font-size: 1.3rem; }
             .info-grid { grid-template-columns: 1fr; } 
         }
     </style>
@@ -272,7 +285,7 @@
 <body>
 
     <div id="bg-video-container">
-        <video autoplay muted loop playsinline id="bg-video">
+        <video autoplay muted loop playsinline id="bg-video" poster="france-bg.png">
             <source src="background-france-loop.mp4" type="video/mp4">
         </video>
     </div>
@@ -280,11 +293,13 @@
     <div class="overlay-dark"></div>
 
     <nav>
-        <a href="index.html" class="nav-link">← Accueil</a>
+        <div class="nav-lang">
+            <span>FR</span> &nbsp;|&nbsp; <a href="index-pt.html">PT</a>
+        </div>
         
         <a href="mailto:votremail@gmail.com" class="nav-rsvp">Répondre</a>
         
-        <a href="bresil.html" class="nav-link">Brésil 🇧🇷 →</a>
+        <a href="bresil.html" class="nav-link-right">Mariage Brésil →</a>
     </nav>
 
     <div class="scroll-content">
