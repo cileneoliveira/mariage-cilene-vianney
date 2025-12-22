@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- POLICE CUSTOM --- */
+        /* --- POLICE CUSTOM (Titre) --- */
         @font-face {
             font-family: 'WinterthurCondensed';
             src: url('WinterthurCondensed.ttf') format('truetype');
@@ -104,37 +104,42 @@
             margin: 0 10px;
         }
         
-        /* --- BLOC DATE & LIEU (Doré & Manuscrit) --- */
-        .hero-info-block {
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        /* --- NOUVEAU STYLE DATE & LIEU (Une seule ligne fine) --- */
+        .hero-details-line {
+            margin-top: 15px;
+            font-family: 'Cormorant Garamond', serif; /* La police demandée */
+            font-style: italic; /* Aspect "manuscrit" élégant du Garamond */
+            font-size: 1.8rem; /* Taille réduite pour la finesse */
+            color: var(--color-gold);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
+            letter-spacing: 1px;
         }
 
-        .golden-handwritten {
-            font-family: var(--font-title);
-            font-size: 2.8rem; 
-            color: var(--color-gold); 
-            line-height: 1.2;
+        .hero-details-line a {
+            color: inherit;
             text-decoration: none;
+            border-bottom: 1px solid transparent;
             transition: 0.3s;
         }
-        
-        a.golden-handwritten:hover {
-            color: white;
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+        .hero-details-line a:hover {
+            border-bottom: 1px solid var(--color-gold);
+        }
+
+        .separator-dot {
+            margin: 0 10px;
+            font-size: 1rem;
+            vertical-align: middle;
+            opacity: 0.7;
         }
 
         /* --- BOUTON RSVP HERO --- */
         .hero-rsvp-btn {
-            margin-top: 60px; 
+            margin-top: 50px; 
             margin-bottom: 60px;
             display: inline-block; text-decoration: none;
             font-family: var(--font-text); font-size: 1rem; letter-spacing: 3px;
             text-transform: uppercase; font-weight: 600; color: var(--color-white);
-            padding: 15px 50px; /* Un peu plus large */
+            padding: 15px 50px;
             border: 1px solid rgba(255,255,255,0.6);
             backdrop-filter: blur(2px);
             transition: all 0.4s ease;
@@ -154,7 +159,7 @@
         }
 
         /* --- CONTENU --- */
-        .scroll-content { position: relative; z-index: 1; padding-bottom: 0px; /* Footer prend le relais */ }
+        .scroll-content { position: relative; z-index: 1; padding-bottom: 0px; }
         section { padding: 100px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
         .section-title { font-family: var(--font-title); font-size: 4rem; color: var(--color-gold); margin-bottom: 60px; line-height: 1; }
         p.text-body { font-size: 1.4rem; line-height: 1.6; color: var(--color-white-dim); }
@@ -168,10 +173,10 @@
         .info-block p, .info-block li { font-size: 1.1rem; line-height: 1.5; color: rgba(255,255,255,0.9); }
         .week-before { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 100px 20px; }
 
-        /* --- FOOTER CONTACT (Nouveau) --- */
+        /* --- FOOTER CONTACT --- */
         footer.footer-contact {
-            background: rgba(0,0,0,0.6); /* Fond sombre pour bien lire */
-            padding: 80px 20px 100px 20px; /* Padding bas pour laisser place au lien Contact */
+            background: rgba(0,0,0,0.6); 
+            padding: 80px 20px 100px 20px;
             text-align: center;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
@@ -184,29 +189,19 @@
         }
 
         .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
+            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
         }
 
         .contact-item {
-            font-family: var(--font-text);
-            font-size: 1.2rem;
-            color: var(--color-white-dim);
-            text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 15px 30px;
-            border-radius: 4px;
-            transition: 0.3s;
+            font-family: var(--font-text); font-size: 1.2rem; color: var(--color-white-dim);
+            text-decoration: none; border: 1px solid rgba(255,255,255,0.3);
+            padding: 15px 30px; border-radius: 4px; transition: 0.3s;
         }
         
         .contact-item:hover {
-            border-color: var(--color-gold);
-            color: var(--color-gold);
+            border-color: var(--color-gold); color: var(--color-gold);
             background: rgba(255,255,255,0.05);
         }
-
         .contact-item strong { display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; opacity: 0.7;}
 
         @media (max-width: 768px) {
@@ -217,10 +212,12 @@
             .corner-link { font-size: 0.7rem; } 
 
             h1.names { font-size: 3.5rem; }
-            .golden-handwritten { font-size: 2rem; }
+            /* Sur mobile, on garde une ligne mais on réduit la taille */
+            .hero-details-line { font-size: 1.2rem; display: flex; flex-direction: column; gap: 5px;} 
+            .separator-dot { display: none; } /* On cache le point sur mobile pour empiler si besoin */
+            
             .hero-rsvp-btn { padding: 12px 30px; font-size: 0.9rem; margin-bottom: 40px;}
             .info-grid { grid-template-columns: 1fr; }
-            
             .contact-links { flex-direction: column; gap: 20px; }
         }
     </style>
@@ -241,7 +238,6 @@
 
     <a href="bresil.html" class="corner-link pos-top-right">Mariage Brésil →</a>
     <a href="index.html" class="corner-link pos-bottom-left">← Accueil</a>
-    
     <a href="#footer-contact" class="corner-link pos-bottom-right">Contact</a>
 
     <div class="scroll-content">
@@ -251,13 +247,10 @@
                 Cilene <span class="ampersand">&</span> Vianney
             </h1>
             
-            <div class="hero-info-block">
-                <div class="golden-handwritten">
-                    17 Juillet 2027
-                </div>
-                <a href="https://goo.gl/maps/TON_LIEN_MAPS" target="_blank" class="golden-handwritten">
-                    Château de Vaucouleurs
-                </a>
+            <div class="hero-details-line">
+                17 Juillet 2027
+                <span class="separator-dot">•</span>
+                <a href="https://maps.app.goo.gl/4nmDmnsRz1fuUuCK7" target="_blank">Château de Vaucouleurs</a>
             </div>
             
             <a href="https://tally.so/r/TON_LIEN_ICI" target="_blank" class="hero-rsvp-btn">
@@ -277,30 +270,27 @@
 
         <section>
             <h2 class="section-title">Le Programme</h2>
-
             <div class="event-item">
                 <span class="event-day">Vendredi 16</span>
                 <h3 class="event-title">L'apéro</h3>
                 <div class="event-desc">Verre de bienvenue et retrouvailles</div>
             </div>
-
             <div class="event-item">
                 <span class="event-day">Samedi 17</span>
                 <h3 class="event-title">Le Grand Jour</h3>
-                <div class="event-desc">Cérémonie, Cocktail, Dîner & Fête</div>
+                <div class="event-desc">Cérémonie & Réception</div>
             </div>
-
             <div class="event-item">
                 <span class="event-day">Dimanche 18</span>
                 <h3 class="event-title">Déjeuner & Piscine</h3>
-                <div class="event-desc">Brunch décontracté pour finir en douceur</div>
+                <div class="event-desc">Déjeuner décontracté pour finir en douceur</div>
             </div>
         </section>
 
         <section class="week-before">
             <h2 class="section-title">La Semaine d'Avant</h2>
             <p class="text-body">
-                Pour prolonger l'été, nous serons sur place dès le <strong>mardi 13 Juillet</strong>.
+                Pour profiter de l'été, nous serons sur place dès le <strong>mardi 13 Juillet</strong>.
                 <br><br>
                 Si vous êtes dans le coin, rejoignez-nous pour des moments informels.
             </p>
@@ -323,16 +313,12 @@
 
         <footer id="footer-contact" class="footer-contact">
             <h2 class="footer-title">Une question ?</h2>
-            
             <div class="contact-links">
                 <a href="https://wa.me/33600000000" target="_blank" class="contact-item">
-                    <strong>Message</strong>
-                    WhatsApp
+                    <strong>Message</strong> WhatsApp
                 </a>
-
                 <a href="mailto:votremail@gmail.com" class="contact-item">
-                    <strong>Email</strong>
-                    votremail@gmail.com
+                    <strong>Email</strong> votremail@gmail.com
                 </a>
             </div>
         </footer>
