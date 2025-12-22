@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* --- POLICE CUSTOM (Titre) --- */
+        /* --- POLICE CUSTOM --- */
         @font-face {
             font-family: 'WinterthurCondensed';
             src: url('WinterthurCondensed.ttf') format('truetype');
@@ -55,7 +55,7 @@
             z-index: -1;
         }
 
-        /* --- NAVIGATION AUX 4 COINS --- */
+        /* --- NAVIGATION --- */
         .corner-link {
             position: fixed; z-index: 100;
             font-family: var(--font-text); font-size: 0.9rem;
@@ -66,14 +66,17 @@
         }
         .corner-link:hover { color: var(--color-gold); }
 
+        /* Haut Gauche */
         .pos-top-left { top: 40px; left: 40px; cursor: default; }
         .pos-top-left a { text-decoration: none; color: rgba(255,255,255,0.6); transition: 0.3s; }
         .pos-top-left a:hover { color: white; }
         .active-lang { color: white; font-weight: bold; border-bottom: 1px solid white; }
 
+        /* Haut Droite */
         .pos-top-right { top: 40px; right: 40px; text-align: right; font-weight: bold; color: white;}
+        
+        /* Bas Gauche */
         .pos-bottom-left { bottom: 40px; left: 40px; }
-        .pos-bottom-right { bottom: 40px; right: 40px; text-align: right; cursor: pointer; }
 
 
         /* --- HERO HEADER --- */
@@ -104,35 +107,25 @@
             margin: 0 10px;
         }
         
-        /* --- NOUVEAU STYLE DATE & LIEU (Une seule ligne fine) --- */
+        /* --- DATE & LIEU (Une seule ligne fine) --- */
         .hero-details-line {
             margin-top: 15px;
-            font-family: 'Cormorant Garamond', serif; /* La police demandée */
-            font-style: italic; /* Aspect "manuscrit" élégant du Garamond */
-            font-size: 1.8rem; /* Taille réduite pour la finesse */
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 1.8rem;
             color: var(--color-gold);
             text-shadow: 0 2px 5px rgba(0,0,0,0.6);
             letter-spacing: 1px;
         }
 
         .hero-details-line a {
-            color: inherit;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: 0.3s;
+            color: inherit; text-decoration: none;
+            border-bottom: 1px solid transparent; transition: 0.3s;
         }
-        .hero-details-line a:hover {
-            border-bottom: 1px solid var(--color-gold);
-        }
+        .hero-details-line a:hover { border-bottom: 1px solid var(--color-gold); }
+        .separator-dot { margin: 0 10px; font-size: 1rem; vertical-align: middle; opacity: 0.7; }
 
-        .separator-dot {
-            margin: 0 10px;
-            font-size: 1rem;
-            vertical-align: middle;
-            opacity: 0.7;
-        }
-
-        /* --- BOUTON RSVP HERO --- */
+        /* --- BOUTON RSVP --- */
         .hero-rsvp-btn {
             margin-top: 50px; 
             margin-bottom: 60px;
@@ -149,7 +142,7 @@
             box-shadow: 0 0 20px rgba(255,255,255,0.4);
         }
 
-        /* --- FLÈCHE DE SCROLL --- */
+        /* --- FLÈCHE --- */
         .scroll-indicator { animation: bounce 2.5s infinite; cursor: pointer; opacity: 0.8; }
         .arrow-down { font-size: 2rem; color: var(--color-white); text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
         @keyframes bounce {
@@ -158,8 +151,8 @@
             60% {transform: translateY(-5px);}
         }
 
-        /* --- CONTENU --- */
-        .scroll-content { position: relative; z-index: 1; padding-bottom: 0px; }
+        /* --- SECTIONS --- */
+        .scroll-content { position: relative; z-index: 1; padding-bottom: 100px; }
         section { padding: 100px 20px; max-width: 800px; margin: 0 auto; text-align: center; }
         .section-title { font-family: var(--font-title); font-size: 4rem; color: var(--color-gold); margin-bottom: 60px; line-height: 1; }
         p.text-body { font-size: 1.4rem; line-height: 1.6; color: var(--color-white-dim); }
@@ -168,57 +161,28 @@
         .event-day { font-family: var(--font-title); font-size: 2.5rem; color: var(--color-white); display: block; }
         .event-title { font-family: var(--font-text); font-size: 2.2rem; color: var(--color-gold); margin: 0 0 10px 0; text-transform: uppercase; }
         .event-desc { font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.8); }
-        .info-grid { text-align: left; margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .info-block h3 { font-family: var(--font-title); font-size: 2rem; color: var(--color-gold); margin-bottom: 15px; }
-        .info-block p, .info-block li { font-size: 1.1rem; line-height: 1.5; color: rgba(255,255,255,0.9); }
+        
         .week-before { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 100px 20px; }
 
-        /* --- FOOTER CONTACT --- */
-        footer.footer-contact {
-            background: rgba(0,0,0,0.6); 
-            padding: 80px 20px 100px 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        /* Style spécial "À venir" */
+        .coming-soon {
+            font-family: var(--font-text);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.6);
+            margin-top: 20px;
         }
-        
-        .footer-title {
-            font-family: var(--font-title);
-            font-size: 3rem;
-            color: var(--color-white);
-            margin-bottom: 40px;
-        }
-
-        .contact-links {
-            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
-        }
-
-        .contact-item {
-            font-family: var(--font-text); font-size: 1.2rem; color: var(--color-white-dim);
-            text-decoration: none; border: 1px solid rgba(255,255,255,0.3);
-            padding: 15px 30px; border-radius: 4px; transition: 0.3s;
-        }
-        
-        .contact-item:hover {
-            border-color: var(--color-gold); color: var(--color-gold);
-            background: rgba(255,255,255,0.05);
-        }
-        .contact-item strong { display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; opacity: 0.7;}
 
         @media (max-width: 768px) {
             .pos-top-left { top: 20px; left: 20px; }
             .pos-top-right { top: 20px; right: 20px; }
             .pos-bottom-left { bottom: 20px; left: 20px; }
-            .pos-bottom-right { bottom: 20px; right: 20px; }
             .corner-link { font-size: 0.7rem; } 
 
             h1.names { font-size: 3.5rem; }
-            /* Sur mobile, on garde une ligne mais on réduit la taille */
             .hero-details-line { font-size: 1.2rem; display: flex; flex-direction: column; gap: 5px;} 
-            .separator-dot { display: none; } /* On cache le point sur mobile pour empiler si besoin */
-            
+            .separator-dot { display: none; }
             .hero-rsvp-btn { padding: 12px 30px; font-size: 0.9rem; margin-bottom: 40px;}
-            .info-grid { grid-template-columns: 1fr; }
-            .contact-links { flex-direction: column; gap: 20px; }
         }
     </style>
 </head>
@@ -238,8 +202,6 @@
 
     <a href="bresil.html" class="corner-link pos-top-right">Mariage Brésil →</a>
     <a href="index.html" class="corner-link pos-bottom-left">← Accueil</a>
-    <a href="#footer-contact" class="corner-link pos-bottom-right">Contact</a>
-
     <div class="scroll-content">
 
         <header class="hero">
@@ -250,7 +212,7 @@
             <div class="hero-details-line">
                 17 Juillet 2027
                 <span class="separator-dot">•</span>
-                <a href="https://maps.app.goo.gl/4nmDmnsRz1fuUuCK7" target="_blank">Château de Vaucouleurs</a>
+                <a href="https://goo.gl/maps/TON_LIEN_MAPS" target="_blank">Château de Vaucouleurs</a>
             </div>
             
             <a href="https://tally.so/r/TON_LIEN_ICI" target="_blank" class="hero-rsvp-btn">
@@ -278,12 +240,12 @@
             <div class="event-item">
                 <span class="event-day">Samedi 17</span>
                 <h3 class="event-title">Le Grand Jour</h3>
-                <div class="event-desc">Cérémonie & Réception</div>
+                <div class="event-desc">Cérémonie, Cocktail, Dîner & Fête</div>
             </div>
             <div class="event-item">
                 <span class="event-day">Dimanche 18</span>
                 <h3 class="event-title">Déjeuner & Piscine</h3>
-                <div class="event-desc">Déjeuner décontracté pour finir en douceur</div>
+                <div class="event-desc">Brunch décontracté pour finir en douceur</div>
             </div>
         </section>
 
@@ -298,31 +260,15 @@
 
         <section>
             <h2 class="section-title">Infos Pratiques</h2>
-            <div class="info-grid">
-                <div class="info-block">
-                    <h3>Venir</h3>
-                    <p>Gare TGV : Saint-Raphaël Valescure (20 min).</p>
-                    <p>Voiture : A8 sortie 37 Puget-sur-Argens.</p>
-                </div>
-                <div class="info-block">
-                    <h3>Dormir</h3>
-                    <p>Suggestions : Hôtel Le Gabian, Domaine des Oliviers...</p>
-                </div>
+            
+            <p class="text-body">
+                Nous vous communiquerons très prochainement tous les détails pour organiser votre venue (hébergements, accès, navettes).
+            </p>
+            
+            <div class="coming-soon">
+                Plus d'infos à venir...
             </div>
         </section>
-
-        <footer id="footer-contact" class="footer-contact">
-            <h2 class="footer-title">Une question ?</h2>
-            <div class="contact-links">
-                <a href="https://wa.me/33600000000" target="_blank" class="contact-item">
-                    <strong>Message</strong> WhatsApp
-                </a>
-                <a href="mailto:votremail@gmail.com" class="contact-item">
-                    <strong>Email</strong> votremail@gmail.com
-                </a>
-            </div>
-        </footer>
-
     </div>
 
 </body>
