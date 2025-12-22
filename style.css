@@ -76,7 +76,7 @@ body {
 }
 
 .split.right {
-    background-image: url('brasil-bg_4.png');
+    background-image: url('brasil-bg_4.jpg');
     background-color: var(--color-brasil); /* Couleur si image manque */
 }
 
