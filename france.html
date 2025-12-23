@@ -136,6 +136,10 @@
             border: 1px solid rgba(255,255,255,0.6);
             backdrop-filter: blur(2px);
             transition: all 0.4s ease;
+            
+            /* AJOUTS POUR LE BOUTON TALLY */
+            background: transparent; 
+            cursor: pointer;
         }
         .hero-rsvp-btn:hover {
             background-color: var(--color-white); color: #000;
@@ -197,7 +201,7 @@
     <div class="overlay-dark"></div>
 
     <div class="corner-link pos-top-left">
-        <span class="active-lang">FR</span>  |  <a href="france-pt.html">PT</a>
+        <span class="active-lang">FR</span>  |  <a href="france-pt.html">PT</a>
     </div>
 
     <a href="bresil.html" class="corner-link pos-top-right">Le Mariage au Brésil →</a>
@@ -212,40 +216,23 @@
             <div class="hero-details-line">
                 17 Juillet 2027
                 <span class="separator-dot">•</span>
-                <a href="https://goo.gl/maps/TON_LIEN_MAPS" target="_blank">Château de Vaucouleurs</a>
+                <a href="https://maps.app.goo.gl/4nmDmnsRz1fuUuCK7" target="_blank">Château de Vaucouleurs</a>
             </div>
             
-            <a href="https://tally.so/r/TON_LIEN_ICI" target="_blank" class="hero-rsvp-btn">
+            <button 
+                data-tally-open="Ek5akB" 
+                data-tally-layout="modal" 
+                data-tally-emoji-text="👋" 
+                data-tally-emoji-animation="wave" 
+                class="hero-rsvp-btn">
                 RSVP
-            </a>
+            </button>
+            
 
             <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'});">
                 <div class="arrow-down">↓</div>
             </div>
         </header>
-
-        <section id="rsvp-section">
-            <h2 class="section-title">Réponse Attendue</h2>
-            <p class="text-body" style="margin-bottom: 30px;">
-                Merci de nous confirmer votre présence avant le 1er Mars 2027.
-            </p>
-
-            <iframe 
-                data-tally-src="https://tally.so/embed/TON_ID_FORMULAIRE?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                loading="lazy" 
-                width="100%" 
-                height="500" 
-                frameborder="0" 
-                marginheight="0" 
-                marginwidth="0" 
-                title="RSVP Mariage France">
-            </iframe>
-
-            <script>
-            // Ce script gère le redimensionnement auto du formulaire
-            var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
-            </script>
-        </section>
 
         <section>
             <p class="text-body">
@@ -290,5 +277,6 @@
         </section>
     </div>
 
+    <script async src="https://tally.so/widgets/embed.js"></script>
 </body>
 </html>
