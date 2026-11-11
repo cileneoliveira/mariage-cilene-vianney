@@ -190,7 +190,7 @@
 
         .info-accordion summary {
             font-family: var(--font-text);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--color-gold);
             cursor: pointer;
@@ -204,7 +204,7 @@
 
         .info-accordion summary::after {
             content: "+";
-            font-size: 2rem;
+            font-size: 1.6rem;
             color: var(--color-white);
         }
 
@@ -215,13 +215,27 @@
 
         .info-content {
             padding-top: 15px;
-            font-size: 1.6rem;
+            font-size: 1.2rem;
             line-height: 1.6;
             color: var(--color-white);
             text-align: left;
         }
 
         .info-content p { margin: 12px 0 0 0; }
+        .info-content ul {
+            margin: 12px 0 0 0;
+            padding-left: 1.4em;
+            list-style: disc;
+        }
+
+        .info-content li {
+            margin-bottom: 8px;
+            padding-left: 4px;
+        }
+
+        .info-content li::marker {
+            color: var(--color-gold);
+        }
 
         @media (max-width: 768px) {
             .pos-top-left { top: 20px; left: 20px; }
@@ -321,9 +335,11 @@
                 <summary>Enfants</summary>
                 <div class="info-content">
                     <p>Les enfants sont les bienvenus !</p>
-                    <p>Une équipe de nounous sera présente pour s'occuper des enfants de 1 à 12 ans.</p>
-                    <p>Animations et jeux jusqu'à minuit, avec un coucher au fur et à mesure pour les plus petits.</p>
-                    <p>Veillée jusqu'à 3h du matin</p>
+                    <ul>
+                        <li>Une équipe de nounous sera présente pour s'occuper des enfants de 1 à 12 ans.</li>
+                        <li>Animations et jeux jusqu'à minuit, avec un coucher au fur et à mesure pour les plus petits.</li>
+                        <li>Veillée jusqu'à 3h du matin.</li>
+                    </ul>
                 </div>
             </details>
         </section>
