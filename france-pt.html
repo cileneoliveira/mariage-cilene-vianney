@@ -8,7 +8,6 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
     <style>
         /* --- POLICE CUSTOM --- */
         @font-face {
@@ -107,7 +106,7 @@
             margin: 0 10px;
         }
         
-        /* --- DATE & LIEU --- */
+        /* --- DATE & LIEU (Une seule ligne fine) --- */
         .hero-details-line {
             margin-top: 15px;
             font-family: 'Cormorant Garamond', serif;
@@ -159,18 +158,126 @@
         
         .event-item { margin-bottom: 70px; }
         .event-day { font-family: var(--font-title); font-size: 2.5rem; color: var(--color-white); display: block; }
+        .dot {
+            font-size: 0.5em;
+            vertical-align: middle;
+            opacity: 0.7;
+            margin: 0 0.3em;
+        }
         .event-title { font-family: var(--font-text); font-size: 2.2rem; color: var(--color-gold); margin: 0 0 10px 0; text-transform: uppercase; }
         .event-desc { font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.8); }
         
         .week-before { border-top: 1px solid rgba(255,255,255,0.2); border-bottom: 1px solid rgba(255,255,255,0.2); padding: 100px 20px; }
 
-        /* Style "À venir" */
+        /* Style "Em breve" */
         .coming-soon {
             font-family: var(--font-text);
             font-size: 1.5rem;
             font-style: italic;
             color: rgba(255,255,255,0.6);
             margin-top: 20px;
+        }
+
+        /* --- ACCORDÉON INFORMATIONS PRATIQUES --- */
+        .info-accordion {
+            text-align: left;
+            padding: 22px 26px;
+            margin-bottom: 15px;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .info-accordion[open] {
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .info-accordion summary {
+            font-family: var(--font-text);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-gold);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.6);
+        }
+
+        .info-accordion summary::-webkit-details-marker { display: none; }
+
+        .info-accordion summary::after {
+            content: "+";
+            font-size: 1.6rem;
+            color: var(--color-white);
+        }
+
+        .info-accordion[open] summary::after {
+            content: "−";
+            color: var(--color-gold);
+        }
+
+        .info-content {
+            padding-top: 15px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--color-white);
+            text-align: left;
+        }
+
+        .info-content p { margin: 12px 0 0 0; }
+        .info-content ul {
+            margin: 12px 0 0 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .info-content li {
+            margin-bottom: 8px;
+            padding-left: 0;
+        }
+
+        /* --- TITRE FIXE AU DÉFILEMENT --- */
+        .sticky-title {
+            position: fixed; top: 0; left: 0; width: 100%;
+            z-index: 90;
+            padding: 22px 0 35px;
+            text-align: center;
+            font-family: var(--font-title);
+            font-size: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .sticky-title.visible { opacity: 1; transform: translateY(0); }
+        .sticky-title .amp-small {
+            font-family: var(--font-text);
+            font-style: italic;
+            color: var(--color-gold);
+            font-size: 0.6em;
+            margin: 0 6px;
+        }
+        .sticky-title .sticky-date {
+            display: block;
+            font-family: var(--font-text);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--color-gold);
+            text-transform: none;
+            letter-spacing: 1px;
+            margin-top: 2px;
         }
 
         @media (max-width: 768px) {
@@ -183,6 +290,13 @@
             .hero-details-line { font-size: 1.2rem; display: flex; flex-direction: column; gap: 5px;} 
             .separator-dot { display: none; }
             .hero-rsvp-btn { padding: 12px 30px; font-size: 0.9rem; margin-bottom: 40px;}
+            
+            .info-accordion { padding: 18px; }
+            .info-accordion summary { font-size: 1.5rem; }
+            .info-content { font-size: 1.1rem; }
+
+            .sticky-title { font-size: 1.4rem; padding-top: 48px; }
+            .sticky-title .sticky-date { font-size: 0.85rem; }
         }
     </style>
     <script async src="https://tally.so/widgets/embed.js"></script>
@@ -196,13 +310,16 @@
     </div>
 
     <div class="overlay-dark"></div>
+    <div class="sticky-title" id="sticky-title">
+        Cilene <span class="amp-small">&</span> Vianney
+        <span class="sticky-date">17 de Julho de 2027</span>
+    </div>
 
     <div class="corner-link pos-top-left">
-        <a href="france.html">FR</a>  |  <span class="active-lang">PT</span>
+        <a href="france.html">FR</a>  |  <span class="active-lang">PT</span>
     </div>
 
     <a href="brasil.html" class="corner-link pos-top-right">Casamento no Brasil →</a>
-    
     <a href="index.html" class="corner-link pos-bottom-left">← Início</a>
 
     <div class="scroll-content">
@@ -215,9 +332,10 @@
             <div class="hero-details-line">
                 17 de Julho de 2027
                 <span class="separator-dot">•</span>
-                <a href="https://goo.gl/maps/TON_LIEN_MAPS" target="_blank">Château de Vaucouleurs</a>
+                <a href="https://maps.app.goo.gl/4nmDmnsRz1fuUuCK7" target="_blank">Château de Vaucouleurs</a>
             </div>
             
+
             <a href="#" 
                class="hero-rsvp-btn" 
                data-tally-open="5BZ19d" 
@@ -226,6 +344,7 @@
                data-tally-overlay="1">
             Confirmar presença
             </a>
+            
 
             <div class="scroll-indicator" onclick="window.scrollTo({top: window.innerHeight, behavior: 'smooth'});">
                 <div class="arrow-down">↓</div>
@@ -241,41 +360,59 @@
         <section>
             <h2 class="section-title">O Programa</h2>
             <div class="event-item">
-                <span class="event-day">Sexta-feira 16</span>
-                <h3 class="event-title">Boas-vindas</h3>
-                <div class="event-desc">Drink de recepção e reencontros</div>
+                <span class="event-day">Sexta-feira 16 de julho <span class="dot">•</span> 17h - 21h</span>
+                <h3 class="event-title">O Aperitivo</h3>
+                <div class="event-desc">Os copos vão se enchendo conforme vocês chegam. Passem no seu ritmo!</div>
             </div>
             <div class="event-item">
-                <span class="event-day">Sábado 17</span>
+                <span class="event-day">Sábado 17 de julho</span>
                 <h3 class="event-title">O Grande Dia</h3>
-                <div class="event-desc">Cerimônia, Jantar & Festa</div>
+                <div class="event-desc">Cerimônia e Recepção</div>
             </div>
             <div class="event-item">
-                <span class="event-day">Domingo 18</span>
-                <h3 class="event-title">Almoço & Piscina</h3>
-                <div class="event-desc">Almoço descontraído para encerrar o final de semana</div>
+                <span class="event-day">Domingo 18 de julho <span class="dot">•</span> 12h - fim do dia</span>
+                <h3 class="event-title">Almoço &amp; Piscina</h3>
+                <div class="event-desc">
+                    A arte de viver consiste em perder tempo com elegância
+                    <span style="font-style: normal; display: block; margin-top: 5px;">Não esqueçam seus mais belos trajes de banho!</span>
+                </div>
             </div>
-        </section>
-
-        <section class="week-before">
-            <h2 class="section-title">A Semana Antes</h2>
-            <p class="text-body">
-                Para aproveitar do verão, estaremos no local a partir de <strong>terça-feira, 13 de Julho</strong>.
-                <br><br>
-                Se estiverem por perto, juntem-se a nós para momentos informais.
-            </p>
         </section>
 
         <section>
             <h2 class="section-title">Informações Práticas</h2>
             
-            
-            <div class="coming-soon">
-                Mais informações em breve...
-            </div>
+            <details class="info-accordion">
+                <summary>Crianças</summary>
+                <div class="info-content">
+                    <p>As crianças são bem-vindas!</p>
+                    <ul>
+                        <li>No sábado, uma equipe estará presente para cuidar das crianças de 1 a 12 anos</li>
+                        <li>Atividades e brincadeiras até meia-noite, com as crianças menores indo dormir aos poucos</li>
+                        <li>Serão até as 3h da manhã</li>
+                    </ul>
+                </div>
+            </details>
         </section>
+
+        <!-- <section class="week-before">
+            <h2 class="section-title">A Semana Antes</h2>
+            <p class="text-body">
+                Para aproveitar o verão, estaremos no local a partir de <strong>terça-feira, 13 de julho</strong>.
+                <br><br>
+                Se estiverem por perto, juntem-se a nós para momentos informais
+            </p>
+        </section> -->
 
     </div>
 
+    <script>
+        const stickyTitle = document.getElementById('sticky-title');
+        function toggleSticky() {
+            stickyTitle.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+        }
+        window.addEventListener('scroll', toggleSticky, { passive: true });
+        toggleSticky();
+    </script>
 </body>
 </html>
