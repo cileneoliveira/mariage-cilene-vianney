@@ -26,6 +26,15 @@
             --font-text: 'Cormorant Garamond', serif;
         }
 
+        <script>
+            const stickyTitle = document.getElementById('sticky-title');
+            function toggleSticky() {
+                stickyTitle.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+            }
+            window.addEventListener('scroll', toggleSticky, { passive: true });
+            toggleSticky();
+        </script>
+
         body { 
             margin: 0; padding: 0;
             font-family: var(--font-text);
@@ -158,6 +167,12 @@
         
         .event-item { margin-bottom: 70px; }
         .event-day { font-family: var(--font-title); font-size: 2.5rem; color: var(--color-white); display: block; }
+        .dot {
+            font-size: 0.5em;
+            vertical-align: middle;
+            opacity: 0.7;
+            margin: 0 0.3em;
+        }
         .event-title { font-family: var(--font-text); font-size: 2.2rem; color: var(--color-gold); margin: 0 0 10px 0; text-transform: uppercase; }
         .event-desc { font-size: 1.2rem; font-style: italic; color: rgba(255,255,255,0.8); }
         
@@ -236,9 +251,74 @@
             padding-left: 4px;
         }
 
-        /*.info-content li::marker {
+        /* --- TITRE FIXE AU DÉFILEMENT --- */
+        .sticky-title {
+            position: fixed; top: 0; left: 0; width: 100%;
+            z-index: 90;
+            padding: 22px 0 35px;
+            text-align: center;
+            font-family: var(--font-title);
+            font-size: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .sticky-title.visible { opacity: 1; transform: translateY(0); }
+        .sticky-title .amp-small {
+            font-family: var(--font-text);
+            font-style: italic;
             color: var(--color-gold);
-        }*/
+            font-size: 0.6em;
+            margin: 0 6px;
+        }
+        .sticky-title .sticky-date {
+            display: block;
+            font-family: var(--font-text);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--color-gold);
+            text-transform: none;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+        /* --- TITRE FIXE AU DÉFILEMENT --- */
+        .sticky-title {
+            position: fixed; top: 0; left: 0; width: 100%;
+            z-index: 90;
+            padding: 22px 0 35px;
+            text-align: center;
+            font-family: var(--font-title);
+            font-size: 2rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .sticky-title.visible { opacity: 1; transform: translateY(0); }
+        .sticky-title .amp-small {
+            font-family: var(--font-text);
+            font-style: italic;
+            color: var(--color-gold);
+            font-size: 0.6em;
+            margin: 0 6px;
+        }
+        .sticky-title .sticky-date {
+            display: block;
+            font-family: var(--font-text);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--color-gold);
+            text-transform: none;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
 
         @media (max-width: 768px) {
             .pos-top-left { top: 20px; left: 20px; }
@@ -254,6 +334,9 @@
             .info-accordion { padding: 18px; }
             .info-accordion summary { font-size: 1.5rem; }
             .info-content { font-size: 1.3rem; }
+
+            .sticky-title { font-size: 1.4rem; padding-top: 48px; }
+            .sticky-title .sticky-date { font-size: 0.85rem; }
         }
     </style>
     <script async src="https://tally.so/widgets/embed.js"></script>
@@ -267,6 +350,10 @@
     </div>
 
     <div class="overlay-dark"></div>
+    <div class="sticky-title" id="sticky-title">
+        Cilene <span class="amp-small">&</span> Vianney
+        <span class="sticky-date">17 Juillet 2027</span>
+    </div>
 
     <div class="corner-link pos-top-left">
         <span class="active-lang">FR</span>  |  <a href="france-pt.html">PT</a>
@@ -312,7 +399,7 @@
         <section>
             <h2 class="section-title">Le Programme</h2>
             <div class="event-item">
-                <span class="event-day">Vendredi 16 juillet • 17h - 21h</span>
+                <span class="event-day">Vendredi 16 juillet <span class="dot">•</span> 17h - 21h</span>
                 <h3 class="event-title">L'apéro</h3>
                 <div class="event-desc">Les verres se remplissent au fil des arrivées. Passez à votre rythme !</div>
             </div>
@@ -322,10 +409,10 @@
                 <div class="event-desc">Cérémonie et Réception</div>
             </div>
             <div class="event-item">
-            <span class="event-day">Dimanche 18 juillet • 12h - fin de journée</span>
+            <span class="event-day">Dimanche 18 juillet <span class="dot">•</span> 12h - fin de journée</span>
             <h3 class="event-title">Déjeuner &amp; Piscine</h3>
             <div class="event-desc">
-                L'art de vivre consiste à perdre son temps avec élégance.
+                L'art de vivre consiste à perdre son temps avec élégance
                 <span style="font-style: normal; display: block; margin-top: 5px;">N'oubliez pas vos plus beaux maillots de bain !</span>
             </div>
             </div>
@@ -339,9 +426,9 @@
                 <div class="info-content">
                     <p>Les enfants sont les bienvenus !</p>
                     <ul>
-                        <li>Une équipe de nounous sera présente pour s'occuper des enfants de 1 à 12 ans.</li>
-                        <li>Animations et jeux jusqu'à minuit, avec un coucher au fur et à mesure pour les plus petits.</li>
-                        <li>Veillée jusqu'à 3h du matin.</li>
+                        <li>Une équipe de nounous sera présente pour s'occuper des enfants de 1 à 12 ans</li>
+                        <li>Animations et jeux jusqu'à minuit, avec un coucher au fur et à mesure pour les plus petits</li>
+                        <li>Veillée jusqu'à 3h du matin</li>
                     </ul>
                 </div>
             </details>
