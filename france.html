@@ -179,13 +179,14 @@
             background: rgba(0, 0, 0, 0.55);
             backdrop-filter: blur(6px);
             -webkit-backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid transparent;
             border-radius: 10px;
         }
 
         .info-accordion[open] {
-            background: rgba(0, 0, 0, 0.35);
+            background: rgba(0, 0, 0, 0.25);
             /* border-color: var(--color-gold); */
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .info-accordion summary {
