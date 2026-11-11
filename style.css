@@ -200,3 +200,58 @@ body {
     /* Pas de couleur au survol sur mobile */
     .overlay { display: none; }
 }
+
+/* --- STYLES ACCORDÉONS (INFOS PRATIQUES) --- */
+.info-accordion {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    margin-bottom: 15px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.info-accordion[open] {
+    background: rgba(255, 255, 255, 0.15);
+    border-bottom-color: #d4af37;
+}
+
+.info-accordion summary {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #d4af37;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.info-accordion summary::after {
+    content: "+";
+    font-size: 1.8rem;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.info-accordion[open] summary::after {
+    content: "−";
+    color: #d4af37;
+}
+
+.info-content {
+    padding-top: 15px;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: #ffffff;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.info-content p {
+    margin: 10px 0 0 0;
+}
