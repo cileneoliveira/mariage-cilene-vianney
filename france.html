@@ -26,15 +26,6 @@
             --font-text: 'Cormorant Garamond', serif;
         }
 
-        <script>
-            const stickyTitle = document.getElementById('sticky-title');
-            function toggleSticky() {
-                stickyTitle.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
-            }
-            window.addEventListener('scroll', toggleSticky, { passive: true });
-            toggleSticky();
-        </script>
-
         body { 
             margin: 0; padding: 0;
             font-family: var(--font-text);
@@ -242,13 +233,13 @@
         .info-content p { margin: 12px 0 0 0; }
         .info-content ul {
             margin: 12px 0 0 0;
-            padding-left: 1.4em;
-            list-style: disc;
+            padding-left: 0;
+            list-style: none;
         }
 
         .info-content li {
             margin-bottom: 8px;
-            padding-left: 4px;
+            padding-left: 0;
         }
 
         /* --- TITRE FIXE AU DÉFILEMENT --- */
@@ -333,7 +324,7 @@
             
             .info-accordion { padding: 18px; }
             .info-accordion summary { font-size: 1.5rem; }
-            .info-content { font-size: 1.3rem; }
+            .info-content { font-size: 1.1rem; }
 
             .sticky-title { font-size: 1.4rem; padding-top: 48px; }
             .sticky-title .sticky-date { font-size: 0.85rem; }
@@ -426,7 +417,7 @@
                 <div class="info-content">
                     <p>Les enfants sont les bienvenus !</p>
                     <ul>
-                        <li>Une équipe sera présente pour s'occuper des enfants de 1 à 12 ans</li>
+                        <li>Le samedi une équipe sera présente pour s'occuper des enfants de 1 à 12 ans</li>
                         <li>Animations et jeux jusqu'à minuit, avec un coucher au fur et à mesure pour les plus petits</li>
                         <li>Veillée jusqu'à 3h du matin</li>
                     </ul>
@@ -443,5 +434,13 @@
             </p>
         </section>
     </div>
+    <script>
+            const stickyTitle = document.getElementById('sticky-title');
+            function toggleSticky() {
+                stickyTitle.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+            }
+            window.addEventListener('scroll', toggleSticky, { passive: true });
+            toggleSticky();
+        </script>
 </body>
 </html>
