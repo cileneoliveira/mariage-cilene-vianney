@@ -199,6 +199,11 @@ body {
 
     /* Pas de couleur au survol sur mobile */
     .overlay { display: none; }
+
+    /* Accordéon */
+    .info-accordion { padding: 18px; }
+    .info-accordion summary { font-size: 1.5rem; }
+    .info-content { font-size: 1.3rem; }
 }
 
 
