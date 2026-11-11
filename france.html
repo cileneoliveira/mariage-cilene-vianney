@@ -8,7 +8,6 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
     <style>
         /* --- POLICE CUSTOM --- */
         @font-face {
@@ -172,6 +171,57 @@
             color: rgba(255,255,255,0.6);
             margin-top: 20px;
         }
+                /* --- ACCORDÉON INFOS PRATIQUES --- */
+        .info-accordion {
+            text-align: left;
+            padding: 22px 26px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+        }
+
+        .info-accordion[open] {
+            background: rgba(0, 0, 0, 0.65);
+            border-color: var(--color-gold);
+        }
+
+        .info-accordion summary {
+            font-family: var(--font-text);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-gold);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-accordion summary::-webkit-details-marker { display: none; }
+
+        .info-accordion summary::after {
+            content: "+";
+            font-size: 2rem;
+            color: var(--color-white);
+        }
+
+        .info-accordion[open] summary::after {
+            content: "−";
+            color: var(--color-gold);
+        }
+
+        .info-content {
+            padding-top: 15px;
+            font-size: 1.6rem;
+            line-height: 1.6;
+            color: var(--color-white);
+            text-align: left;
+        }
+
+        .info-content p { margin: 12px 0 0 0; }
 
         @media (max-width: 768px) {
             .pos-top-left { top: 20px; left: 20px; }
@@ -183,6 +233,10 @@
             .hero-details-line { font-size: 1.2rem; display: flex; flex-direction: column; gap: 5px;} 
             .separator-dot { display: none; }
             .hero-rsvp-btn { padding: 12px 30px; font-size: 0.9rem; margin-bottom: 40px;}
+            
+            .info-accordion { padding: 18px; }
+            .info-accordion summary { font-size: 1.5rem; }
+            .info-content { font-size: 1.3rem; }
         }
     </style>
     <script async src="https://tally.so/widgets/embed.js"></script>
