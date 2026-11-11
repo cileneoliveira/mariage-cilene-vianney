@@ -201,25 +201,27 @@ body {
     .overlay { display: none; }
 }
 
-/* --- STYLES ACCORDÉONS (INFOS PRATIQUES) --- */
+
+/* --- ACCORDÉON INFOS PRATIQUES --- */
 .info-accordion {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 20px;
-    margin-bottom: 15px;
     text-align: left;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    transition: background 0.3s ease;
+    padding: 22px 26px;
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
 }
 
 .info-accordion[open] {
-    background: rgba(255, 255, 255, 0.25); /* Fond plus clair à l'ouverture */
-    border-bottom-color: var(--color-gold);
+    background: rgba(0, 0, 0, 0.65);
+    border-color: var(--color-gold);
 }
 
 .info-accordion summary {
     font-family: var(--font-text);
-    font-size: 1.6rem; /* Taille cohérente avec le reste */
+    font-size: 1.8rem;
     font-weight: 600;
     color: var(--color-gold);
     cursor: pointer;
@@ -229,15 +231,12 @@ body {
     align-items: center;
 }
 
-.info-accordion summary::-webkit-details-marker {
-    display: none;
-}
+.info-accordion summary::-webkit-details-marker { display: none; }
 
 .info-accordion summary::after {
     content: "+";
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--color-white);
-    transition: transform 0.3s ease;
 }
 
 .info-accordion[open] summary::after {
@@ -247,16 +246,11 @@ body {
 
 .info-content {
     padding-top: 15px;
-    font-size: 1.4rem;
+    font-size: 1.6rem;      /* plus grand */
     line-height: 1.6;
     color: var(--color-white);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-    text-align: left; /* Aligne le texte à gauche */
+    text-align: left;       /* texte à gauche */
 }
 
-.info-content p {
-    margin: 10px 0 0 0;
-}
-.info-content p {
-    margin: 10px 0 0 0;
+.info-content p { margin: 12px 0 0 0; }
 }
